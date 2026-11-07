@@ -1,0 +1,2 @@
+# Windows에서 작업해도 저장소와 CI(리눅스)에는 LF로 둔다. 이미지 등 바이너리는 git이 알아서 가린다.
+* text=auto eol=lf

@@ -1,0 +1,11 @@
+{
+  "name": "grad-planner",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test \"engine/*.test.ts\" \"src/*.test.ts\""
+  }
+}

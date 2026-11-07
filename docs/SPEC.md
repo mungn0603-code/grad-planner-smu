@@ -258,7 +258,7 @@
 | 파트 | 브랜치 | 내용 | 완료 기준 |
 |---|---|---|---|
 | P0 | `docs/P0-spec` | 이 명세서, README 과제 정의, 작업 규칙, PR 양식, 기존 결정 기록 | dev에 병합 |
-| P1 | `chore/P1-setup` | `package.json`·`tsconfig`·`.editorconfig`·`.gitattributes`·`.env.example`, CI(설치·테스트). 타입 검사·오라클은 P2, 빌드는 P7에서 CI에 더한다 | PR에 CI 체크 표시, main·dev 병합 조건에 CI 추가 |
+| P1 | `chore/P1-setup` | `package.json`·`.editorconfig`·`.gitattributes`, README 환경 변수 표, 이슈 양식, CI(설치·테스트). `tsconfig`·타입 검사·오라클은 P2, 빌드는 P7에서 더한다 | PR에 CI 체크 표시, main·dev 병합 조건에 CI 추가 |
 | P2 | `feature/P2-engine-core` | 요건 IR·판정기(`types`·`audit`·`check`), 오라클 | V1·V2·V4 통과 |
 | P3 | `feature/P3-data-smu-cheonan` | 천안 데이터(`rules.json`·`sets.csv`·카탈로그)와 변환 도구 | V6~V10 통과 |
 | P4 | `feature/P4-planner` | 정수계획 추천(HiGHS)과 대체 탐욕 | V3·V5 통과 |
