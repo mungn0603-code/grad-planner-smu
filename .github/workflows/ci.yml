@@ -1,0 +1,24 @@
+# PR과 dev·main push 때 설치와 테스트를 돌린다. 실패하면 병합이 막힌다(main·dev 보호 규칙의 필수 검사).
+# 타입 검사·오라클 대조는 P2, 빌드는 P7에서 단계로 더한다.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [dev, main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
