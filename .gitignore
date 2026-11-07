@@ -1,0 +1,8 @@
+node_modules/
+dist/
+private/
+oracle/expected/
+.env
+.env.*
+!.env.example
+.vercel/
