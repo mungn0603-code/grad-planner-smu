@@ -8,6 +8,8 @@ export function check(univ: Univ, catalogs: Record<string, Catalog>): string[] {
   for (const a of areas) if (!(a in univ.areas)) err.push(`영역 '${a}' 태그 대응 없음`);
   for (const ct of univ.codeTags || []) { try { new RegExp(ct.re); } catch { err.push(`codeTags 정규식 오류 ${ct.re}`); } }
   for (const [id, p] of Object.entries(univ.programs)) for (const c of p.catalogs) if (!catalogs[c]) err.push(`프로그램 ${id}: 카탈로그 ${c} 없음`);
+  for (const x of univ.policy.extra ?? []) { if (!univ.blocks[x.use]) err.push(`덧붙이는 블록 ${x.use} 없음`); for (const g of x.programs ?? []) if (!univ.programs[g]) err.push(`덧붙이는 블록 ${x.use}: 프로그램 ${g} 없음`); }
+  for (const [id, p] of Object.entries(univ.programs)) if (p.kind && !univ.policy.assign?.by[p.kind]) err.push(`프로그램 ${id}: 배정 종류 ${p.kind} 없음`);
   const filt = (f: Filter, where: string) => { for (const c of f.codes || []) if (!codes.has(c)) err.push(`${where}: 학수번호 ${c}가 어느 카탈로그에도 없음`); if (f.not) filt(f.not, where); };
   // 규칙을 따라가며 블록·변수 확인. vars = 지금까지 받은 변수
   const walk = (r: Rule, vars: Set<string>, where: string, seen: string[]) => {
