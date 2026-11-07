@@ -39,46 +39,60 @@
    "major2"
   ],
   "2학기": [
-   "major2"
+   "major2",
+   "m2.dept"
   ],
   "2전선": [
-   "major2"
+   "major2",
+   "m2.dept"
   ],
   "연필": [
-   "major2"
+   "major2",
+   "m2.linked"
   ],
   "연선": [
-   "major2"
+   "major2",
+   "m2.linked"
   ],
   "2연필": [
-   "major2"
+   "major2",
+   "m2.linked"
   ],
   "2연선": [
-   "major2"
+   "major2",
+   "m2.linked"
   ],
   "융필": [
-   "major2"
+   "major2",
+   "m2.fusion"
   ],
   "융선": [
-   "major2"
+   "major2",
+   "m2.fusion"
   ],
   "2융필": [
-   "major2"
+   "major2",
+   "m2.fusion"
   ],
   "2융선": [
-   "major2"
+   "major2",
+   "m2.fusion"
   ],
   "1부심": [
-   "major2"
+   "major2",
+   "m2.minor"
   ],
   "1부선": [
-   "major2"
+   "major2",
+   "m2.minor"
   ],
   "2부심": [
-   "major2"
+   "major2",
+   "m2.minor"
   ],
   "2부선": [
-   "major2"
+   "major2",
+   "m2.minor"
   ],
   "MD": [
    "md"
@@ -1134,6 +1148,11 @@
    "catalogs": [
     "md"
    ]
+  },
+  "ism": {
+   "name": "자기설계융합전공",
+   "catalogs": [],
+   "kind": "ism"
   }
  },
  "blocks": {
@@ -26922,7 +26941,438 @@
       ]
      }
     }
-   ]
+   ],
+   "disjoint": true
+  },
+  "m2.smkorean": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@smkorean"
+    ]
+   }
+  },
+  "m2.smnihongo": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@smnihongo"
+    ]
+   }
+  },
+  "m2.smuchina": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@smuchina"
+    ]
+   }
+  },
+  "m2.depenglish": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@depenglish"
+    ]
+   }
+  },
+  "m2.depfrance": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@depfrance"
+    ]
+   }
+  },
+  "m2.german": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@german"
+    ]
+   }
+  },
+  "m2.smurussia": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@smurussia"
+    ]
+   }
+  },
+  "m2.visual": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@visual"
+    ]
+   }
+  },
+  "m2.fashion": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fashion"
+    ]
+   }
+  },
+  "m2.textile": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@textile"
+    ]
+   }
+  },
+  "m2.interior": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@interior"
+    ]
+   }
+  },
+  "m2.ceramic": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@ceramic"
+    ]
+   }
+  },
+  "m2.industrial": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@industrial"
+    ]
+   }
+  },
+  "m2.arvr": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@arvr"
+    ]
+   }
+  },
+  "m2.movie": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@movie"
+    ]
+   }
+  },
+  "m2.dramatics": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@dramatics"
+    ]
+   }
+  },
+  "m2.performance": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@performance"
+    ]
+   }
+  },
+  "m2.photo": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@photo"
+    ]
+   }
+  },
+  "m2.cartoonani": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@cartoonani"
+    ]
+   }
+  },
+  "m2.culturalart": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@culturalart"
+    ]
+   }
+  },
+  "m2.digital": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@digital"
+    ]
+   }
+  },
+  "m2.aimedia": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@aimedia"
+    ]
+   }
+  },
+  "m2.globaladm": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@globaladm"
+    ]
+   }
+  },
+  "m2.plant": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@plant"
+    ]
+   }
+  },
+  "m2.greensmartcity": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@greensmartcity"
+    ]
+   }
+  },
+  "m2.nursing": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@nursing"
+    ]
+   }
+  },
+  "m2.sportindustry": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@sportindustry"
+    ]
+   }
+  },
+  "m2.sportforall": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@sportforall"
+    ]
+   }
+  },
+  "m2.sports": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@sports"
+    ]
+   }
+  },
+  "m2.primeee": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@primeee"
+    ]
+   }
+  },
+  "m2.software": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@software"
+    ]
+   }
+  },
+  "m2.it": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@it"
+    ]
+   }
+  },
+  "m2.me": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@me"
+    ]
+   }
+  },
+  "m2.green": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@green"
+    ]
+   }
+  },
+  "m2.civil": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@civil"
+    ]
+   }
+  },
+  "m2.dis": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@dis"
+    ]
+   }
+  },
+  "m2.sse": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@sse"
+    ]
+   }
+  },
+  "m2.hirobot": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@hirobot"
+    ]
+   }
+  },
+  "m2.irobot": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@irobot"
+    ]
+   }
+  },
+  "m2.aimobility": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@aimobility"
+    ]
+   }
+  },
+  "m2.ism": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@ism"
+    ]
+   }
+  },
+  "gearea.transfer": {
+   "id": "gearea",
+   "label": "교양 필수 영역(편입생 기준 확인 필요)",
+   "check": "transfer.gearea",
+   "hint": "편입생에게 이 기준이 같은지 학점플래너 데이터로는 알 수 없습니다. 샘물 학점이수상황표에서 확인하고, 충족했으면 켜 주세요."
+  },
+  "topik.4": {
+   "id": "topik",
+   "label": "한국어졸업인증(TOPIK 4급 이상)",
+   "check": "topik",
+   "min": 4,
+   "hint": "외국인특별전형 입학생은 한국어능력시험(TOPIK) 4급 이상 성적으로 한국어졸업인증을 받아야 졸업합니다."
+  },
+  "topik.3": {
+   "id": "topik",
+   "label": "한국어졸업인증(TOPIK 3급 이상)",
+   "check": "topik",
+   "min": 3,
+   "hint": "외국인특별전형 입학생은 한국어능력시험(TOPIK) 3급 이상 성적으로 한국어졸업인증을 받아야 졸업합니다."
   }
  },
  "policy": {
@@ -27025,6 +27475,89 @@
     "D": 1,
     "F": 0
    }
-  }
+  },
+  "assign": {
+   "tag": "major2",
+   "by": {
+    "second": {
+     "tag": "m2.dept",
+     "cat": "2전선"
+    },
+    "minor": {
+     "tag": "m2.minor",
+     "cat": "1부선"
+    },
+    "linked": {
+     "tag": "m2.linked",
+     "cat": "연선"
+    },
+    "fusion": {
+     "tag": "m2.fusion",
+     "cat": "융선"
+    },
+    "ism": {
+     "tag": "m2.dept",
+     "cat": "2전선"
+    }
+   }
+  },
+  "extra": [
+   {
+    "when": {
+     "student": "international"
+    },
+    "use": "topik.3",
+    "programs": [
+     "visual",
+     "fashion",
+     "textile",
+     "interior",
+     "ceramic",
+     "industrial",
+     "arvr",
+     "movie",
+     "dramatics",
+     "performance",
+     "photo",
+     "cartoonani",
+     "culturalart",
+     "digital",
+     "aimedia",
+     "sportindustry",
+     "sportforall",
+     "sports"
+    ]
+   },
+   {
+    "when": {
+     "student": "international"
+    },
+    "use": "topik.4",
+    "programs": [
+     "smkorean",
+     "smnihongo",
+     "smuchina",
+     "depenglish",
+     "depfrance",
+     "german",
+     "smurussia",
+     "globaladm",
+     "plant",
+     "greensmartcity",
+     "nursing",
+     "primeee",
+     "software",
+     "it",
+     "me",
+     "green",
+     "civil",
+     "dis",
+     "sse",
+     "hirobot",
+     "irobot",
+     "aimobility"
+    ]
+   }
+  ]
  }
 }
