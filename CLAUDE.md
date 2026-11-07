@@ -8,6 +8,7 @@
 - 작업 브랜치는 `dev`에서 딴다: `feature/` `fix/` `refactor/` `docs/` `chore/` + 파트 번호 + 짧은 이름 (예: `feature/P2-engine-core`).
 - 브랜치를 따기 전에 이슈를 만든다: `무엇을 / 왜 / 완료 기준 / 기록`. 작업 중 결정·측정 결과는 그 이슈에 댓글로 남긴다 ([ADR 0022](docs/decisions/0022-branch-records.md)).
 - PR 본문 첫 줄은 `Closes #이슈`, 그다음 `무엇을 / 왜 / 확인 방법`. merge commit으로 합친다.
+- PR 담당자(Assignees)는 항상 사용자 계정(`mungn0603-code`)으로 지정한다.
 - 병합해도 작업 브랜치를 지우지 않는다.
 
 ## 커밋
