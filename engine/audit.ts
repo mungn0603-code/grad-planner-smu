@@ -1,6 +1,6 @@
 // 졸업요건 평가기. 수강 기록 → (판 고르기 → 태그 → 재수강·중복 정리) → 프로그램별 규칙 트리 평가.
 // 추천(plan.ts)도 이 평가기로 검산한다(기준이 한 곳에만 있도록).
-import type { Univ, Catalog, Row, Profile, Enrollment, Rule, Filter, Result, ReqSet, With, N } from './types.ts';
+import type { Univ, Catalog, Row, Profile, Enrollment, Rule, Filter, Result, ReqSet, With, When, N } from './types.ts';
 import { nameKey } from './data.ts';
 
 export interface Ctx { univ: Univ; catalogs: Record<string, Catalog> }
@@ -34,9 +34,29 @@ const canon = (x: Idx, ed: string, code: string) => { const m = mapping(x, ed, c
 export function strips(ctx: Ctx, cats: Catalog[]): RegExp[] {
   return [...ctx.univ.nameStrip, ...cats.flatMap(c => c.nameStrip || [])].map(s => new RegExp(s, 'g'));
 }
+// 프로그램의 교육과정: 학교 카탈로그 + 학생이 넣은 교육과정(Profile.own, id가 프로그램 id와 같을 때. 예: 자기설계융합전공)
+const progCats = (p: Profile, ctx: Ctx, pid: string): Catalog[] =>
+  [...(ctx.univ.programs[pid]?.catalogs ?? []).map(c => ctx.catalogs[c]).filter(Boolean), ...(p.own?.id === pid ? [p.own] : [])];
 export function catalogsOf(p: Profile, ctx: Ctx): Catalog[] {
-  const ids = [...new Set(p.programs.flatMap(g => ctx.univ.programs[g.id]?.catalogs || []))];
-  return ids.map(id => ctx.catalogs[id]).filter(Boolean);
+  return [...new Set(p.programs.flatMap(g => progCats(p, ctx, g.id)))];
+}
+
+// 다전공·부전공 과목 배정(policy.assign): 한 과목은 학생 프로그램 하나에만 들어간다.
+// 이수구분이 종류(제2전공·연계·융합·부전공)를 정하고, 같은 종류가 둘 이상이면 교육과정에 그 과목이 있는 쪽, 없으면 먼저 고른 쪽.
+// 종류 표시가 없는 이수구분(예: 추가전공)은 어느 프로그램에나 간다. 배정된 과목에 '@프로그램id' 태그를 붙인다
+function assign(p: Profile, items: Item[], ctx: Ctx) {
+  const A = ctx.univ.policy.assign; if (!A) return;
+  const fams = new Set(Object.values(A.by).map(b => b.tag));
+  const targets = p.programs.filter(g => g.role !== 'primary' && g.role !== 'track')
+    .map(g => ({ id: g.id, fam: A.by[ctx.univ.programs[g.id]?.kind ?? g.role]?.tag })).filter(t => t.fam);
+  if (!targets.length) return;
+  const has = (id: string, it: Item) => progCats(p, ctx, id).some(cat => [...it.ids].some(x => index(cat, ctx.univ).byCode.has(x)));
+  for (const it of items) if (!it.out && it.tags.has(A.tag)) {
+    const mine = [...it.tags].filter(t => fams.has(t));
+    const pool = mine.length ? targets.filter(t => mine.includes(t.fam!)) : targets;
+    const t = pool.find(t => has(t.id, it)) ?? pool[0];
+    if (t) it.tags.add('@' + t.id);
+  }
 }
 
 export function resolve(p: Profile, es: Enrollment[], ctx: Ctx): { items: Item[]; warnings: string[] } {
@@ -83,19 +103,23 @@ export function resolve(p: Profile, es: Enrollment[], ctx: Ctx): { items: Item[]
   const covered = new Set<string>();
   for (const it of items) if (!it.out && it.code && it.cat0 && it.ed && it.ed !== latestOf(it)) for (const t of mapping(index(it.cat0, univ), it.ed, it.code)) covered.add(t);
   for (const it of items) if (!it.out && it.code && it.cat0 && it.ed === latestOf(it) && covered.has(it.code)) it.out = 'dup';
+  assign(p, items, ctx);
   return { items, warnings };
 }
 
-const withOf = (p: Profile): With => p.programs.some(g => g.role === 'second') ? 'double' : p.programs.some(g => g.role === 'minor') ? 'minor' : p.programs.some(g => g.role === 'micro') ? 'micro' : 'single';
+const withOf = (p: Profile): With => p.programs.some(g => g.role === 'second') ? 'double' : p.programs.some(g => g.role === 'minor') ? 'minor' : p.programs.some(g => g.role === 'micro') ? 'micro'
+  : p.exempt || p.admission !== 'freshman' || p.student === 'international' ? 'exempt' : 'single';
+const whenOk = (w: When | undefined, p: Profile, prog: { role: string }, wi: With) => !w || ((!w.role || w.role === prog.role) && (!w.with || w.with === wi) &&
+  (!w.admission || w.admission === p.admission) && (!w.student || w.student === p.student));
 export function pickSet(p: Profile, prog: { id: string; role: string }, univ: Univ): ReqSet | null {
-  const w = withOf(p), ok = univ.sets.filter(s => s.program === prog.id && s.years[0] <= p.catalogYear && p.catalogYear <= s.years[1] &&
-    (!s.when?.role || s.when.role === prog.role) && (!s.when?.with || s.when.with === w) &&
-    (!s.when?.admission || s.when.admission === p.admission) && (!s.when?.student || s.when.student === p.student));
+  const w = withOf(p), ok = univ.sets.filter(s => s.program === prog.id && s.years[0] <= p.catalogYear && p.catalogYear <= s.years[1] && whenOk(s.when, p, prog, w));
   if (!ok.length) return null;
   const spec = (s: ReqSet) => Object.keys(s.when || {}).length;
   ok.sort((a, b) => spec(b) - spec(a));
   if (ok.length > 1 && spec(ok[0]) === spec(ok[1])) throw new Error(`요건 세트 겹침: ${prog.id} ${p.catalogYear}`);
-  const s = ok[0], v = prog.role === 'primary' ? p.vars : undefined;
+  const ex = prog.role === 'primary' ? (univ.policy.extra ?? []).filter(x => (!x.programs || x.programs.includes(prog.id)) && whenOk(x.when, p, prog, w)) : [];
+  const s0 = ok[0], s = ex.length && 'all' in s0.rule ? { ...s0, rule: { ...s0.rule, all: [...s0.rule.all, ...ex.map((x): Rule => ({ use: x.use }))] } } : s0;
+  const v = prog.role === 'primary' ? p.vars : undefined;
   const tu = p.admission === 'transfer' && !s.when?.admission ? univ.policy.transferUnknown ?? [] : [];
   if (!(v && Object.keys(v).length) && !tu.length || !('all' in s.rule)) return s;
   // 세트 맨 위 묶음마다: 학교 기준 숫자는 세트에 있는 이름만 덮어쓰고, 편입생에게 같은지 모르는 묶음은 확인 필요 항목으로 바꾼다
@@ -149,7 +173,8 @@ export function evaluate(rule: Rule, items: Item[], p: Profile, ctx: Ctx, st: Re
   if ('all' in rule) {
     const children = rule.all.map((r, k) => evaluate(r, items, p, ctx, st, vars, `${rid}.${k}`));
     const need = rule.need == null ? children.length : num(rule.need);
-    const okN = children.filter(c => c.ok === true).length, nullN = children.filter(c => c.ok === null).length;
+    const met = children.filter(c => c.ok === true), nullN = children.filter(c => c.ok === null).length;
+    const okN = rule.disjoint ? disjointMax(met, need) : met.length;
     const doneN = children.filter(c => c.done >= c.need).length;
     return { ...base, kind: 'all', ok: okN >= need ? true : okN + nullN >= need ? null : false, have: okN, done: doneN, need, children };
   }
@@ -159,6 +184,18 @@ export function evaluate(rule: Rule, items: Item[], p: Profile, ctx: Ctx, st: Re
   if (v == null && done == null) return { ...base, kind: 'check', ok: null, have: 0, done: 0, need, note: '입력 필요' };
   const have = Math.max(done ?? 0, typeof v === 'boolean' ? (v ? 1 : 0) : v ?? 0);
   return { ...base, kind: 'check', ok: have >= need, have, done: have, need };
+}
+
+// 서로 같은 과목을 쓰지 않는 충족 묶음을 cap개까지 고를 수 있는지(가장 많이 고른 수). 충족 묶음은 몇 개라 전부 따져 본다
+const usedOf = (r: Result): number[] => r.used ?? (r.children ?? []).flatMap(usedOf);
+function disjointMax(rs: Result[], cap: number): number {
+  const sets = rs.map(r => new Set(usedOf(r))); let best = 0;
+  const go = (i: number, taken: Set<number>, n: number) => {
+    best = Math.max(best, n); if (best >= cap || i >= sets.length || n + sets.length - i <= best) return;
+    if (![...sets[i]].some(x => taken.has(x))) go(i + 1, new Set([...taken, ...sets[i]]), n + 1);
+    go(i + 1, taken, n);
+  };
+  go(0, new Set(), 0); return best;
 }
 
 // 평점평균: 척도에 있는 성적(P·NP 등은 빼고)을 학점으로 가중 평균한다. 계획 과목·재수강 이전 기록·중복은 빼고,
