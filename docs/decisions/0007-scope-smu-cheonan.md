@@ -1,6 +1,6 @@
 # 0007. 범위를 상명대 천안캠퍼스로 줄여 먼저 완성
 
-- 상태: 채택 (2026-10-21, 사용자 결정)
+- 상태: 채택 (2026-10-21, 사용자 결정). 2026-11-08 이 저장소는 천안캠퍼스 한정으로 좁힘(→ [0023](0023-scope-cheonan-only.md))
 - 관련: `docs/superpowers/specs/2026-10-21-smu-cheonan-redesign-design.md`, `docs/wireframe-smu.html`, [`ARCHITECTURE.md` §11](../ARCHITECTURE.md)
 
 ## 맥락

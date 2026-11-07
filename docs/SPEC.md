@@ -13,7 +13,7 @@
 | 제출 | 천안 AX 개인 과제 · 상명프렌즈 결과물 |
 | 사용자 | 상명대학교 천안캠퍼스 재학생 (2022~2026학번, 40개 학과) |
 | 1순위 목표 | **졸업요건 누락 0건.** 학생이 직접 계산하지 않아도 졸업까지 남은 요건을 빠짐없이 보여 준다. 다른 기능과 충돌하면 판정 정확도를 먼저 고른다 |
-| 범위 | 상명대 천안캠퍼스를 먼저 완성한 뒤 다른 대학으로 넓힌다 ([0007](decisions/0007-scope-smu-cheonan.md)) |
+| 범위 | 상명대 천안캠퍼스 한정. 다른 대학 데이터는 이 저장소에 넣지 않는다 ([0007](decisions/0007-scope-smu-cheonan.md), [0023](decisions/0023-scope-cheonan-only.md)) |
 | 저장소 | GitHub `mungn0603-code/grad-planner-smu` (공개) |
 | 이전 저장소 | `mungn0603-code/grad-planner` (비공개, 운영 중인 첫 버전). 이 저장소로 파트별로 옮긴다 |
 
@@ -260,16 +260,16 @@
 | P0 | `docs/P0-spec` | 이 명세서, README 과제 정의, 작업 규칙, PR 양식, 기존 결정 기록 | dev에 병합 |
 | P1 | `chore/P1-setup` | `package.json`·`.editorconfig`·`.gitattributes`, README 환경 변수 표, 이슈 양식, CI(설치·테스트). `tsconfig`·타입 검사·오라클은 P2, 빌드는 P7에서 더한다 | PR에 CI 체크 표시, main·dev 병합 조건에 CI 추가 |
 | P2 | `feature/P2-engine-core` | 요건 IR·판정기(`types`·`audit`·`check`), 천안 데이터(`rules.json`·`sets.csv`·카탈로그), 오라클 | 데이터 검사·V1·V6·V8·V9·V10 통과, CI에 타입 검사·오라클 추가 |
-| P3 | `feature/P3-data-etl` | 데이터 변환 도구(ETL)와 원본, 다른 대학 데이터(연세대·충남대)와 공개 자료 조사표 | V2 통과 |
-| P4 | `feature/P4-planner` | 정수계획 추천(HiGHS)과 대체 탐욕 | V3·V4·V5·V7 통과 |
-
-> 파트 경계는 테스트가 무엇에 기대는지로 나눴다. 판정 테스트는 천안 데이터가 있어야 돌고(P2), V2는 다른 대학 데이터(P3), V4·V7은 추천 엔진(P4)을 쓴다.
-| P5 | `feature/P5-major-system` | **전공제도 재정의** (위 명세), 연계·융합 교육과정 데이터 | MJ01~MJ14 통과, ADR |
+| P3 | `docs/P3-scope-cheonan` | 범위 정리: 천안캠퍼스 한정. 다른 대학 데이터·V2·첫 앱 이전 도구는 옮기지 않음 ([0023](decisions/0023-scope-cheonan-only.md)) | ADR 0023 |
+| P4 | `feature/P4-planner` | 정수계획 추천(HiGHS)과 대체 탐욕, 판 추가 도구(`etl/compose.ts`) | V3·V4·V5·V7 통과 |
+| P5 | `feature/P5-major-system` | **전공제도 재정의** (위 명세), 연계·융합 교육과정 데이터, 마이크로전공 원본(`md-2026.json`) | MJ01~MJ14 통과, ADR |
 | P6 | `feature/P6-smul-import` | 샘물 가져오기 함수를 로그인·변환·제한·차단기로 나눠 옮김 | 샘물 테스트 통과, 응답 형식 변화 없음 |
 | P7 | `feature/P7-web-ui` | 화면을 화면별 파일로 나눠 옮김, 전공제도 계획 화면 | 빌드 통과, 375px·1280px 확인 |
 | 배포 | `dev → main` | 첫 운영 반영, `v1.0.0` 태그 | 배포 URL 정상 |
 | P8 | `feature/P8-accounts` | 회원제(권장) | RLS 시험 통과 |
 | P9 | `feature/P9-app-wrap` | PWA(홈 화면 설치) + Capacitor 앱 포장(권장), iOS는 GitHub Actions macOS 러너로 빌드 | Android 앱 설치 파일, iOS 빌드 성공 |
+
+> 파트 경계는 테스트가 무엇에 기대는지로 나눴다. 판정 테스트는 천안 데이터가 있어야 돌고(P2), V4·V7은 추천 엔진(P4)을 쓴다. V2(다른 대학 골든)는 범위 밖이라 옮기지 않는다(P3).
 
 ---
 
@@ -277,7 +277,7 @@
 
 ### 1. 엔진 회귀 (이식 전과 같은 결과)
 
-V1 기존 앱 대조 · V2 골든 · V3 추천 품질 · V4 버전 · V5 바꾸기 · V6 평점 · V7 비교과·휴학 · V8 비교 · V9 학교 기준 · V10 교양영역. 이식 전 저장소에서 통과한 테스트를 고치지 않고 통과시킨다.
+V1 기존 앱 대조 · V3 추천 품질 · V4 버전 · V5 바꾸기 · V6 평점 · V7 비교과·휴학 · V8 비교 · V9 학교 기준 · V10 교양영역. 이식 전 저장소에서 통과한 테스트를 고치지 않고 통과시킨다. V2(연세대·충남대 골든)는 천안캠퍼스 한정이라 옮기지 않는다([0023](decisions/0023-scope-cheonan-only.md)).
 
 ### 2. 전공제도 테스트 (P5에서 자동 테스트로)
 
