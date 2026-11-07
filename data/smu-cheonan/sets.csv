@@ -435,3 +435,348 @@ irobot,primary,2022,2023,micro,,,primary+gearea.eng,total=130;major=60;deep=0;ge
 irobot,primary,2024,2026,micro,,,primary+gearea.eng_nat,total=130;major=60;deep=0;ge=33;ext=0,"학사안내 마이크로전공(smu.ac.kr/kor/life/microMajor.do) · 2026-1 마이크로전공 신청 안내(학사공지 765050 붙임3): 마이크로전공 2개 이상 + 주전공 60(2022학번 이전 공과대학 74·간호 94), 전공심화 해당없음 · 교양 등 나머지는 V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
 aimobility,primary,2025,2026,micro,,,primary+gearea.eng_nat,total=130;major=60;deep=0;ge=33;ext=0,"학사안내 마이크로전공(smu.ac.kr/kor/life/microMajor.do) · 2026-1 마이크로전공 신청 안내(학사공지 765050 붙임3): 마이크로전공 2개 이상 + 주전공 60(2022학번 이전 공과대학 74·간호 94), 전공심화 해당없음 · 교양 등 나머지는 V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
 md,micro,2022,2026,,,,md.all,,"천안 2026학년도 마이크로전공표(학사공지 765050 붙임4, 2026.3.4 기준) · 학사안내 마이크로전공"
+smkorean,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smkorean,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smkorean,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smkorean,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smkorean,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smkorean,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smnihongo,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smnihongo,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smnihongo,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smnihongo,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smnihongo,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smnihongo,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smuchina,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smuchina,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smuchina,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smuchina,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smuchina,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smuchina,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+depenglish,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+depenglish,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+depenglish,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+depenglish,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+depenglish,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+depenglish,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+depfrance,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+depfrance,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+depfrance,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+depfrance,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+depfrance,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+depfrance,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+german,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+german,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+german,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+german,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+german,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+german,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smurussia,primary,2022,2022,exempt,,,primary+gearea.hum,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smurussia,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smurussia,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smurussia,primary,2023,2026,exempt,,,primary+gearea.hum,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+smurussia,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+smurussia,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+visual,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+visual,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+visual,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+visual,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+visual,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+visual,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+fashion,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+fashion,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+fashion,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+fashion,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+fashion,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+fashion,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+textile,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+textile,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+textile,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+textile,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+textile,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+textile,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+interior,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+interior,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+interior,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+interior,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+interior,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+interior,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+ceramic,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+ceramic,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+ceramic,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+ceramic,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+ceramic,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+ceramic,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+industrial,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+industrial,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+industrial,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+industrial,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+industrial,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+industrial,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+arvr,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+arvr,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+arvr,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+arvr,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+arvr,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+arvr,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+movie,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+movie,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+movie,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+movie,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+movie,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+movie,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+dramatics,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+dramatics,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+dramatics,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+dramatics,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+dramatics,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+dramatics,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+performance,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+performance,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+performance,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+performance,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+performance,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+performance,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+photo,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+photo,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+photo,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+photo,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+photo,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+photo,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+cartoonani,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+cartoonani,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+cartoonani,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+cartoonani,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+cartoonani,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+cartoonani,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+culturalart,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+culturalart,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+culturalart,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+culturalart,primary,2023,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+culturalart,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+culturalart,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+digital,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+digital,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+digital,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+digital,primary,2023,2024,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+digital,primary,2023,2024,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+digital,primary,2023,2024,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+aimedia,primary,2025,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+aimedia,primary,2025,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+aimedia,primary,2025,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+globaladm,primary,2022,2022,exempt,,,primary+gearea.soc,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+globaladm,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+globaladm,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+globaladm,primary,2023,2026,exempt,,,primary+gearea.soc,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+globaladm,primary,2023,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+globaladm,primary,2023,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+plant,primary,2022,2022,exempt,,,primary+gearea.nat,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+plant,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+plant,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+plant,primary,2023,2023,exempt,,,primary+gearea.nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+plant,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+plant,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+plant,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+plant,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+plant,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+greensmartcity,primary,2022,2022,exempt,,,primary+gearea.nat,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+greensmartcity,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+greensmartcity,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+greensmartcity,primary,2023,2023,exempt,,,primary+gearea.nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+greensmartcity,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+greensmartcity,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+greensmartcity,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+greensmartcity,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+greensmartcity,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+nursing,primary,2022,2023,exempt,,,primary+gearea.nat,total=130;major=94;deep=0;ge=26;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+nursing,primary,2022,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=26;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+nursing,primary,2022,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+nursing,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=94;deep=0;ge=26;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+nursing,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=26;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+nursing,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sportindustry,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sportindustry,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sportindustry,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sportindustry,primary,2023,2024,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sportindustry,primary,2023,2024,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sportindustry,primary,2023,2024,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sportforall,primary,2022,2022,exempt,,,primary+gearea.art,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sportforall,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sportforall,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sportforall,primary,2023,2024,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sportforall,primary,2023,2024,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2024학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sportforall,primary,2023,2024,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sports,primary,2025,2026,exempt,,,primary+gearea.art,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sports,primary,2025,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sports,primary,2025,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+primeee,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+primeee,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+primeee,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+primeee,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+primeee,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+primeee,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+primeee,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+primeee,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+primeee,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+software,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+software,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+software,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+software,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+software,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+software,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+software,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+software,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+software,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+it,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+it,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+it,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+it,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+it,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+it,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+it,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+it,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+it,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+me,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+me,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+me,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+me,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+me,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+me,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+me,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+me,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+me,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+green,primary,2022,2022,exempt,,,primary+gearea.eng+thesis.green,total=130;major=74;deep=0;ge=33;ext=0;thesisDeep=6,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18
+green,primary,2022,2022,exempt,transfer,,primary+gearea.transfer+thesis.green,total=130;major=60;deep=0;ge=33;ext=0;thesisDeep=6,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18"
+green,primary,2022,2022,exempt,bachelor,,primary+thesis.green,total=65;major=60;deep=0;ge=0;ext=0;thesisDeep=6,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+green,primary,2023,2023,exempt,,,primary+gearea.eng+thesis.green,total=130;major=75;deep=0;ge=33;ext=0;thesisDeep=6,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18
+green,primary,2023,2023,exempt,transfer,,primary+gearea.transfer+thesis.green,total=130;major=60;deep=0;ge=33;ext=0;thesisDeep=6,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18"
+green,primary,2023,2023,exempt,bachelor,,primary+thesis.green,total=65;major=60;deep=0;ge=0;ext=0;thesisDeep=6,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+green,primary,2024,2026,exempt,,,primary+gearea.eng_nat+thesis.green,total=130;major=75;deep=0;ge=33;ext=0;thesisDeep=6,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18
+green,primary,2024,2026,exempt,transfer,,primary+gearea.transfer+thesis.green,total=130;major=60;deep=0;ge=33;ext=0;thesisDeep=6,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098 · 졸업논문 자격 학과내규 2025-11-18"
+green,primary,2024,2026,exempt,bachelor,,primary+thesis.green,total=65;major=60;deep=0;ge=0;ext=0;thesisDeep=6,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+civil,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+civil,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+civil,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+civil,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+civil,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+civil,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+civil,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+civil,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+civil,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+dis,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+dis,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+dis,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+dis,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+dis,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+dis,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+dis,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+dis,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+dis,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sse,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sse,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sse,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sse,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sse,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sse,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+sse,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+sse,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+sse,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+hirobot,primary,2022,2022,exempt,,,primary+gearea.eng,total=130;major=74;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+hirobot,primary,2022,2022,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2022학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+hirobot,primary,2022,2022,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+hirobot,primary,2023,2023,exempt,,,primary+gearea.eng,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+hirobot,primary,2023,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2023~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+hirobot,primary,2023,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+hirobot,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+hirobot,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+hirobot,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+irobot,primary,2022,2023,exempt,,,primary+gearea.eng,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2022~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+irobot,primary,2022,2023,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2022~2023학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+irobot,primary,2022,2023,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+irobot,primary,2024,2026,exempt,,,primary+gearea.eng_nat,total=130;major=60;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+irobot,primary,2024,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2024~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+irobot,primary,2024,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+aimobility,primary,2025,2026,exempt,,,primary+gearea.eng_nat,total=130;major=75;deep=0;ge=33;ext=0,[ADR 0024] 심화전공 이수 제외 대상(학사안내 advancedDegree.do): 심화전공 숫자에서 전공심화만 0 · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098
+aimobility,primary,2025,2026,exempt,transfer,,primary+gearea.transfer,total=130;major=60;deep=0;ge=33;ext=0,"[ADR 0024] 편입생: 심화전공 이수 불가, 전공 60(2024학년도 편입생 오리엔테이션, 교무처 학사운영팀) · V44 units.json req(천안 2025~2026학년도 입학자 졸업이수학점표) · 교양 영역 기준 app.template.html:1083-1098"
+aimobility,primary,2025,2026,exempt,bachelor,,primary,total=65;major=60;deep=0;ge=0;ext=0,"[ADR 0024] 학사편입: 총 65 = 전공 60 + 5, 전적대 인정 없음(같은 자료)"
+smkorean,second,2022,2026,,,,m2.smkorean,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+smkorean,minor,2022,2026,,,,m2.smkorean,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+smnihongo,second,2022,2026,,,,m2.smnihongo,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+smnihongo,minor,2022,2026,,,,m2.smnihongo,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+smuchina,second,2022,2026,,,,m2.smuchina,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+smuchina,minor,2022,2026,,,,m2.smuchina,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+depenglish,second,2022,2026,,,,m2.depenglish,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+depenglish,minor,2022,2026,,,,m2.depenglish,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+depfrance,second,2022,2026,,,,m2.depfrance,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+depfrance,minor,2022,2026,,,,m2.depfrance,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+german,second,2022,2026,,,,m2.german,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+german,minor,2022,2026,,,,m2.german,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+smurussia,second,2022,2026,,,,m2.smurussia,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+smurussia,minor,2022,2026,,,,m2.smurussia,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+visual,second,2022,2026,,,,m2.visual,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+visual,minor,2022,2026,,,,m2.visual,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+fashion,second,2022,2026,,,,m2.fashion,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+fashion,minor,2022,2026,,,,m2.fashion,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+textile,second,2022,2026,,,,m2.textile,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+textile,minor,2022,2026,,,,m2.textile,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+interior,second,2022,2026,,,,m2.interior,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+interior,minor,2022,2026,,,,m2.interior,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+ceramic,second,2022,2026,,,,m2.ceramic,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+ceramic,minor,2022,2026,,,,m2.ceramic,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+industrial,second,2022,2026,,,,m2.industrial,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+industrial,minor,2022,2026,,,,m2.industrial,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+arvr,second,2022,2026,,,,m2.arvr,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+arvr,minor,2022,2026,,,,m2.arvr,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+movie,second,2022,2026,,,,m2.movie,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+movie,minor,2022,2026,,,,m2.movie,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+dramatics,second,2022,2026,,,,m2.dramatics,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+dramatics,minor,2022,2026,,,,m2.dramatics,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+performance,second,2022,2026,,,,m2.performance,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+performance,minor,2022,2026,,,,m2.performance,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+photo,second,2022,2026,,,,m2.photo,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+photo,minor,2022,2026,,,,m2.photo,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+cartoonani,second,2022,2026,,,,m2.cartoonani,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+cartoonani,minor,2022,2026,,,,m2.cartoonani,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+culturalart,second,2022,2026,,,,m2.culturalart,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+culturalart,minor,2022,2026,,,,m2.culturalart,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+digital,second,2022,2026,,,,m2.digital,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+digital,minor,2022,2026,,,,m2.digital,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+aimedia,second,2022,2026,,,,m2.aimedia,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+aimedia,minor,2022,2026,,,,m2.aimedia,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+globaladm,second,2022,2026,,,,m2.globaladm,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+globaladm,minor,2022,2026,,,,m2.globaladm,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+plant,second,2022,2026,,,,m2.plant,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+plant,minor,2022,2026,,,,m2.plant,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+greensmartcity,second,2022,2026,,,,m2.greensmartcity,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+greensmartcity,minor,2022,2026,,,,m2.greensmartcity,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+nursing,second,2022,2026,,,,m2.nursing,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+nursing,minor,2022,2026,,,,m2.nursing,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+sportindustry,second,2022,2026,,,,m2.sportindustry,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+sportindustry,minor,2022,2026,,,,m2.sportindustry,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+sportforall,second,2022,2026,,,,m2.sportforall,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+sportforall,minor,2022,2026,,,,m2.sportforall,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+sports,second,2022,2026,,,,m2.sports,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+sports,minor,2022,2026,,,,m2.sports,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+primeee,second,2022,2026,,,,m2.primeee,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+primeee,minor,2022,2026,,,,m2.primeee,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+software,second,2022,2026,,,,m2.software,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+software,minor,2022,2026,,,,m2.software,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+it,second,2022,2026,,,,m2.it,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+it,minor,2022,2026,,,,m2.it,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+me,second,2022,2026,,,,m2.me,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+me,minor,2022,2026,,,,m2.me,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+green,second,2022,2026,,,,m2.green,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+green,minor,2022,2026,,,,m2.green,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+civil,second,2022,2026,,,,m2.civil,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+civil,minor,2022,2026,,,,m2.civil,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+dis,second,2022,2026,,,,m2.dis,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+dis,minor,2022,2026,,,,m2.dis,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+sse,second,2022,2026,,,,m2.sse,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+sse,minor,2022,2026,,,,m2.sse,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+hirobot,second,2022,2026,,,,m2.hirobot,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+hirobot,minor,2022,2026,,,,m2.hirobot,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+irobot,second,2022,2026,,,,m2.irobot,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+irobot,minor,2022,2026,,,,m2.irobot,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+aimobility,second,2022,2026,,,,m2.aimobility,need=36,"[ADR 0024] 다전공(2,3전공) 전공 36(천안 2026학년도 입학자 졸업이수학점표, credits.do 763380) · 학번별 다전공 36은 V44 units.json req와 같음"
+aimobility,minor,2022,2026,,,,m2.aimobility,need=21,"[ADR 0024] 부전공(2,3전공) 전공 21(같은 표)"
+ism,second,2022,2026,,,,m2.ism,need=36,[ADR 0024] 자기설계융합전공을 다전공으로 이수 시 36(학사안내 multiMajor3.do)

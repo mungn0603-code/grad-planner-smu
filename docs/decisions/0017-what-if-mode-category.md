@@ -1,6 +1,6 @@
 # 0017. 다전공·이수구분 가정해 보기, 이수구분 정정 코드 대응
 
-- 상태: 제안 (2026-10-29, 사용자 승인 대기)
+- 상태: 제안 (2026-10-29, 사용자 승인 대기). 전공제도 판정은 0024가 이어받음(→ [0024](0024-major-system.md))
 - 관련: `src/pages.tsx` `WhatIf`, `data/smu-cheonan/rules.json` `categories`, `engine/v9.school-base.test.ts`, [0016](0016-smul-source-of-truth.md)
 
 ## 맥락

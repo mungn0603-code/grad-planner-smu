@@ -80,7 +80,13 @@ function prepare(p: Profile, es: Enrollment[], ctx: Ctx, opts: PlanOpts) {
   base.items.filter(it => !it.out).forEach(it => { it.ids.forEach(c => taken.add(c)); takenK.add(it.key); });
   const rows: Row[] = [], seen = new Set<string>();
   for (const c of cats) { const eds = Object.keys(c.editions).sort(); for (const r of c.editions[eds[eds.length - 1]]) if (!seen.has(r.c)) { seen.add(r.c); rows.push(r); } }
-  const res = resolve(p, rows.map(r => ({ code: r.c, planned: true as const })), ctx).items;
+  // 다전공·부전공 교육과정에만 있는 과목은 그 종류의 이수구분으로 추천한다(주전공 교육과정에도 있으면 주전공 과목으로 둔다)
+  const A = policy.assign, codesOf = (gs: Profile['programs']) => catalogsOf({ ...p, programs: gs }, ctx).flatMap(c => Object.values(c.editions).flat().map(r => r.c));
+  const primCodes = new Set(codesOf(p.programs.filter(g => g.role === 'primary'))), planCat = new Map<string, string>();
+  if (A) for (const g of p.programs) { const b = g.role !== 'primary' && g.role !== 'track' && A.by[ctx.univ.programs[g.id]?.kind ?? g.role];
+    if (b) for (const c of codesOf([g])) if (!primCodes.has(c) && !planCat.has(c)) planCat.set(c, b.cat); }
+  const asPlan = (code: string, term?: Term) => ({ code, ...(term ? { term } : {}), planned: true as const, ...(planCat.has(code) ? { category: planCat.get(code) } : {}) });
+  const res = resolve(p, rows.map(r => asPlan(r.c)), ctx).items;
   const excl = [...policy.noPlan, ...(p.student === 'international' ? [] : policy.intlOnly)];
   const doneIdent = L0.filter(l => l.kind === 'courses' && l.ident && l.rem <= 0);
   const cand = res.map((it, k) => ({ it, row: rows[k] })).filter(({ it }) => !it.out && ![...it.ids].some(c => taken.has(c)) && !takenK.has(it.key)
@@ -105,7 +111,7 @@ function prepare(p: Profile, es: Enrollment[], ctx: Ctx, opts: PlanOpts) {
   const fKey = (f: { program: string; r: Result }) => `${f.program}.${f.r.id}`;
   const fWeight = (f: { program: string; r: Result }) => (f.r.kind === 'all' ? UNIT.group : UNIT[f.r.kind as 'credits' | 'courses']) * imp(Math.max(0, ...leafIdx(f).map(i => L0[i].w)));
   const shortfall = (fs: ReturnType<typeof failing>) => fs.reduce((a, f) => a + Math.max(0, f.r.need - f.r.have) * fWeight(f), 0);
-  const withRows = (rs: { code: string; term: Term }[]) => [...es, ...rs.map(r => ({ code: r.code, term: r.term, planned: true as const }))];
+  const withRows = (rs: { code: string; term: Term }[]) => [...es, ...rs.map(r => asPlan(r.code, r.term))];
   return { policy, progs, base, L0, fm, fut, sea, terms, order, lim, baseLoad, minOf, ordOf, nowOrd, cand, canIn, failing, leafIdx, fKey, shortfall, withRows };
 }
 

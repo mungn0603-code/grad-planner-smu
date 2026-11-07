@@ -1,0 +1,2393 @@
+{
+ "collected": "2026-10-29",
+ "note": "상명대 공식 학사공지 765050 붙임4 마이크로전공표(2026.3.4 기준) · microcurri 「2026학년도 마이크로전공 현황.pdf」와 대조. 천안캠퍼스만. 에이전트 수집 2026-10-29",
+ "rule_notes": {
+  "a_major_60_needs_simhwa": {
+   "answer": "전공 60학점 이상이면 되고, 마이크로전공 2개 이상 이수 시 주전공 전공심화 교과목 이수는 '해당없음'(필요 없음).",
+   "quote": "주전공의 전공심화 교과목 이수 유무 — 마이크로전공: 마이크로전공 2개 이상 이수 시 해당없음 / 주전공 충족학점 2023학번~: 마이크로전공 2개 이상 이수 시 60학점 이상",
+   "caveat": "60학점 안에 1전심 과목이 포함될 수는 있으나 심화 15학점을 별도로 요구한다는 문구는 없음. 천안 교무처 2026-1학기 안내문 기준(천안 공지). 서울 캠퍼스 안내문(765345 HWP)은 미확인.",
+   "src": [
+    "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임3-2026-1학기 마이크로전공 신청 안내(홈페이지 공지문).pdf 4항 표 · 2026.4 교무처장",
+    "같은 공지 붙임1-2026-1학기 다전공 신청 안내(홈페이지 공지문).pdf 5항 표(동일 표)"
+   ]
+  },
+  "b_cohort_range": {
+   "answer": "학번 상한·하한: 안내문 표는 2018~2022학번과 2023학번~ 두 구간만 둠(2018학번 이상). 마이크로전공 페이지는 학번 구간별 주전공 학점을 다르게 규정: 서울 입학생 및 천안 2023학번 이후(간호대 제외) 60, 천안 2022학번 이전(공대·간호대 제외, 경영공학과는 공대지만 60) 60, 천안 2022학번 이전 공대 74, 천안 간호학과 94 — 모두 + 마이크로전공 2개 이상. 즉 2022학번 이하도 적용 대상(2023학번 이상만이 아님).",
+   "note_2018_2022": "안내문 표의 2018~2022학번 마이크로전공 칸은 '졸업소요학점 이상'으로만 적혀 있고, 그 값(60/74/94)은 마이크로전공 페이지에 있음.",
+   "unknown": "2017학번 이전 적용 여부: 확인 불가(어느 문서에도 명시 없음).",
+   "src": [
+    "https://www.smu.ac.kr/kor/life/microMajor.do · 학사안내>전공제도>마이크로전공 '인증 및 졸업요건' · 2026-10-29 조회",
+    "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임3 4항 표"
+   ]
+  },
+  "common_rule": {
+   "text": "마이크로전공 교육과정은 9~15학점, 해당 마이크로전공 교육과정의 모든 교과목을 이수하여야 함. 제1전공·타 전공제도 이수 과목과 학수번호가 같아도 중복인정 불허. 교양 교과목은 이수구분 정정으로 MD 신청 시 인정, 교양 중복인정 불허.",
+   "src": "https://www.smu.ac.kr/kor/life/microMajor.do · 교육과정 이수"
+  }
+ },
+ "majors": [
+  {
+   "id": "protein-biochem",
+   "name": "단백질 생화학",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "그린화학공학과",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEC0021",
+     "name": "기초생명공학Ⅰ",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0006",
+     "name": "분자설계공학및실습(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0018",
+     "name": "단백질 생화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0010",
+     "name": "유기화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "new-energy",
+   "name": "신에너지",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "그린화학공학과",
+   "credits": 11,
+   "listed_total": 11,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJG4143",
+     "name": "에너지변환공학(실습)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBJG4121",
+     "name": "전기화학공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0020",
+     "name": "화학공학양론",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0019",
+     "name": "화학반응공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "chem-basics",
+   "name": "비전공자용 화학기초",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "그린화학공학과",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEC0010",
+     "name": "유기화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0029",
+     "name": "일반화학I",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0030",
+     "name": "일반화학II",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBJG4148",
+     "name": "화공분석화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "sdgs",
+   "name": "국제개발협력과 SDGs",
+   "campus": "천안",
+   "type": "사회수요맞춤형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 백선욱",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBLF7813",
+     "name": "유라시아지역의이해와국제협력",
+     "cr": 2,
+     "req": "",
+     "gb": "교선",
+     "sem": "2학기",
+     "org": "계당교양교육원"
+    },
+    {
+     "code": "HBLF7821",
+     "name": "글로벌다중위기와국제협력",
+     "cr": 2,
+     "req": "",
+     "gb": "교선",
+     "sem": "1, 2학기",
+     "org": "계당교양교육원"
+    },
+    {
+     "code": "HBLD5056",
+     "name": "소셜디자인랩",
+     "cr": 3,
+     "req": "",
+     "gb": "교선",
+     "sem": "1, 2학기",
+     "org": "계당교양교육원"
+    },
+    {
+     "code": "HBOA1005",
+     "name": "적정디자인&적정기술기반융복합프로젝트",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "교무팀"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "biz-english",
+   "name": "비즈니스영어",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "영어권지역학전공",
+   "credits": 14,
+   "listed_total": 14,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBHB4536",
+     "name": "글로벌커뮤니케이션",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4512",
+     "name": "비즈니스스피킹",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4534",
+     "name": "비즈니스영어독해",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4516",
+     "name": "영어권ESG기업문화와콘텐트마케팅",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4538",
+     "name": "컨벤션영어",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "video-translation",
+   "name": "영상미디어번역",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "영어권지역학전공",
+   "credits": 15,
+   "listed_total": 15,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBHB4527",
+     "name": "영상번역과대중문화",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4537",
+     "name": "영상번역입문",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4521",
+     "name": "영-한통번역입문",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4523",
+     "name": "애니메이션더빙번역",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHA2172",
+     "name": "한국어문법론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "한국언어문화전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "fashion-practice",
+   "name": "패션실무마이크로전공",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "패션디자인전공",
+   "credits": 10,
+   "listed_total": 10,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBIC2171",
+     "name": "서양복식사&현대의상사실습",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "패션디자인전공"
+    },
+    {
+     "code": "HBIC4355",
+     "name": "기초의상디자인",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "패션디자인전공"
+    },
+    {
+     "code": "HBIC4341",
+     "name": "패션마케팅",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "패션디자인전공"
+    },
+    {
+     "code": "HBIC4420",
+     "name": "패션비지니스창업설계(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "패션디자인전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "culture-tour-guide",
+   "name": "글로벌문화관광해설사",
+   "campus": "천안",
+   "type": "사회수요맞춤형",
+   "unit": "교육단위",
+   "dept": "프랑스어권지역학전공",
+   "credits": 15,
+   "listed_total": 15,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBHI0008",
+     "name": "글로벌문화콘텐츠기획",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "글로벌문화콘텐츠연계전공"
+    },
+    {
+     "code": "HBKE0047",
+     "name": "문화예술기획(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "문화예술경영전공"
+    },
+    {
+     "code": "HBKE0027",
+     "name": "문화예술기획(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "문화예술경영전공"
+    },
+    {
+     "code": "HBHC4483",
+     "name": "프랑스어첫걸음",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "프랑스어권지역학전공"
+    },
+    {
+     "code": "HBHC4473",
+     "name": "현대프랑스의사회와문화",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "프랑스어권지역학전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "finance-modeling",
+   "name": "금융상품모델링",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 유재필",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJP2290",
+     "name": "금융AI",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "경영공학과"
+    },
+    {
+     "code": "HBJP2257",
+     "name": "금융공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "경영공학과"
+    },
+    {
+     "code": "HBJE3282",
+     "name": "투자론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "글로벌금융경영학부"
+    },
+    {
+     "code": "HBJE4475",
+     "name": "회계원리",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "글로벌금융경영학부"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "media-design-marketing",
+   "name": "융합미디어디자인마케팅",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 양린",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBID4460",
+     "name": "텍스타일디자인 브랜딩 앤 마케팅 (캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "텍스타일디자인전공"
+    },
+    {
+     "code": "HBVB0001",
+     "name": "미디어아트프로젝트(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1학기",
+     "org": "미디어아트마이크로전공"
+    },
+    {
+     "code": "HBLA5071",
+     "name": "모바일비즈니스와앱",
+     "cr": 3,
+     "req": "",
+     "gb": "교선",
+     "sem": "2학기",
+     "org": "계당교양교육원"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "digital-textile",
+   "name": "디지털텍스타일디자인",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 양린",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBID4449",
+     "name": "AI와 디지털서피스디자인 (캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "텍스타일디자인전공"
+    },
+    {
+     "code": "HBID4451",
+     "name": "자카드와 디지털텍스타일프로젝트Ⅰ(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "텍스타일디자인전공"
+    },
+    {
+     "code": "HBIO1114",
+     "name": "디지털미디어",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디자인학부"
+    },
+    {
+     "code": "HBKI0038",
+     "name": "모션그래픽(SW)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "AI미디어콘텐츠전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "smart-semi",
+   "name": "지능형반도체",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "시스템반도체공학과",
+   "credits": 10,
+   "listed_total": 10,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0024",
+     "name": "CMOSIC공정",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0014",
+     "name": "CMOS트랜지스터(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0008",
+     "name": "MOSFET회로설계",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0038",
+     "name": "MOSFET회로실험",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "ai-programming",
+   "name": "AI프로그래밍 및 프로젝트",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "시스템반도체공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0043",
+     "name": "알고리즘코딩테스트",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0035",
+     "name": "파이썬프로그래밍",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0026",
+     "name": "인공지능기초",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "semi-design",
+   "name": "시스템반도체설계",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "시스템반도체공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0040",
+     "name": "Linux운영체제및시스템프로그래밍(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0009",
+     "name": "컴퓨터구조",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0032",
+     "name": "FPGA프로젝트(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "video-production",
+   "name": "디지털영상콘텐츠프로덕션",
+   "campus": "천안",
+   "type": "사회수요맞춤형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 이찬복",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBOA1018",
+     "name": "1인미디어기획및제작(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영화영상전공"
+    },
+    {
+     "code": "HBVA0001",
+     "name": "디지털 영상 콘텐츠 제작:EP1(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1학기",
+     "org": "디지털영상콘텐츠프로덕션마이크로전공"
+    },
+    {
+     "code": "HBIG2272",
+     "name": "디지털콘텐츠창작",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영화영상전공"
+    },
+    {
+     "code": "HBIB2192",
+     "name": "영상미디어실기Ⅰ(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "사진영상미디어전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "exhibition-convention",
+   "name": "전시컨벤션",
+   "campus": "천안",
+   "type": "사회수요맞춤형",
+   "unit": "교육단위",
+   "dept": "독일어권지역학전공",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBHE4368",
+     "name": "독일어권기업문화론(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "독일어권지역학전공"
+    },
+    {
+     "code": "HBHE4417",
+     "name": "독일의도시와축제",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "독일어권지역학전공"
+    },
+    {
+     "code": "HBKE0047",
+     "name": "문화예술기획(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "문화예술경영전공"
+    },
+    {
+     "code": "HBHB4538",
+     "name": "컨벤션영어",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "signal-processing",
+   "name": "공학설계및신호처리",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "시스템반도체공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0031",
+     "name": "ATmega시스템설계(IC-PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0034",
+     "name": "디지털신호처리",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0010",
+     "name": "아날로그신호처리",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "secure-soc",
+   "name": "보안SoC설계",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "정보보안공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0032",
+     "name": "FPGA프로젝트(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBEA0027",
+     "name": "Verilog기반디지털시스템설계(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBJQ0016",
+     "name": "보안알고리즘",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "robot-programmer",
+   "name": "지능형로봇프로그래머",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "휴먼지능로봇공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEB0019",
+     "name": "기초제어프로그래밍(SW)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0017",
+     "name": "기초로봇기구학및설계(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0028",
+     "name": "로봇운영체제",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "white-hacking",
+   "name": "화이트해킹기술",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 서창진",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJQ0043",
+     "name": "네트워크보안(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0050",
+     "name": "리눅스보안실습",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0055",
+     "name": "시스템보안",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0058",
+     "name": "인터넷응용보안",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "ai-malware",
+   "name": "AI악성코드분석",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 서창진",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJQ0021",
+     "name": "머신러닝과정보보호",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0056",
+     "name": "악성코드분석",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBMA1011",
+     "name": "인공지능수학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "mobile-webapp",
+   "name": "모바일WEBAPP응용개발",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 서창진",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJQ0019",
+     "name": "데이터베이스실습",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0025",
+     "name": "모바일프로그래밍(PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "정보보안공학과"
+    },
+    {
+     "code": "HBJQ0012",
+     "name": "웹프로그래밍(정보보안공학과)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "정보보안공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "media-art",
+   "name": "미디어아트",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 AI미디어콘텐츠전공",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBVB0001",
+     "name": "미디어아트프로젝트(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1학기",
+     "org": "미디어아트마이크로전공"
+    },
+    {
+     "code": "HBVB0002",
+     "name": "문화서비스기획(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1학기",
+     "org": "미디어아트마이크로전공"
+    },
+    {
+     "code": "HBKI0067",
+     "name": "AI융합실감콘텐츠프로젝트(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "AI미디어콘텐츠전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "robot-interface",
+   "name": "로봇인터페이스 개발자",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "휴먼지능로봇공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEB0006",
+     "name": "기초역학및연습",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0010",
+     "name": "로봇공학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0012",
+     "name": "휴먼-로봇인터페이스공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "휴먼지능로봇공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "ai-robot-design",
+   "name": "AI로봇기초설계",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "휴먼지능로봇공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEB0045",
+     "name": "구동시스템기초",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0008",
+     "name": "로봇비전(IC-PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0029",
+     "name": "로봇제어프로젝트",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "휴먼지능로봇공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "smart-mobility",
+   "name": "지능형 모빌리티 개발자",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "휴먼지능로봇공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEB0060",
+     "name": "스마트 모빌리티",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0058",
+     "name": "항법시스템",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "휴먼지능로봇공학과"
+    },
+    {
+     "code": "HBEB0008",
+     "name": "로봇비전(IC-PBL)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "휴먼지능로봇공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "game-production",
+   "name": "게임 프로덕션",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "AI미디어콘텐츠전공",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBKI0012",
+     "name": "게임콘텐츠(캡스톤디자인)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "AI미디어콘텐츠전공"
+    },
+    {
+     "code": "HBKI0051",
+     "name": "3D그래픽실무",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "AI미디어콘텐츠전공"
+    },
+    {
+     "code": "HBVE0001",
+     "name": "게임엔진1",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1학기",
+     "org": "게임 프로덕션 마이크로전공"
+    },
+    {
+     "code": "HBVE0002",
+     "name": "게임엔진2",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "2학기",
+     "org": "게임 프로덕션 마이크로전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "dramaturgy",
+   "name": "드라마투르기",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "연극전공",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBVF0001",
+     "name": "드라마투르기 분석",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "2학기",
+     "org": "드라마투르기 마이크로전공"
+    },
+    {
+     "code": "HBIH4497",
+     "name": "연출Ⅰ",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "연극전공"
+    },
+    {
+     "code": "HBIH4592",
+     "name": "현대및동시대연극",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "연극전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "ai-ccs-green",
+   "name": "AI-CCS기반 그린인프라",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "그린스마트시티학과",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJB4480",
+     "name": "AI-CCS 기반 그린스마트시티 포트폴리오",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1",
+     "org": "그린스마트시티학과"
+    },
+    {
+     "code": "HBJB4481",
+     "name": "AI그린인프라실무 및 스타트업",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1",
+     "org": "그린스마트시티학과"
+    },
+    {
+     "code": "HBJB4466",
+     "name": "AI식재설계및실습",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2",
+     "org": "그린스마트시티학과"
+    },
+    {
+     "code": "HBJB4467",
+     "name": "디지털설계스튜디오IV(CCS스마트도시계획(캡스톤디자인))",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2",
+     "org": "그린스마트시티학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "digital-humanities",
+   "name": "디지털플랫폼인문학",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 정의진",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "",
+     "name": "디지털플랫폼시대의 기술, 언어, 예술",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "2학기",
+     "org": "디지털플랫폼인문학마이크로전공",
+     "note": "학수번호 생성예정(원문)"
+    },
+    {
+     "code": "HBHC4484",
+     "name": "프랑스디지털문화",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "1학기",
+     "org": "프랑스어권지역학전공"
+    },
+    {
+     "code": "HBHA4394",
+     "name": "AI 시대의 시 감상과 뉴미디어 표현",
+     "cr": 3,
+     "req": "",
+     "gb": "1전심",
+     "sem": "2학기",
+     "org": "한국언어문화전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "carbon-neutral",
+   "name": "탄소중립",
+   "campus": "천안",
+   "type": "자기전공활용형",
+   "unit": "교육단위",
+   "dept": "그린화학공학과",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEC0020",
+     "name": "화학공학양론",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0046",
+     "name": "탄소중립 AI 엔지니어링",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0037",
+     "name": "화공물리화학",
+     "cr": 2,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "그린화학공학과"
+    },
+    {
+     "code": "HBEC0040",
+     "name": "화공재료과학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "그린화학공학과"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "ai-global-data",
+   "name": "AI 테크 기반 글로벌데이터분석",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 하명정",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBLF7829",
+     "name": "생성형AI와텍스트리터러시",
+     "cr": 3,
+     "req": "",
+     "gb": "교선",
+     "sem": "2학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4535",
+     "name": "한영AI번역의기초",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    },
+    {
+     "code": "HBHB4552",
+     "name": "글로벌 시장 분석을 위한 생성형 AI",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "영어권지역학전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "startup-design",
+   "name": "혁신융합창업디자인",
+   "campus": "천안",
+   "type": "사회수요맞춤형",
+   "unit": "교수",
+   "dept": "(교수 단위) 주관교원 이희화",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "",
+     "name": "혁신융합스타트업",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "1",
+     "org": "혁신융합창업디자인마이크로전공",
+     "note": "학수번호 생성예정(원문)"
+    },
+    {
+     "code": "",
+     "name": "실전융합창업프로젝트",
+     "cr": 3,
+     "req": "",
+     "gb": "1MD",
+     "sem": "2",
+     "org": "혁신융합창업디자인마이크로전공",
+     "note": "학수번호 생성예정(원문)"
+    },
+    {
+     "code": "HBLF7827",
+     "name": "스타트업제품디자인",
+     "cr": 3,
+     "req": "",
+     "gb": "교선",
+     "sem": "1",
+     "org": "스포츠융합학부"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도"
+  },
+  {
+   "id": "mobility-engineering",
+   "name": "모빌리티엔지니어링",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0001",
+     "name": "자동차모빌리티기초",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0008",
+     "name": "기술창업실무",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0022",
+     "name": "자동차인공지능",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "ev-module",
+   "name": "전장모듈 설계",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0002",
+     "name": "친환경자동차구조실무",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0009",
+     "name": "모터이론및제어",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0021",
+     "name": "전동화파워트레인",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "mobility-solution",
+   "name": "모빌리티 솔류션",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0003",
+     "name": "객체지향프로그래밍",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0010",
+     "name": "자동차전장모듈해석",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0016",
+     "name": "차량센서공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "autonomous-driving",
+   "name": "자율주행 프로그래밍",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0004",
+     "name": "차량비전시스템",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0011",
+     "name": "자율주행위치인식",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0023",
+     "name": "자율주행v2x통신",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "mobility-structure",
+   "name": "모빌리티 구조설계",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0005",
+     "name": "도면해독AutoCad",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0012",
+     "name": "자동차금형설계",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0024",
+     "name": "자동차디자인",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "car-diagnosis",
+   "name": "자동차 진단기술",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0013",
+     "name": "자동차검차실무",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0017",
+     "name": "자동차정비실무",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0026",
+     "name": "비파괴검사개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "mobility-production",
+   "name": "모빌리티 생산서비스",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0006",
+     "name": "시퀀스제어",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0020",
+     "name": "자동차생산기술",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0014",
+     "name": "생산설비안전관리",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "air-mobility",
+   "name": "항공 모빌리티",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRP0007",
+     "name": "항공로봇공학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0015",
+     "name": "항공기소음진동",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    },
+    {
+     "code": "HBRP0018",
+     "name": "항법시스템",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "미래모빌리티융합시스템융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "ai-bigdata",
+   "name": "AI/BigData",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRQ0010",
+     "name": "IOT개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0011",
+     "name": "딥러닝기초",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0018",
+     "name": "머신러닝 에이전트",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "display-semi",
+   "name": "디스플레이-반도체",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRQ0003",
+     "name": "디스플레이 공학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0004",
+     "name": "반도체 공학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0016",
+     "name": "디스플레이-반도체 공정",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "display-semi-equip",
+   "name": "디스플레이-반도체부품장비(심화)",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRQ0008",
+     "name": "부품장비 디스플레이공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0009",
+     "name": "부품장비 반도체공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0013",
+     "name": "디스플레이반도체부품장비",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "display-semi-material",
+   "name": "디스플레이-반도체소재부품(심화)",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRQ0007",
+     "name": "디스플레이-반도체소재",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0014",
+     "name": "반도체패키징(심화)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0022",
+     "name": "차세대 디스플레이 공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "display-semi-material-ee",
+   "name": "디스플레이-반도체소재부품(심화)(전자)",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBJW0051",
+     "name": "물리전자개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "전자공학과"
+    },
+    {
+     "code": "HBRQ0014",
+     "name": "반도체패키징(심화)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0022",
+     "name": "차세대 디스플레이 공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "display-semi-material-semi",
+   "name": "디스플레이-반도체소재부품(심화)(반도체)",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBEA0024",
+     "name": "CMOSIC공정",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1학기",
+     "org": "시스템반도체공학과"
+    },
+    {
+     "code": "HBRQ0014",
+     "name": "반도체패키징(심화)",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    },
+    {
+     "code": "HBRQ0022",
+     "name": "차세대 디스플레이 공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "2학기",
+     "org": "디스플레이-반도체소부장융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "energy-production",
+   "name": "에너지생산",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRR0001",
+     "name": "탄소중립개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    },
+    {
+     "code": "HBRR0021",
+     "name": "에너지소재공정",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    },
+    {
+     "code": "HBRR0030",
+     "name": "전기화학기반차세대에너지생산기술",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "energy-storage",
+   "name": "에너지 저장/변환",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 9,
+   "listed_total": 9,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRR0001",
+     "name": "탄소중립개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    },
+    {
+     "code": "HBRR0005",
+     "name": "기초전기화학공학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    },
+    {
+     "code": "HBRR0036",
+     "name": "에너지변환용고분자전해질기술",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "에너지융합전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "natural-profiling",
+   "name": "천연물프로파일링",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 12,
+   "listed_total": 12,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRZ0001",
+     "name": "AMD",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0002",
+     "name": "그린바이오개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0003",
+     "name": "그린바이오기초화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0004",
+     "name": "화장품공학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도",
+   "program": "충남RISE 공유대학"
+  },
+  {
+   "id": "bio-material",
+   "name": "생물소재",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 12,
+   "listed_total": 6,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRZ0001",
+     "name": "AMD",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0002",
+     "name": "그린바이오개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0003",
+     "name": "그린바이오기초화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0005",
+     "name": "생물소재학개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "생물소재마이크로전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도 · 보완: https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=762884 · 학사안내자료_그린바이오 마이크로전공.jpg · 2026학년도",
+   "program": "충남RISE 공유대학",
+   "note": "목록 학점계는 6학점이나 그린바이오 안내자료는 4과목 각 3학점·모든 교과목 이수로 표기. 12로 기록, 확인 필요"
+  },
+  {
+   "id": "bio-data",
+   "name": "바이오데이터",
+   "campus": "천안",
+   "type": "융합연계형",
+   "unit": "교육단위",
+   "dept": "RISE사업추진팀",
+   "credits": 12,
+   "listed_total": 6,
+   "rule": "all",
+   "courses": [
+    {
+     "code": "HBRZ0001",
+     "name": "AMD",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0002",
+     "name": "그린바이오개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0003",
+     "name": "그린바이오기초화학",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "천연물프로파일링마이크로전공"
+    },
+    {
+     "code": "HBRZ0006",
+     "name": "바이오빅데이터개론",
+     "cr": 3,
+     "req": "",
+     "gb": "1전선",
+     "sem": "1, 2학기",
+     "org": "바이오데이터마이크로전공"
+    }
+   ],
+   "src": "https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=765050 · 붙임4-2026-1학기 다전공, 부전공, 마이크로전공 모집 학과.xlsx [마이크로전공표] (2026.3.4 기준) · 대조: https://www.smu.ac.kr/board/haksa/microcurri.do?mode=view&articleNo=762088 · 2026학년도 마이크로전공 현황.pdf · 2026학년도 · 보완: https://www.smu.ac.kr/kor/life/notice.do?mode=view&articleNo=762884 · 학사안내자료_그린바이오 마이크로전공.jpg · 2026학년도",
+   "program": "충남RISE 공유대학",
+   "note": "목록 학점계는 6학점이나 그린바이오 안내자료는 4과목 각 3학점·모든 교과목 이수로 표기. 12로 기록, 확인 필요"
+  }
+ ]
+}

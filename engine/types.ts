@@ -3,7 +3,8 @@
 
 export type Term = string;            // '2025-1' '2025-2' '2025-S'(여름) '2025-W'(겨울)
 export type Role = 'primary' | 'second' | 'minor' | 'micro' | 'track'; // micro: 마이크로전공 묶음(2개 이상이면 다·부·심화전공을 대신하는 학교)
-export type With = 'single' | 'double' | 'minor' | 'micro';
+// single = 심화전공(옛 단일전공), exempt = 전공제도 이수 의무 제외(편입·외국인특별전형·Profile.exempt). 다전공·부전공·마이크로전공을 고르면 그쪽이 먼저
+export type With = 'single' | 'double' | 'minor' | 'micro' | 'exempt';
 
 /* ── 학생 입력 ── */
 export interface Enrollment {
@@ -23,8 +24,10 @@ export interface Profile {
   univ: string;
   catalogYear: number;                // 요건 연도. 기본 = 입학년도
   programs: { id: string; role: Role }[];
-  admission: 'freshman' | 'transfer';
+  admission: 'freshman' | 'transfer' | 'bachelor'; // bachelor: 학사편입
   student: 'domestic' | 'international';
+  exempt?: true;                      // 전공제도 이수 의무 제외 대상(공학인증·체육특기자 등). 편입·외국인특별전형은 표시하지 않아도 제외
+  own?: Catalog;                      // 학생이 넣은 교육과정(자기설계융합전공 이수계획표). id가 같은 프로그램의 교육과정에 더한다
   startSemester: number;              // 1, 3학년 편입이면 5
   startTerm?: Term;                   // 첫 학기(기본 catalogYear-1). 편입·복학이면 실제 첫 학기
   now?: Term;                         // 현재 학기(추천이 쓴다. 이 학기는 수강신청이 끝난 것으로 본다)
@@ -54,7 +57,7 @@ export interface Univ {
   nameStrip: string[];                  // 과목명 비교 전에 지울 정규식
   codeTags?: { re: string; tags: string[] }[]; // 학수번호 모양으로 붙이는 태그(예: 3000·4000단위 → 'level.34'). V2 연세대에서 추가
   equiv: Equiv[];
-  programs: Record<string, { name: string; college?: string; catalogs: string[] }>; // 과목을 찾을 카탈로그(앞이 우선), college: 단과대(화면에서 학과 고르기용)
+  programs: Record<string, { name: string; college?: string; catalogs: string[]; kind?: string }>; // 과목을 찾을 카탈로그(앞이 우선), college: 단과대(화면에서 학과 고르기용), kind: 과목 배정 종류(policy.assign.by 키, 없으면 역할)
   blocks: Record<string, Rule>;
   sets: ReqSet[];
   policy: Policy;
@@ -65,7 +68,7 @@ export type N = number | `$${string}`;
 export type Rule = { id?: string; label?: string; hint?: string; w?: number } & ( // hint: 학생에게 보이는 설명(입력값을 어디서 확인하는지 등)
   | { credits: N; of: Filter; capped?: { of: Filter; max: N }[] }   // 학점 합 ≥. 상한을 넘는 학점은 뺀다
   | { courses: N; of: Filter }                                      // 과목 수 ≥ (lump 제외)
-  | { all: Rule[]; need?: N }                                       // need 없으면 전부, 있으면 n개 이상
+  | { all: Rule[]; need?: N; disjoint?: true }                      // need 없으면 전부, 있으면 n개 이상. disjoint: 충족한 묶음끼리 같은 과목을 쓰지 않는 것만 센다(한 과목은 한 곳에만)
   | { check: string; min?: N; list?: string[] }                     // Profile.checks 값 ≥ min (true = 1). list: 인정되는 프로그램 이름(Profile.done과 맞춰 센다)
   | { use: string; vars?: Record<string, number> }                  // 공유 블록 + 숫자
 );
@@ -83,6 +86,10 @@ export interface Policy {
   intlOnly: Filter[];                 // 유학생에게만 추천
   transferUnknown?: string[];         // 편입생 전용 세트가 없을 때, 신입 세트에서 편입생에게 같은지 모르는 묶음 id(예: 교양 필수 영역) → 확인 필요(ok:null)로 바꾼다
   gpa?: { check: string; scale: Record<string, number> }; // 성적표 성적 → 평점. 성적이 있으면 평점평균을 계산해 checks[check]에 넣는다(P·NP 등 척도에 없는 성적은 뺀다)
+  // 다전공·부전공 과목 배정: tag가 붙은 과목을 학생 프로그램 하나에만 배정하고 '@프로그램id' 태그를 붙인다(한 과목은 한 곳에만).
+  // by[종류]: 그 종류가 받는 이수구분 태그(tag)와 추천 과목에 붙일 이수구분(cat). 종류 = 프로그램 kind, 없으면 역할
+  assign?: { tag: string; by: Record<string, { tag: string; cat: string }> };
+  extra?: { when: When; use: string; programs?: string[] }[]; // 주전공 세트에 덧붙이는 블록(예: 외국인특별전형 한국어졸업인증). programs: 이 학과들만
 }
 
 export interface Result {
