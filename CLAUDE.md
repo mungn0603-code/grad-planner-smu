@@ -6,7 +6,9 @@
 
 - `main`은 배포, `dev`는 기본 브랜치다. 둘 다 PR로만 바꾼다.
 - 작업 브랜치는 `dev`에서 딴다: `feature/` `fix/` `refactor/` `docs/` `chore/` + 파트 번호 + 짧은 이름 (예: `feature/P2-engine-core`).
-- PR 본문은 `무엇을 / 왜 / 확인 방법`. merge commit으로 합친다.
+- 브랜치를 따기 전에 이슈를 만든다: `무엇을 / 왜 / 완료 기준 / 기록`. 작업 중 결정·측정 결과는 그 이슈에 댓글로 남긴다 ([ADR 0022](docs/decisions/0022-branch-records.md)).
+- PR 본문 첫 줄은 `Closes #이슈`, 그다음 `무엇을 / 왜 / 확인 방법`. merge commit으로 합친다.
+- 병합해도 작업 브랜치를 지우지 않는다.
 
 ## 커밋
 

@@ -37,8 +37,9 @@
 | [0017](0017-what-if-mode-category.md) | 다전공·이수구분 가정해 보기, 이수구분 정정 코드(2전선·1부선·MD 등) 대응, 마이크로전공 2개 대체 판정(천안 52개) | 제안 |
 | [0018](0018-user-facing-copy.md) | 사용자 화면에는 결과와 이용 정보만, 개발 과정·근거는 문서에 | 채택 |
 | [0019](0019-stageshow-ui-elements.md) | stageshow 스킬에서 남은 학점 숫자 굴리기·스켈레톤만 가져옴, 홈 데모 애니메이션은 보류 | 제안 |
-| [0020](0020-submission-repo-and-workflow.md) | 제출용 새 공개 저장소로 파트별 이식, main·dev 보호, PR·커밋 규칙 | 채택 |
+| [0020](0020-submission-repo-and-workflow.md) | 제출용 새 공개 저장소로 파트별 이식, main·dev 보호, PR·커밋 규칙 | 채택, 일부 대체됨(→ 0022) |
 | [0021](0021-stack-review.md) | 기술 스택 재검토: 웹 + PWA, 이후 Capacitor 앱 포장, 계산은 기기 안, React + Vite, Vercel + Supabase(무료) | 채택 |
+| [0022](0022-branch-records.md) | 브랜치마다 이슈로 무슨 기능·작업인지 기록하고, 병합해도 브랜치를 남긴다 | 채택 |
 
 > 0001~0019는 첫 버전 저장소(`grad-planner`, 비공개)에서 내린 결정을 그대로 옮긴 것이다. 본문 속 파일 경로는 이식하며 바뀔 수 있다.
 
