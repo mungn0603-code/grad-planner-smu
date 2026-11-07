@@ -6,6 +6,11 @@
     "node": ">=24"
   },
   "scripts": {
-    "test": "node --test \"engine/*.test.ts\" \"src/*.test.ts\""
+    "test": "node --test \"engine/*.test.ts\" \"src/*.test.ts\"",
+    "typecheck": "tsc",
+    "oracle": "node oracle/harness.mjs"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
   }
 }
