@@ -6,3 +6,4 @@ oracle/expected/
 .env.*
 !.env.example
 .vercel/
+CLAUDE.md
