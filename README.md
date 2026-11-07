@@ -16,6 +16,28 @@
 
 > 상태: 상명대학교 천안캠퍼스(2022~2026학번) 대상. 첫 버전의 엔진과 규칙을 이 저장소로 파트별로 옮기는 중입니다.
 
+## 시작하기
+
+필요한 것: Node.js 24 이상 (TypeScript를 Node에서 바로 실행합니다)
+
+```bash
+git clone https://github.com/mungn0603-code/grad-planner-smu.git
+cd grad-planner-smu
+npm ci
+npm test
+```
+
+## 환경 변수
+
+서버 함수(`api/`)에서만 씁니다. 값은 Vercel 환경 변수(배포)나 `.env`(개발)에 넣고 저장소에는 올리지 않습니다.
+
+| 이름 | 필수 | 뜻 |
+|---|---|---|
+| `SUPABASE_URL` | 예 | Supabase 프로젝트 URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | 예 | Supabase 비밀 키(service role). 서버 함수에서만 씁니다 |
+| `SMUL_KEY_SECRET` | 예 | 학번·IP를 HMAC으로 가리는 임의의 긴 문자열 |
+| `VITE_REPORT_URL` | 아니요 | 졸업요건 오류 신고를 받을 주소. 없으면 신고 문구를 클립보드에 복사합니다 |
+
 ## 문서
 
 | 문서 | 내용 |
@@ -30,7 +52,7 @@
 | 파트 | 내용 | 상태 |
 |---|---|---|
 | P0 | 명세서·작업 규칙·결정 기록·기술 스택 결정 | 완료 |
-| P1 | 개발 환경·CI | 대기 |
+| P1 | 개발 환경·CI | 완료 |
 | P2 | 졸업요건 판정 엔진 | 대기 |
 | P3 | 천안캠퍼스 데이터 | 대기 |
 | P4 | 수강 계획 추천 | 대기 |
