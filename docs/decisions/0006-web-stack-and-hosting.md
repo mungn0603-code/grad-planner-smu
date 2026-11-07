@@ -1,6 +1,6 @@
 # 0006. Vite + React + TypeScript, 라이브러리 최소화, Vercel 서울 리전 + 보안 헤더
 
-- 상태: 채택 (2026-10-20 웹앱, 2026-10-21 Vercel 함수 추가, 2026-10-27 사용자 확정 "수파베이스+버셀로 간다", 프로젝트 이름 `grad-planner`)
+- 상태: 채택 (2026-10-20 웹앱, 2026-10-21 Vercel 함수 추가, 2026-10-27 사용자 확정 "수파베이스+버셀로 간다", 프로젝트 이름 `grad-planner`). 2026-11-08 재검토 후 유지, 앱 포장 추가(→ [0021](0021-stack-review.md))
 - 관련: `package.json`, `vite.config.ts`, `vercel.json`, `src/`, [`ARCHITECTURE.md` §2·§10](../ARCHITECTURE.md)
 
 ## 맥락
