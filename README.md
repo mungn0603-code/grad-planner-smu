@@ -24,8 +24,12 @@
 git clone https://github.com/mungn0603-code/grad-planner-smu.git
 cd grad-planner-smu
 npm ci
-npm test
+npm run oracle      # 첫 앱으로 오라클 정답을 만든다(V1 테스트가 씀, git에는 넣지 않음)
+npm run typecheck   # 타입 검사
+npm test            # 엔진 테스트
 ```
+
+오라클은 상명프렌즈 첫 앱(V44)이 낸 판정 결과입니다. 새 엔진이 같은 사례에서 같은 결과를 내는지 비교해 이식이 맞는지 확인합니다([ADR 0004](docs/decisions/0004-oracle-verification.md)).
 
 ## 환경 변수
 
@@ -53,8 +57,8 @@ npm test
 |---|---|---|
 | P0 | 명세서·작업 규칙·결정 기록·기술 스택 결정 | 완료 |
 | P1 | 개발 환경·CI | 완료 |
-| P2 | 졸업요건 판정 엔진 | 대기 |
-| P3 | 천안캠퍼스 데이터 | 대기 |
+| P2 | 졸업요건 판정 엔진·천안캠퍼스 데이터·오라클 | 완료 |
+| P3 | 데이터 변환 도구·다른 대학 데이터 | 대기 |
 | P4 | 수강 계획 추천 | 대기 |
 | P5 | 전공제도 재정의 | 대기 |
 | P6 | 샘물 가져오기 | 대기 |

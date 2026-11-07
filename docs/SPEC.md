@@ -259,9 +259,11 @@
 |---|---|---|---|
 | P0 | `docs/P0-spec` | 이 명세서, README 과제 정의, 작업 규칙, PR 양식, 기존 결정 기록 | dev에 병합 |
 | P1 | `chore/P1-setup` | `package.json`·`.editorconfig`·`.gitattributes`, README 환경 변수 표, 이슈 양식, CI(설치·테스트). `tsconfig`·타입 검사·오라클은 P2, 빌드는 P7에서 더한다 | PR에 CI 체크 표시, main·dev 병합 조건에 CI 추가 |
-| P2 | `feature/P2-engine-core` | 요건 IR·판정기(`types`·`audit`·`check`), 오라클 | V1·V2·V4 통과 |
-| P3 | `feature/P3-data-smu-cheonan` | 천안 데이터(`rules.json`·`sets.csv`·카탈로그)와 변환 도구 | V6~V10 통과 |
-| P4 | `feature/P4-planner` | 정수계획 추천(HiGHS)과 대체 탐욕 | V3·V5 통과 |
+| P2 | `feature/P2-engine-core` | 요건 IR·판정기(`types`·`audit`·`check`), 천안 데이터(`rules.json`·`sets.csv`·카탈로그), 오라클 | 데이터 검사·V1·V6·V8·V9·V10 통과, CI에 타입 검사·오라클 추가 |
+| P3 | `feature/P3-data-etl` | 데이터 변환 도구(ETL)와 원본, 다른 대학 데이터(연세대·충남대)와 공개 자료 조사표 | V2 통과 |
+| P4 | `feature/P4-planner` | 정수계획 추천(HiGHS)과 대체 탐욕 | V3·V4·V5·V7 통과 |
+
+> 파트 경계는 테스트가 무엇에 기대는지로 나눴다. 판정 테스트는 천안 데이터가 있어야 돌고(P2), V2는 다른 대학 데이터(P3), V4·V7은 추천 엔진(P4)을 쓴다.
 | P5 | `feature/P5-major-system` | **전공제도 재정의** (위 명세), 연계·융합 교육과정 데이터 | MJ01~MJ14 통과, ADR |
 | P6 | `feature/P6-smul-import` | 샘물 가져오기 함수를 로그인·변환·제한·차단기로 나눠 옮김 | 샘물 테스트 통과, 응답 형식 변화 없음 |
 | P7 | `feature/P7-web-ui` | 화면을 화면별 파일로 나눠 옮김, 전공제도 계획 화면 | 빌드 통과, 375px·1280px 확인 |

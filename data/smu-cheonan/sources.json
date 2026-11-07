@@ -1,0 +1,12 @@
+{
+ "migratedFrom": "05_학점플래너 V44 (2026-10-12 게시)",
+ "legacy": [
+  "e0b7a097d7f7c6a90170dd056ef80afbef6930aaef7ded4f1fb46c2cd8629108  index.publish.html\r",
+  "25e55fb29589aa0c9c7cf007ece26cd5dba23a46557c0af7df7d7c726944f268  units.json"
+ ],
+ "notes": [
+  "교육과정·SM-CDR·졸업이수학점: 가이드_학사자료(2026-10-07·10-10 수집)",
+  "교양 목록은 2026판만 있음(2023~2025 미공개)",
+  "편입생·유학생 요건 미수집 → 해당 학생은 요건 미확인(ok:null)"
+ ]
+}
