@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>학점플래너 · 상명대 천안</title>
+<!-- 상명대 천안캠 전용 화면 재구성 와이어프레임(상단 메뉴 + 사진 배너 + 흰 본문). 데이터는 자리표시자. 확정 뒤 src/로 옮긴다. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root { --sm: #0E207F; --sm-d: #0a1860; --gold: #8D6E26; --gray: #333B3D; --line: #e3e5ea; --bg: #f5f6f8; --text: #1d2125; --muted: #6b7178;
+  --ok: #1f7a4a; --bad: #d23c3c; --shadow: 0 6px 24px rgba(14,32,127,.10); }
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.6 "Noto Sans KR", system-ui, sans-serif; color: var(--text); background: #fff; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+/* 와이어프레임 화면 전환(실제 앱에는 없음) */
+.wf { position: sticky; top: 0; z-index: 99; height: 36px; display: flex; align-items: center; gap: 4px; padding: 0 12px; background: #222; overflow-x: auto; }
+.wf::before { content: "와이어프레임"; color: #999; font-size: 12px; margin-right: 8px; white-space: nowrap; }
+.wf a { padding: 3px 10px; border-radius: 999px; color: #ddd; font-size: 12px; white-space: nowrap; }
+.wf a:hover { background: #444; }
+.wf a.on { background: #fff; color: #222; font-weight: 700; }
+
+/* 상단 메뉴 */
+nav.top { position: sticky; top: 36px; z-index: 10; background: #f8f9fa; border-bottom: 1px solid var(--line); }
+nav.top .in { max-width: 1080px; margin: 0 auto; height: 64px; display: flex; align-items: center; gap: 24px; padding: 0 20px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--sm); }
+.logo .sig { height: 34px; padding: 0 10px; display: grid; place-items: center; border: 1.5px dashed var(--sm); border-radius: 4px; font-size: 11px; font-weight: 500; }
+.logo b { font-size: 18px; letter-spacing: -.02em; }
+nav.top ul { margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; gap: 22px; font-size: 16px; }
+nav.top li a[aria-current] { color: var(--sm); font-weight: 700; }
+nav.top li.who { padding-left: 22px; border-left: 1px solid var(--line); color: var(--muted); }
+nav.top li.who b { color: var(--sm); }
+
+/* 사진 배너 */
+.hero { position: relative; display: grid; place-items: center; text-align: center; color: #fff; overflow: hidden;
+  background: linear-gradient(rgba(10,24,96,.45), rgba(10,24,96,.55)), var(--photo, linear-gradient(135deg, #5b6fb8, #0E207F)); background-size: cover; background-position: center; }
+.hero.full { height: calc(100dvh - 64px); min-height: 480px; }
+.hero.sub { height: 220px; }
+.hero .ph-note { position: absolute; left: 12px; top: 10px; font-size: 11px; opacity: .7; border: 1px dashed #fff8; padding: 2px 6px; }
+.hero small { display: block; font-size: 20px; opacity: .95; }
+.hero h1 { margin: 4px 0 28px; font-size: 52px; font-weight: 500; letter-spacing: .12em; }
+.hero.sub h1 { font-size: 34px; margin: 0; letter-spacing: 0; font-weight: 700; }
+.hero.sub p { margin: 6px 0 0; opacity: .9; font-size: 14px; }
+.cta { display: inline-block; padding: 12px 36px; background: #313131; color: #fff; font-weight: 700; border: 0; border-radius: 2px; }
+.cta.blue { background: var(--sm); }
+.stat-float { position: absolute; right: 24px; bottom: 24px; background: #fff; color: var(--text); border-radius: 6px; padding: 10px 14px; font-size: 13px; text-align: left; box-shadow: var(--shadow); }
+
+/* 본문 */
+.white { background: var(--bg); padding: 40px 20px 72px; min-height: 50vh; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+.box { background: #fff; border-radius: 10px; box-shadow: var(--shadow); padding: 24px 28px; margin-bottom: 20px; }
+.box h2 { margin: 0 0 16px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.box h2 .sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+.muted { color: var(--muted); } .small { font-size: 13px; }
+
+/* 로그인 카드 */
+.card-login { width: min(420px, 100%); margin: -60px auto 0; position: relative; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.15); border-radius: 6px; overflow: hidden; }
+.card-login .body { padding: 36px 40px 24px; }
+.card-login .logo { justify-content: center; margin-bottom: 26px; }
+.in-f { display: block; width: 100%; height: 44px; margin-bottom: 10px; padding: 0 12px; border: 1px solid #d6d9de; border-radius: 4px; font: inherit; }
+.two { display: grid; grid-template-columns: 1fr 1fr; }
+.two button { height: 52px; border: 0; font-weight: 700; }
+.two .a { background: var(--sm); color: #fff; } .two .b { background: #eceef1; color: var(--gray); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; margin: 6px 0 14px; }
+.terms { height: 150px; overflow: auto; border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; font-size: 13px; background: #fafbfc; }
+.steps-h { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; font-size: 13px; }
+.steps-h span { padding: 4px 12px; border-radius: 999px; background: #eceef1; color: var(--muted); }
+.steps-h span.on { background: var(--sm); color: #fff; }
+
+/* 결과 */
+.res-main { display: grid; grid-template-columns: repeat(6, 1fr) 140px; align-items: center; gap: 8px; text-align: center; }
+.num { font-size: 30px; font-weight: 700; color: var(--sm); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.num.red { color: var(--bad); } .num.line { border-left: 1px solid var(--line); }
+.lbl { font-size: 13px; color: var(--muted); }
+.pie { width: 120px; height: 120px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--sm) 0 68%, #e8ebf2 68% 100%); }
+.pie i { width: 88px; height: 88px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-style: normal; font-weight: 700; font-size: 22px; color: var(--sm); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.rc { background: #fff; border-radius: 10px; box-shadow: var(--shadow); padding: 18px 20px; border-top: 4px solid var(--sm); display: flex; flex-direction: column; gap: 6px; }
+.rc.bad { border-top-color: var(--bad); } .rc.ok { border-top-color: var(--ok); }
+.rc b { font-size: 16px; }
+.rc .v { font-size: 22px; font-weight: 700; }
+.rc .st { font-size: 13px; font-weight: 700; } .rc.bad .st { color: var(--bad); } .rc.ok .st { color: var(--ok); }
+.rc button { align-self: flex-start; margin-top: 4px; padding: 4px 12px; border: 1px solid var(--line); background: #fff; border-radius: 4px; font-size: 13px; }
+.bar { height: 6px; background: #e8ebf2; border-radius: 3px; overflow: hidden; } .bar i { display: block; height: 100%; background: var(--sm); }
+.rc.bad .bar i { background: var(--bad); } .rc.ok .bar i { background: var(--ok); }
+
+/* 표 */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { background: #f1f3f6; font-weight: 500; color: var(--gray); padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: center; }
+td { padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: center; }
+td.l { text-align: left; }
+.scroll-x { overflow-x: auto; }
+
+/* 모달 */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; place-items: center; z-index: 50; padding: 16px; }
+.modal:target { display: grid; }
+.modal .m { width: min(720px, 100%); max-height: 85dvh; overflow: auto; background: #fff; border-radius: 10px; }
+.modal .mh { display: flex; justify-content: space-between; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; }
+.modal .mb { padding: 18px 22px 24px; }
+.explain { margin-top: 14px; padding: 12px 14px; background: #fff5f5; color: var(--bad); border-radius: 6px; font-size: 14px; }
+
+/* 추천 */
+.toolbar { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; font-size: 14px; }
+.terms-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.term { background: #fff; border-radius: 10px; box-shadow: var(--shadow); padding: 16px; }
+.term header { display: flex; justify-content: space-between; margin-bottom: 10px; } .term header span { color: var(--muted); font-size: 13px; }
+.course { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; font-size: 14px; }
+.course small { display: block; color: var(--muted); font-size: 12px; }
+.course.fixed { border-style: dashed; color: var(--muted); }
+
+/* 마이페이지 */
+.my { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
+.info td { text-align: left; } .info td:first-child { color: var(--muted); width: 90px; }
+.sec { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.btn { padding: 6px 14px; border: 1px solid var(--line); background: #fff; border-radius: 4px; font-size: 13px; }
+.btn.p { background: var(--sm); color: #fff; border-color: var(--sm); }
+.sw { display: inline-flex; align-items: center; gap: 8px; }
+.sw i { width: 36px; height: 20px; border-radius: 999px; background: #cfd3da; position: relative; } .sw i::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; }
+.sw.on i { background: var(--sm); } .sw.on i::after { left: 18px; }
+
+footer { background: #2b2f33; color: #aab; font-size: 12px; text-align: center; padding: 22px 16px; }
+footer a { margin: 0 6px; }
+
+section.pg { display: none; } section.pg:target, section.pg:has(:target) { display: block; }
+body:not(:has(:target)) #home { display: block; }
+
+@media (max-width: 760px) {
+  nav.top .in { height: auto; flex-wrap: wrap; row-gap: 6px; padding: 10px 16px; }
+  nav.top ul { width: 100%; margin: 0; gap: 14px; font-size: 14px; overflow-x: auto; white-space: nowrap; }
+  nav.top li.who { padding-left: 14px; }
+  nav.top li.who b { color: var(--sm); }
+  .hero h1 { font-size: 34px; } .stat-float { display: none; }
+  .res-main { grid-template-columns: repeat(3, 1fr); } .res-main .pie { grid-column: 1 / -1; justify-self: center; }
+  .num { font-size: 24px; } .num.line { border-left: 0; }
+  .my { grid-template-columns: 1fr; }
+  .box { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wf"><a href="#home">홈</a><a href="#login">로그인</a><a href="#join">회원가입</a><a href="#result">졸업요건</a><a href="#plan">학기추천</a><a href="#my">마이페이지</a></div>
+<script>
+  // 지금 보고 있는 화면 버튼을 표시한다
+  const mark = () => { const h = location.hash.split('-')[0] || '#home';
+    document.querySelectorAll('.wf a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === (h === '#m' ? '#result' : h))); };
+  addEventListener('hashchange', mark); mark();
+</script>
+
+<!-- ───────── 홈(로그아웃 상태) ───────── -->
+<section class="pg" id="home">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#terms">이용안내</a></li><li><a href="#login">로그인</a></li><li><a href="#join">회원가입</a></li></ul>
+  </div></nav>
+  <div class="hero full"><span class="ph-note">천안캠퍼스 사진(학교 홈페이지 자료)</span>
+    <div><small>상명대 천안캠퍼스 졸업요건 검사·학기 추천</small><h1>학점플래너</h1><a class="cta" href="#login">검사하기</a></div>
+    <div class="stat-float"><b>가입 학생 1,234명</b></div>
+  </div>
+  <footer>개인정보처리방침 | 이용약관 | 오류 신고 · © 2026 학점플래너</footer>
+</section>
+
+<!-- ───────── 로그인 ───────── -->
+<section class="pg" id="login">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#terms">이용안내</a></li><li><a href="#login" aria-current="page">로그인</a></li><li><a href="#join">회원가입</a></li></ul>
+  </div></nav>
+  <div class="hero sub"><div><h1>로그인</h1><p>학번과 학점플래너 비밀번호를 입력해 주세요.</p></div></div>
+  <div class="white">
+    <div class="card-login"><div class="body">
+      <div class="logo"><span class="sig">상명대 시그니처</span><b>학점플래너</b></div>
+      <input class="in-f" placeholder="학번">
+      <input class="in-f" type="password" placeholder="비밀번호">
+      <p class="small muted" style="text-align:center;margin:8px 0 0">비밀번호를 잊으셨나요? (샘물 인증으로 재설정)</p>
+    </div>
+    <div class="two"><button class="a">로그인</button><button class="b" onclick="location.hash='join'">회원가입</button></div></div>
+  </div>
+</section>
+
+<!-- ───────── 회원가입: 약관 → 샘물 인증 → 비밀번호 ───────── -->
+<section class="pg" id="join">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#terms">이용안내</a></li><li><a href="#login">로그인</a></li><li><a href="#join" aria-current="page">회원가입</a></li></ul>
+  </div></nav>
+  <div class="hero sub"><div><h1>회원가입</h1><p>샘물로 재학생 인증을 한 번 하면 학과·학번이 자동으로 채워집니다.</p></div></div>
+  <div class="white"><div class="wrap" style="max-width:560px">
+    <div class="steps-h"><span class="on">1 약관 동의</span><span class="on">2 샘물 인증</span><span>3 비밀번호 설정</span></div>
+    <div class="box">
+      <h2>이용약관 · 개인정보 수집 동의</h2>
+      <div class="terms">1. 대상: 상명대학교 천안캠퍼스 재학생 (요건 데이터 2022~2026학번)<br>2. 수집: 학번·이름·학과(다전공)·이수과목(학수번호·과목명·이수구분·학점·성적·학기)<br>3. 샘물 비밀번호는 인증과 과목 가져오기에만 쓰고 저장하지 않습니다.<br>4. 보관: 탈퇴 시 즉시 삭제 …</div>
+      <label class="check"><input type="checkbox"> 위 내용에 동의합니다.</label>
+      <h2 style="margin-top:22px">샘물 재학생 인증</h2>
+      <input class="in-f" placeholder="학번 (9자리)"><input class="in-f" type="password" placeholder="샘물 비밀번호">
+      <p class="small muted" style="margin:0 0 12px">인증하는 동안 다른 기기의 샘물 로그인은 풀립니다. 점검 시간(12~13시, 18~19시)에는 안 될 수 있습니다.</p>
+      <button class="cta blue" style="width:100%">로그인</button>
+    </div>
+    <div class="box">
+      <h2>인증 결과 <span class="sub">— 3단계 미리보기</span></h2>
+      <table class="info"><tr><td>학번</td><td>202312345</td></tr><tr><td>이름</td><td>홍길동</td></tr><tr><td>학과</td><td>소프트웨어학과</td></tr><tr><td>입학년도</td><td>2023 (학번에서)</td></tr><tr><td>기이수</td><td>48과목 가져옴</td></tr></table>
+      <input class="in-f" type="password" placeholder="학점플래너 비밀번호 (샘물과 다르게)" style="margin-top:14px">
+      <input class="in-f" type="password" placeholder="비밀번호 확인">
+      <button class="cta blue" style="width:100%">가입하고 결과 보기</button>
+    </div>
+  </div></div>
+</section>
+
+<!-- ───────── 졸업요건 결과 ───────── -->
+<section class="pg" id="result">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#result" aria-current="page">졸업요건</a></li><li><a href="#plan">학기추천</a></li><li><a href="#my">마이페이지</a></li><li class="who"><a href="#my"><b>홍길동</b>님</a></li><li><a href="#home">로그아웃</a></li></ul>
+  </div></nav>
+  <div class="hero sub"><div><h1>졸업요건 검사</h1><p>2023학번 소프트웨어학과 · 단일전공 기준 · 2026-2학기 수강 중 과목 포함</p></div></div>
+  <div class="white"><div class="wrap">
+    <div class="box">
+      <h2>이수학점 <span class="sub">202312345 홍길동</span></h2>
+      <div class="res-main">
+        <div><div class="num">130</div><div class="lbl">졸업 기준</div></div>
+        <div><div class="num line">88</div><div class="lbl">총 이수</div></div>
+        <div><div class="num">45</div><div class="lbl">전공</div></div>
+        <div><div class="num">30</div><div class="lbl">교양</div></div>
+        <div><div class="num line">13</div><div class="lbl">일반</div></div>
+        <div><div class="num red">42</div><div class="lbl">남은 학점</div></div>
+        <div class="pie"><i>68%</i></div>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="rc bad"><b>전공</b><span class="v">45 / 75</span><div class="bar"><i style="width:60%"></i></div><span class="st">30학점 부족</span><a href="#m-major"><button>자세히</button></a></div>
+      <div class="rc bad"><b>전공심화</b><span class="v">9 / 15</span><div class="bar"><i style="width:60%"></i></div><span class="st">6학점 부족</span><button>자세히</button></div>
+      <div class="rc ok"><b>교양</b><span class="v">33 / 33</span><div class="bar"><i style="width:100%"></i></div><span class="st">충족</span><button>자세히</button></div>
+      <div class="rc ok"><b>기초교양</b><span class="v">4 / 4 영역</span><div class="bar"><i style="width:100%"></i></div><span class="st">충족</span><button>자세히</button></div>
+      <div class="rc bad"><b>상명핵심역량교양</b><span class="v">1 / 2 과목</span><div class="bar"><i style="width:50%"></i></div><span class="st">1과목 부족</span><button>자세히</button></div>
+      <div class="rc bad"><b>균형교양</b><span class="v">2 / 3 영역</span><div class="bar"><i style="width:66%"></i></div><span class="st">1영역 부족</span><button>자세히</button></div>
+      <div class="rc"><b>평점평균 1.7 이상</b><span class="v">3.42</span><span class="st" style="color:var(--ok)">충족</span></div>
+      <div class="rc"><b>포트폴리오 졸업인증</b><span class="v">미입력</span><span class="st muted">마이페이지에서 입력</span></div>
+    </div>
+    <p class="small muted" style="margin-top:18px">근거: 2023 상명대 천안 교육과정 편람 · 요건이 학교 안내와 다르면 카드의 ⚑로 신고</p>
+  </div></div>
+  <div class="modal" id="m-major"><div class="m">
+    <div class="mh"><b>전공 · 45 / 75학점</b><a href="#result">✕</a></div>
+    <div class="mb">
+      <div class="scroll-x"><table><thead><tr><th>학년</th><th>학기</th><th>학수번호</th><th>과목명</th><th>이수구분</th><th>학점</th><th>상태</th></tr></thead><tbody>
+        <tr><td>3</td><td>1</td><td>HAEA0012</td><td class="l">운영체제</td><td>1전심</td><td>3</td><td style="color:var(--bad)">미이수</td></tr>
+        <tr><td>3</td><td>2</td><td>HAEA0020</td><td class="l">데이터베이스</td><td>1전심</td><td>3</td><td style="color:var(--bad)">미이수</td></tr>
+        <tr><td>2</td><td>1</td><td>HAEA0004</td><td class="l">자료구조</td><td>1전기</td><td>3</td><td style="color:var(--ok)">이수</td></tr>
+      </tbody></table></div>
+      <div class="explain">전공 30학점이 부족합니다. 위 미이수 과목 중에서 채우거나 학기추천을 확인하세요.</div>
+    </div></div></div>
+</section>
+
+<!-- ───────── 학기 추천 ───────── -->
+<section class="pg" id="plan">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#result">졸업요건</a></li><li><a href="#plan" aria-current="page">학기추천</a></li><li><a href="#my">마이페이지</a></li><li class="who"><a href="#my"><b>홍길동</b>님</a></li><li><a href="#home">로그아웃</a></li></ul>
+  </div></nav>
+  <div class="hero sub"><div><h1>학기 추천</h1><p>남은 학기에 무엇을 들으면 졸업요건을 채우는지 짜 드립니다.</p></div></div>
+  <div class="white"><div class="wrap">
+    <div class="toolbar"><span class="sw"><i></i>계절학기 포함</span><span class="sw"><i></i>다음 학기 초과 신청</span><span class="muted small" style="margin-left:auto">최적해 · 120ms</span></div>
+    <div class="terms-g">
+      <div class="term"><header><b>2026-2</b><span>18 / 18학점</span></header><div class="course fixed">컴퓨터네트워크 · 3<small>수강 중</small></div><div class="course">운영체제 · 3<small>전공심화</small></div><div class="course">균형교양(자연) · 3<small>균형교양</small></div></div>
+      <div class="term"><header><b>2027-1</b><span>18 / 18학점</span></header><div class="course">데이터베이스 · 3<small>전공심화</small></div><div class="course">캡스톤디자인 · 3<small>전공</small></div></div>
+      <div class="term"><header><b>2027-2</b><span>6 / 18학점</span></header><div class="course">졸업프로젝트 · 3<small>전공</small></div></div>
+    </div>
+    <div class="box" style="margin-top:20px;border-left:4px solid var(--ok)">이 계획대로 들으면 졸업요건을 모두 채웁니다.</div>
+  </div></div>
+</section>
+
+<!-- ───────── 마이페이지 ───────── -->
+<section class="pg" id="my">
+  <nav class="top"><div class="in">
+    <a class="logo" href="#home"><span class="sig">상명대 시그니처</span><b>학점플래너</b></a>
+    <ul><li><a href="#result">졸업요건</a></li><li><a href="#plan">학기추천</a></li><li><a href="#my" aria-current="page">마이페이지</a></li><li class="who"><a href="#my"><b>홍길동</b>님</a></li><li><a href="#home">로그아웃</a></li></ul>
+  </div></nav>
+  <div class="hero sub"><div><h1>마이페이지</h1><p><a class="cta" href="#result" style="padding:8px 22px;margin-top:10px">졸업요건 검사하기</a></p></div></div>
+  <div class="white"><div class="wrap my">
+    <div class="box">
+      <h2>내 정보</h2>
+      <table class="info"><tr><td>학번</td><td>202312345</td></tr><tr><td>이름</td><td>홍길동</td></tr><tr><td>학과</td><td>소프트웨어학과</td></tr><tr><td>이수 형태</td><td>단일전공</td></tr><tr><td>현재 학기</td><td>2026-2</td></tr></table>
+      <div class="sec"><span>학적 바꾸기 <small class="muted">(편입·유학생·휴학)</small></span><button class="btn">수정</button></div>
+      <div class="sec"><span>직접 입력 항목 <small class="muted">(포트폴리오 인증 등 2개)</small></span><button class="btn">입력</button></div>
+      <div class="sec"><span>비밀번호 변경</span><button class="btn">변경하기</button></div>
+      <div class="sec"><span style="color:var(--bad)">회원 탈퇴</span><button class="btn">탈퇴하기</button></div>
+    </div>
+    <div class="box">
+      <h2>기이수 과목 <span class="sub">48과목 · 마지막 가져오기 2026-10-21</span></h2>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><button class="btn p">샘물에서 다시 가져오기</button><button class="btn">과목 추가</button></div>
+      <div class="scroll-x"><table><thead><tr><th>학기</th><th>학수번호</th><th>과목명</th><th>이수구분</th><th>학점</th><th>성적</th><th></th></tr></thead><tbody>
+        <tr><td>2023-1</td><td>HAEA0001</td><td class="l">컴퓨터개론</td><td>1전기</td><td>3</td><td>A+</td><td>✕</td></tr>
+        <tr><td>2023-1</td><td>HBAB0010</td><td class="l">사고와표현</td><td>교필</td><td>3</td><td>B+</td><td>✕</td></tr>
+        <tr><td>2026-2</td><td>HAEA0031</td><td class="l">컴퓨터네트워크</td><td>1전심</td><td>3</td><td>수강중</td><td>✕</td></tr>
+      </tbody></table></div>
+    </div>
+  </div></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>학점플래너 와이어프레임</title>
+<!-- 웹앱 MVP 와이어프레임(의존성 없음). 레이아웃·사이드바·전환 애니메이션을 확정한 뒤 src/ React로 옮긴다. 데이터는 자리표시자. -->
+<style>
+:root {
+  --bg: #fafaf8; --panel: #f2f1ed; --surface: #fff; --line: #e3e1db; --text: #1f1e1c; --muted: #77746c;
+  --hover: rgba(0,0,0,.045); --active: rgba(0,0,0,.075); --accent: #2f2e2b; --on-accent: #fff;
+  --ok: #2f7d4f; --bad: #b4472f; --warn: #9a7410; --shadow: 0 12px 40px rgba(0,0,0,.14);
+  --ease: cubic-bezier(.32,.72,0,1); --dur: .34s;
+  --sb-w: 264px; --sb-rail: 60px;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #1c1b1a; --panel: #161514; --surface: #242321; --line: #34322f; --text: #ecebe7; --muted: #9b978e;
+  --hover: rgba(255,255,255,.05); --active: rgba(255,255,255,.09); --accent: #ecebe7; --on-accent: #1c1b1a;
+  --ok: #6cc08e; --bad: #e58a72; --warn: #d9b04a; --shadow: 0 12px 40px rgba(0,0,0,.5); color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1b1a; --panel: #161514; --surface: #242321; --line: #34322f; --text: #ecebe7; --muted: #9b978e;
+    --hover: rgba(255,255,255,.05); --active: rgba(255,255,255,.09); --accent: #ecebe7; --on-accent: #1c1b1a;
+    --ok: #6cc08e; --bad: #e58a72; --warn: #d9b04a; --shadow: 0 12px 40px rgba(0,0,0,.5); color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { interpolate-size: allow-keywords; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Pretendard", system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; -webkit-font-smoothing: antialiased; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── 뼈대 ── */
+.app { display: flex; height: 100dvh; overflow: hidden; }
+.app.no-anim * { transition: none !important; }
+
+/* ── 사이드바: 데스크톱은 펼침 ↔ 아이콘 레일, 모바일은 서랍 ── */
+.sb { flex: none; width: var(--sb-w); background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden;
+  transition: width var(--dur) var(--ease); }
+.app.rail .sb { width: var(--sb-rail); }
+.label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .2s var(--ease), transform var(--dur) var(--ease); }
+.app.rail .sb .label { opacity: 0; transform: translateX(-6px); pointer-events: none; }
+.sb-head { display: flex; align-items: center; gap: 6px; height: 56px; padding: 0 8px; }
+.brand { font-weight: 650; letter-spacing: -.01em; }
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 38px; border: 0; border-radius: 10px; background: none; color: var(--muted);
+  transition: background .15s, color .15s; }
+.icon-btn:hover { background: var(--hover); color: var(--text); }
+.icon-btn:active { transform: scale(.96); }
+
+.nav { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 4px 0; }
+.ind { position: absolute; top: 0; left: 8px; right: 8px; height: 38px; border-radius: 10px; background: var(--active); pointer-events: none;
+  transition: transform var(--dur) var(--ease), height var(--dur) var(--ease); }
+.item { position: relative; display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 12px; margin: 0 8px; border: 0; border-radius: 10px;
+  background: none; color: var(--muted); text-decoration: none; text-align: left; transition: background .15s, color .15s; }
+.item:hover { background: var(--hover); color: var(--text); }
+.item[aria-current="page"] { color: var(--text); font-weight: 600; }
+.item[aria-current="page"]:hover { background: none; }
+.sec { margin: 18px 20px 6px; font-size: 12px; color: var(--muted); }
+
+.who { display: flex; align-items: center; gap: 10px; margin: 8px; padding: 6px; border-radius: 12px; border: 0; background: none; color: inherit; text-decoration: none; text-align: left; transition: background .15s; }
+.who:hover { background: var(--hover); }
+.avatar { width: 32px; height: 32px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 600; }
+.who small { display: block; color: var(--muted); font-size: 12px; }
+.sb-foot { margin-top: auto; padding: 8px 0 12px; border-top: 1px solid var(--line); }
+
+/* ── 본문 ── */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.top { height: 56px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 20px; border-bottom: 1px solid var(--line); }
+.top h1 { margin: 0; font-size: 15px; font-weight: 600; }
+.top .ctx { margin-left: auto; color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.menu-btn { display: none; }
+.content { flex: 1; overflow: auto; padding: 28px 32px 64px; }
+.page { max-width: 880px; margin: 0 auto; animation: page-in .42s var(--ease) both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(10px); } }
+.page > * { animation: page-in .5s var(--ease) both; }
+.page > *:nth-child(2) { animation-delay: .04s; } .page > *:nth-child(3) { animation-delay: .08s; } .page > *:nth-child(4) { animation-delay: .12s; }
+.page h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.02em; }
+.lead { margin: 0 0 24px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+.card h3 { margin: 0 0 12px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+.field select, .field input { height: 38px; padding: 0 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); transition: border-color .15s, box-shadow .15s; }
+.field select:focus, .field input:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--active); }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.btn { height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); transition: background .15s, transform .1s; }
+.btn:hover { background: var(--hover); }
+.btn:active { transform: scale(.97); }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.ph { background: repeating-linear-gradient(-45deg, var(--hover) 0 6px, transparent 6px 12px); border: 1px dashed var(--line); border-radius: 10px; color: var(--muted);
+  display: grid; place-items: center; min-height: 72px; font-size: 13px; text-align: center; padding: 12px; }
+.muted { color: var(--muted); }
+
+/* 세그먼트(미끄러지는 썸) */
+.seg { position: relative; display: inline-flex; padding: 3px; border-radius: 11px; background: var(--hover); margin-bottom: 14px; max-width: 100%; overflow-x: auto; }
+.seg button { position: relative; z-index: 1; height: 32px; padding: 0 14px; border: 0; background: none; color: var(--muted); border-radius: 8px; white-space: nowrap; transition: color .2s; }
+.seg button[aria-selected="true"] { color: var(--text); font-weight: 600; }
+.seg .thumb { position: absolute; top: 3px; left: 0; height: 32px; border-radius: 8px; background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  transition: transform var(--dur) var(--ease), width var(--dur) var(--ease); }
+
+/* 표 */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { text-align: left; font-weight: 500; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl td { padding: 9px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl tr { transition: background .15s; }
+.tbl tbody tr:hover { background: var(--hover); }
+.scroll-x { overflow-x: auto; }
+
+/* 판정 트리 */
+.sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.stat b { display: block; font-size: 22px; letter-spacing: -.02em; }
+.stat span { font-size: 12px; color: var(--muted); }
+.bar { height: 6px; border-radius: 3px; background: var(--hover); overflow: hidden; }
+.bar > i { display: block; height: 100%; border-radius: inherit; background: var(--accent); transform-origin: left; animation: grow .9s var(--ease) both .15s; }
+@keyframes grow { from { transform: scaleX(0); } }
+.chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.chip.ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); }
+.chip.bad { color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); }
+.chip.null { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); }
+.chip.unv { color: var(--muted); border: 1px dashed var(--line); font-weight: 500; }
+details.node { border-top: 1px solid var(--line); }
+details.node:first-of-type { border-top: 0; }
+details.node > summary { list-style: none; display: grid; grid-template-columns: 18px 1fr minmax(80px, 160px) auto; align-items: center; gap: 12px; padding: 11px 4px; cursor: pointer; border-radius: 8px; }
+details.node > summary::-webkit-details-marker { display: none; }
+details.node > summary:hover { background: var(--hover); }
+.caret { transition: transform var(--dur) var(--ease); color: var(--muted); width: 16px; height: 16px; }
+details[open] > summary .caret { transform: rotate(90deg); }
+details.node::details-content { height: 0; overflow: clip; transition: height var(--dur) var(--ease), content-visibility var(--dur) allow-discrete; }
+details.node[open]::details-content { height: auto; }
+.kids { padding: 0 0 8px 30px; }
+.leaf { display: grid; grid-template-columns: 1fr minmax(80px, 160px) auto; gap: 12px; align-items: center; padding: 8px 4px; font-size: 13px; border-radius: 8px; }
+.leaf:hover { background: var(--hover); }
+.leaf .meta { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
+.leaf a, .link { color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 2px; }
+.n { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; text-align: right; }
+
+/* 추천 */
+.terms { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+.term { scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.term header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.term header b { font-size: 15px; }
+.course { padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; font-size: 13px; transition: transform .2s var(--ease), box-shadow .2s; }
+.course:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.07); }
+.course small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+.callout { border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line)); background: color-mix(in srgb, var(--bad) 6%, var(--surface)); border-radius: 14px; padding: 14px 16px; margin-top: 16px; }
+.spin { width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; display: none; animation: rot .7s linear infinite; }
+.busy .spin { display: inline-block; }
+@keyframes rot { to { transform: rotate(1turn); } }
+
+/* 스위치 */
+.switch { position: relative; width: 40px; height: 24px; flex: none; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.switch i { position: absolute; inset: 0; border-radius: 999px; background: var(--line); transition: background .25s var(--ease); pointer-events: none; }
+.switch i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  transition: transform var(--dur) var(--ease); }
+.switch input:checked + i { background: var(--accent); }
+.switch input:checked + i::after { transform: translateX(16px); background: var(--on-accent); }
+.switch input:focus-visible + i { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 설정 대화상자(네이티브 dialog) */
+dialog.settings { width: min(560px, calc(100vw - 32px)); max-height: min(640px, calc(100dvh - 32px)); padding: 0; border: 1px solid var(--line); border-radius: 18px;
+  background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+dialog.settings[open] { animation: pop .32s var(--ease); }
+dialog.settings[open]::backdrop { animation: fade .32s var(--ease); }
+dialog.settings.closing { animation: pop-out .18s ease-in forwards; }
+dialog.settings.closing::backdrop { animation: fade .18s ease-in reverse forwards; }
+dialog::backdrop { background: rgba(0,0,0,.32); backdrop-filter: blur(2px); }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.97); } }
+@keyframes pop-out { to { opacity: 0; transform: translateY(4px) scale(.98); } }
+@keyframes fade { from { opacity: 0; } }
+.dlg-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 16px 8px 22px; }
+.dlg-head h2 { margin: 0; font-size: 17px; }
+.dlg-body { padding: 4px 22px 22px; overflow: auto; }
+.set { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.set:last-child { border-bottom: 0; }
+.set p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+.set-title { margin: 18px 0 2px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.danger { color: var(--bad); }
+
+/* ── 모바일: 사이드바는 서랍(스크림 + 밀어 넣기), 레일 모드 없음 ── */
+.scrim { display: none; }
+@media (max-width: 767px) {
+  .sb { position: fixed; inset: 0 auto 0 0; z-index: 30; width: min(84vw, 300px) !important; transform: translateX(-102%); box-shadow: none;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+  .app.open .sb { transform: none; box-shadow: var(--shadow); }
+  .app.rail .sb .label { opacity: 1; transform: none; pointer-events: auto; }
+  .scrim { display: block; position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.32); opacity: 0; pointer-events: none; transition: opacity var(--dur) var(--ease); }
+  .app.open .scrim { opacity: 1; pointer-events: auto; }
+  .menu-btn { display: inline-flex; margin-left: -10px; }
+  .top { padding: 0 16px; }
+  .content { padding: 20px 16px 48px; }
+  details.node > summary { grid-template-columns: 18px 1fr auto; }
+  details.node > summary .bar, .leaf .bar { display: none; }
+  .leaf { grid-template-columns: 1fr auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+</svg>
+
+<div class="app no-anim" id="app">
+  <aside class="sb" id="sb" aria-label="메뉴">
+    <div class="sb-head">
+      <button class="icon-btn" id="toggle" aria-controls="sb" aria-expanded="true" title="사이드바 접기 (Ctrl+B)"><svg><use href="#i-panel"/></svg></button>
+      <span class="label brand">학점플래너</span>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="ind" id="ind"></div>
+      <a class="item" href="#/profile" title="내 정보"><svg><use href="#i-user"/></svg><span class="label">내 정보</span></a>
+      <a class="item" href="#/records" title="수강 기록"><svg><use href="#i-list"/></svg><span class="label">수강 기록</span></a>
+      <a class="item" href="#/audit" title="졸업 요건"><svg><use href="#i-check"/></svg><span class="label">졸업 요건</span></a>
+      <a class="item" href="#/plan" title="학기 추천"><svg><use href="#i-cal"/></svg><span class="label">학기 추천</span></a>
+    </nav>
+    <div class="sec label">요건 근거</div>
+    <div class="label muted" style="margin:0 20px;font-size:12px">상명대 천안 2023~2026 졸업이수학점표 · 데이터 2026-10 기준</div>
+    <div class="sb-foot">
+      <button class="item" id="open-settings" title="설정" style="width:calc(100% - 16px)"><svg><use href="#i-gear"/></svg><span class="label">설정</span></button>
+      <a class="who" href="#/profile" title="상명대 천안 · 소프트웨어학과">
+        <span class="avatar">SW</span>
+        <span class="label">소프트웨어학과<small>상명대 천안 · 2023학번 · 신입</small></span>
+      </a>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <header class="top">
+      <button class="icon-btn menu-btn" id="menu" aria-controls="sb" aria-expanded="false" aria-label="메뉴 열기"><svg><use href="#i-panel"/></svg></button>
+      <h1 id="title">내 정보</h1>
+      <span class="ctx">상명대 천안 · 소프트웨어 · 2023</span>
+    </header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<dialog class="settings" id="settings" aria-labelledby="set-h">
+  <div class="dlg-head"><h2 id="set-h">설정</h2><button class="icon-btn" data-close aria-label="닫기"><svg><use href="#i-x"/></svg></button></div>
+  <div class="dlg-body">
+    <div class="set-title">추천</div>
+    <div class="set"><div>계절학기 포함<p>켜면 여름·겨울 계절학기에도 교양을 추천합니다(기본 꺼짐).</p></div><label class="switch"><input type="checkbox" id="season" aria-label="계절학기 포함"><i></i></label></div>
+    <div class="set"><div>첫 학기 초과 신청<p>직전 학기 평점 기준을 넘으면 학점 상한을 올려 계산합니다.</p></div><label class="switch"><input type="checkbox" aria-label="첫 학기 초과 신청"><i></i></label></div>
+    <div class="set-title">화면</div>
+    <div class="set"><div>테마</div>
+      <div class="seg" id="theme" role="tablist" style="margin:0"><span class="thumb"></span><button role="tab" data-v="system">시스템</button><button role="tab" data-v="light">라이트</button><button role="tab" data-v="dark">다크</button></div></div>
+    <div class="set-title">데이터</div>
+    <div class="set"><div>백업 내보내기<p>수강 기록과 설정을 JSON 파일로 저장합니다.</p></div><button class="btn">내보내기</button></div>
+    <div class="set"><div>상명프렌즈 앱 백업 가져오기<p>기존 학점플래너에서 내보낸 백업 파일을 불러옵니다.</p></div><button class="btn">가져오기</button></div>
+    <div class="set"><div class="danger">이 기기의 기록 모두 지우기</div><button class="btn danger">지우기</button></div>
+    <div class="set-title">개인정보</div>
+    <p class="muted" style="font-size:12px;margin:8px 0 0">성적은 이 기기에만 저장되고 서버로 보내지 않습니다. 학교 아이디·비밀번호는 받지 않습니다.</p>
+  </div>
+</dialog>
+
+<!-- ── 화면 자리표시자 ── -->
+<template id="p-profile">
+  <div class="page">
+    <h2>내 정보</h2>
+    <p class="lead">대학·학과·입학년도에 맞는 졸업요건을 불러옵니다.</p>
+    <div class="card"><h3>학적</h3>
+      <div class="grid">
+        <label class="field">대학<select><option>상명대학교 천안캠퍼스</option><option>연세대학교</option><option>충남대학교</option></select></label>
+        <label class="field">학과<select><option>소프트웨어학과</option><option>그린화학공학과</option></select></label>
+        <label class="field">입학년도(요건 연도)<select><option>2023</option><option>2024</option><option>2025</option><option>2026</option></select></label>
+        <label class="field">현재 학기<select><option>2026-2</option></select></label>
+      </div></div>
+    <div class="card"><h3>유형</h3>
+      <div class="grid">
+        <label class="field">이수 형태<select><option>단일전공</option><option>복수전공</option><option>부전공</option></select></label>
+        <label class="field">입학 유형<select><option>신입</option><option>편입(3학년)</option></select></label>
+        <label class="field">학생 유형<select><option>내국인</option><option>유학생</option></select></label>
+        <label class="field">휴학 학기<input placeholder="예: 2024-2, 2025-1"></label>
+      </div></div>
+    <div class="card"><h3>직접 입력하는 값</h3><div class="ph">평점·TOPIK·인증 등 학교별 check 항목 입력란(요건 데이터에 있는 것만 표시)</div></div>
+  </div>
+</template>
+
+<template id="p-records">
+  <div class="page">
+    <h2>수강 기록</h2>
+    <p class="lead">들은 과목과 들을 과목을 넣습니다. 성적표의 이수구분·학점이 있으면 그 값을 우선합니다.</p>
+    <div class="seg" role="tablist"><span class="thumb"></span><button role="tab">과목 검색</button><button role="tab">직접 입력</button><button role="tab">성적표 붙여넣기</button><button role="tab">백업 가져오기</button></div>
+    <div class="card"><div class="ph" id="rec-ph">학과 카탈로그에서 과목명·학수번호 검색 → 학기 선택 → 추가</div></div>
+    <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3 style="margin:0">기록 42과목 · 108학점</h3><span class="muted" style="font-size:12px">경고 1건: 대응표에 없는 이수구분 '일선'</span></div>
+      <div class="scroll-x"><table class="tbl"><thead><tr><th>학기</th><th>학수번호</th><th>과목명</th><th>학점</th><th>이수구분</th><th>성적</th><th></th></tr></thead><tbody>
+        <tr><td>2023-1</td><td>HBAB0001</td><td>프로그래밍기초</td><td>3</td><td>1전선</td><td>A+</td><td><button class="icon-btn" aria-label="삭제" style="width:28px;height:28px"><svg style="width:14px;height:14px"><use href="#i-x"/></svg></button></td></tr>
+        <tr><td>2023-1</td><td>—</td><td>글쓰기와 소통</td><td>2</td><td>교필</td><td>B+</td><td></td></tr>
+        <tr><td>2023-S</td><td>—</td><td>타대 계절(학점교류)</td><td>3</td><td>교선</td><td>P</td><td></td></tr>
+        <tr><td class="muted">계획</td><td>HBAB0123</td><td>캡스톤디자인</td><td>3</td><td>1전심</td><td class="muted">—</td><td></td></tr>
+      </tbody></table></div></div>
+  </div>
+</template>
+
+<template id="p-audit">
+  <div class="page">
+    <h2>졸업 요건</h2>
+    <p class="lead">2023학번 소프트웨어학과 단일전공 요건 기준. 계획 과목은 '들으면'으로 따로 셉니다.</p>
+    <div class="sum">
+      <div class="stat"><span>총 이수</span><b>108 / 130</b><div class="bar"><i style="width:83%"></i></div></div>
+      <div class="stat"><span>전공</span><b>54 / 75</b><div class="bar"><i style="width:72%"></i></div></div>
+      <div class="stat"><span>교양</span><b>30 / 33</b><div class="bar"><i style="width:91%"></i></div></div>
+      <div class="stat"><span>판정</span><b style="color:var(--bad)">3개 부족</b><span>확인 필요 1</span></div>
+    </div>
+    <div class="card" style="padding:6px 14px">
+      <details class="node" open><summary><svg class="caret"><use href="#i-right"/></svg><span>소프트웨어학과 (주전공)</span><div class="bar"><i style="width:78%"></i></div><span class="chip bad">부족</span></summary>
+        <div class="kids">
+          <div class="leaf"><span>졸업학점 <span class="n">108/130</span></span><div class="bar"><i style="width:83%"></i></div><span class="chip bad">22 부족</span></div>
+          <div class="leaf"><span>전공 <span class="n">54/75</span></span><div class="bar"><i style="width:72%"></i></div><span class="chip bad">21 부족</span></div>
+          <div class="leaf"><span>전공심화 <span class="n">15/15</span></span><div class="bar"><i style="width:100%"></i></div><span class="chip ok">충족</span></div>
+          <div class="leaf"><span>캡스톤디자인 <span class="n">계획 1</span></span><div class="bar"><i style="width:100%"></i></div><span class="chip ok">들으면 충족</span></div>
+        </div></details>
+      <details class="node"><summary><svg class="caret"><use href="#i-right"/></svg><span>교양 영역 (균형 3/5)</span><div class="bar"><i style="width:66%"></i></div><span class="chip bad">부족</span></summary>
+        <div class="kids">
+          <div class="leaf"><span>기초교양 <span class="n">8/8</span></span><div class="bar"><i style="width:100%"></i></div><span class="chip ok">충족</span></div>
+          <div class="leaf"><span>균형·인문 <span class="n">0/3</span></span><div class="bar"><i style="width:0"></i></div><span class="chip bad">3 부족</span></div>
+        </div></details>
+      <details class="node"><summary><svg class="caret"><use href="#i-right"/></svg><span>SM-CDR 진로 트랙</span><div class="bar"><i style="width:50%"></i></div><span class="chip null">확인 필요</span></summary>
+        <div class="kids">
+          <div class="leaf"><span>트랙 과목 3개 <span class="chip unv">미확인 기준</span></span><div class="bar"><i style="width:66%"></i></div><span class="chip bad">1 부족</span></div>
+          <div class="leaf"><span>비교과 인증 <span class="n">입력 필요</span></span><div class="bar"><i style="width:0"></i></div><span class="chip null">확인 필요</span></div>
+        </div></details>
+    </div>
+    <div class="row muted" style="font-size:12px"><span>근거: 천안 2023~2026학년도 입학자 졸업이수학점표</span><a class="link" href="#/audit">원문</a>
+      <a class="link" href="#/audit" style="margin-left:auto;display:inline-flex;gap:4px;align-items:center"><svg style="width:14px;height:14px"><use href="#i-flag"/></svg>판정 오류 신고</a></div>
+  </div>
+</template>
+
+<template id="p-plan">
+  <div class="page">
+    <h2>학기 추천</h2>
+    <p class="lead">남은 학기에 요건을 가장 적게 남기는 수강 계획(정수계획, 최적 증명).</p>
+    <div class="card row" style="justify-content:space-between">
+      <label class="row" style="gap:10px"><span class="switch"><input type="checkbox" id="season2" aria-label="계절학기 포함"><i></i></span>계절학기 포함</label>
+      <span class="muted" style="font-size:12px">최적 · 42ms</span>
+      <button class="btn primary row" id="recalc" style="gap:8px"><span class="spin"></span>다시 계산</button>
+    </div>
+    <div class="terms">
+      <section class="term"><header><b>2027-1</b><span class="n">18 / 18학점</span></header>
+        <div class="course">자료구조심화 · 3<small>전공 · 졸업학점</small></div><div class="course">운영체제 · 3<small>전공 · 전공심화</small></div><div class="course">철학의 이해 · 3<small>균형·인문</small></div><div class="ph" style="min-height:44px">…</div></section>
+      <section class="term"><header><b>2027-2</b><span class="n">16 / 18학점</span></header>
+        <div class="course">캡스톤디자인 · 3<small>캡스톤 · 전공</small></div><div class="course">데이터베이스 · 3<small>전공</small></div><div class="ph" style="min-height:44px">…</div></section>
+      <section class="term"><header><b>2028-1</b><span class="n">12 / 18학점</span></header>
+        <div class="course">졸업논문 · 1<small>졸업논문</small></div><div class="ph" style="min-height:44px">…</div></section>
+    </div>
+    <div class="callout"><b>못 채운 요건 1개</b>
+      <p style="margin:6px 0 0;font-size:13px">SM-CDR 비교과 인증 — 추천으로 채울 수 없는 입력 항목입니다. 내 정보에서 값을 넣으세요.</p></div>
+  </div>
+</template>
+
+<script>
+const app = document.getElementById('app'), sb = document.getElementById('sb'), nav = document.getElementById('nav'), ind = document.getElementById('ind');
+const content = document.getElementById('content'), title = document.getElementById('title'), dlg = document.getElementById('settings');
+const mobile = matchMedia('(max-width: 767px)');
+const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+
+// 사이드바: 데스크톱은 펼침 ↔ 레일(기억), 모바일은 서랍
+if (store.get('rail') === '1') app.classList.add('rail');
+const syncAria = () => {
+  const open = mobile.matches ? app.classList.contains('open') : !app.classList.contains('rail');
+  document.getElementById('toggle').setAttribute('aria-expanded', open);
+  document.getElementById('menu').setAttribute('aria-expanded', app.classList.contains('open'));
+};
+function toggleSidebar() {
+  if (mobile.matches) app.classList.toggle('open');
+  else store.set('rail', app.classList.toggle('rail') ? '1' : '0');
+  syncAria();
+}
+const closeDrawer = () => { app.classList.remove('open'); syncAria(); };
+document.getElementById('toggle').onclick = toggleSidebar;
+document.getElementById('menu').onclick = toggleSidebar;
+document.getElementById('scrim').onclick = closeDrawer;
+addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') { e.preventDefault(); toggleSidebar(); }
+  if (e.key === 'Escape' && app.classList.contains('open')) closeDrawer();
+});
+mobile.addEventListener('change', () => { app.classList.remove('open'); syncAria(); });
+
+// 미끄러지는 선택 표시(내비 · 세그먼트)
+const moveInd = () => { const a = nav.querySelector('[aria-current="page"]'); if (a) { ind.style.transform = `translateY(${a.offsetTop}px)`; ind.style.height = a.offsetHeight + 'px'; } };
+function seg(el, i) {
+  const bs = [...el.querySelectorAll('button')], b = bs[i], th = el.querySelector('.thumb');
+  bs.forEach((x, k) => x.setAttribute('aria-selected', k === i));
+  th.style.width = b.offsetWidth + 'px'; th.style.transform = `translateX(${b.offsetLeft}px)`;
+}
+
+// 해시 탭
+const pages = { profile: '내 정보', records: '수강 기록', audit: '졸업 요건', plan: '학기 추천' };
+function route() {
+  const id = location.hash.slice(2) in pages ? location.hash.slice(2) : 'profile';
+  nav.querySelectorAll('.item').forEach(a => a.removeAttribute('aria-current'));
+  nav.querySelector(`[href="#/${id}"]`).setAttribute('aria-current', 'page');
+  title.textContent = pages[id]; document.title = pages[id] + ' · 학점플래너';
+  content.replaceChildren(document.getElementById('p-' + id).content.cloneNode(true));
+  content.scrollTop = 0;
+  content.querySelectorAll('.seg').forEach(s => seg(s, 0));
+  moveInd(); closeDrawer();
+}
+addEventListener('hashchange', route);
+const recPh = ['학과 카탈로그에서 과목명·학수번호 검색 → 학기 선택 → 추가', '학기·과목명·학점·이수구분·성적 직접 입력(카탈로그에 없는 과목)',
+  '포털 성적표 표를 복사해 붙여넣기 → 열 자동 인식 → 미리보기 후 추가', '상명프렌즈 학점플래너 백업(JSON) 선택 → 변환 결과 미리보기 → 가져오기'];
+content.addEventListener('click', e => {
+  const b = e.target.closest('.seg button');
+  if (b) { const s = b.parentElement, i = [...s.querySelectorAll('button')].indexOf(b); seg(s, i); const ph = document.getElementById('rec-ph'); if (ph) ph.textContent = recPh[i]; }
+  const r = e.target.closest('#recalc');
+  if (r) { r.classList.add('busy'); r.disabled = true; setTimeout(() => { r.classList.remove('busy'); r.disabled = false; }, 900); }
+});
+
+// 설정: 네이티브 dialog, 닫힐 때도 짧게 애니메이션
+document.getElementById('open-settings').onclick = () => { closeDrawer(); dlg.showModal(); seg(document.getElementById('theme'), ['system', 'light', 'dark'].indexOf(store.get('theme') || 'system')); };
+function closeDlg() { dlg.classList.add('closing'); dlg.addEventListener('animationend', () => { dlg.classList.remove('closing'); dlg.close(); }, { once: true }); }
+dlg.addEventListener('cancel', e => { e.preventDefault(); closeDlg(); });
+dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) closeDlg(); });
+const applyTheme = v => { if (v === 'system') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = v; };
+applyTheme(store.get('theme') || 'system');
+document.getElementById('theme').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const v = b.dataset.v; store.set('theme', v); applyTheme(v); seg(e.currentTarget, ['system', 'light', 'dark'].indexOf(v));
+});
+
+route(); syncAria();
+requestAnimationFrame(() => requestAnimationFrame(() => app.classList.remove('no-anim')));
+addEventListener('resize', () => { moveInd(); content.querySelectorAll('.seg').forEach(s => { const i = [...s.querySelectorAll('button')].findIndex(b => b.getAttribute('aria-selected') === 'true'); seg(s, Math.max(0, i)); }); });
+</script>
+</body>
+</html>
