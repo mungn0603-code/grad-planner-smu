@@ -1,0 +1,268 @@
+[
+ {
+  "dept": "그린화학공학과",
+  "id": "green|2022|1-2|double",
+  "f": {
+   "seed": 2225930858,
+   "year": "2022",
+   "now": "1-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "환경공학"
+  ],
+  "sea": false,
+  "audit": "efdfac7b40589dca125992bbfdeb481e66c3fbf5e70515662e45043564dc2be8",
+  "plan": "93cccde24651df7719d3e2188167cb8ee2bcd60318c8f2dc01bef430ef288f4a"
+ },
+ {
+  "dept": "그린화학공학과",
+  "id": "green|2023|2-2|leave",
+  "f": {
+   "seed": 3064965827,
+   "year": "2023",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": "2024-2"
+  },
+  "tracks": [
+   "화학공학",
+   "생명공학"
+  ],
+  "sea": false,
+  "audit": "82a1371a3c3dc61b73d2f3f2917e6423c0c89f152c05e6b0d6aa7e9454243786",
+  "plan": "015a9cc2a8dd35815df350a4aabd39f595d3a15bafac495a47ffc6c4bdec6e07"
+ },
+ {
+  "dept": "그린화학공학과",
+  "id": "green|2024|2-2|double",
+  "f": {
+   "seed": 2713868287,
+   "year": "2024",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "환경공학"
+  ],
+  "sea": false,
+  "audit": "9d0a423072df9ce0a244ca56a6a69e67d95a1ef344ccce359f557529d7d545bb",
+  "plan": "953bae06500a4ec0436ff9a0e8f92dcc9bc4774cb4b523a96c5d273a119cb5a0"
+ },
+ {
+  "dept": "그린화학공학과",
+  "id": "green|2025|2-2|r80",
+  "f": {
+   "seed": 75776352,
+   "year": "2025",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": null
+  },
+  "tracks": [
+   "화학공학"
+  ],
+  "sea": true,
+  "audit": "28cf862ba0706a26b5a5bc0d7ba33d6ae65e14a0bfa47c2d4205e228c288c230",
+  "plan": "73ea9f17af35782c64a7c536f297760c2c401c2aa401abe2d312aab5cf6f9db2"
+ },
+ {
+  "dept": "그린화학공학과",
+  "id": "green|2026|2-2|minor",
+  "f": {
+   "seed": 615390632,
+   "year": "2026",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "minor",
+   "leave": null
+  },
+  "tracks": [],
+  "sea": false,
+  "audit": "69a59f4cbdd38e1ccaeedf0166640620e7013efd942a3a1f46b8ca0163391dcd",
+  "plan": "95d3baefd411c04c664af3490398d5f3a20941462ca6098f76d714d6759c5fba"
+ },
+ {
+  "dept": "소프트웨어학과",
+  "id": "software|2022|1-2|double",
+  "f": {
+   "seed": 1356145116,
+   "year": "2022",
+   "now": "1-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "빅데이터 및 인공지능 소프트웨어 전문가"
+  ],
+  "sea": false,
+  "audit": "fe79567939e44c6b3b584c6c409f43fdb14bcc0a9646e7fce328e874387ff5ad",
+  "plan": "4beb5976df68fd05bc13012415925628aeb060a3db46caa580bcd78872363c79"
+ },
+ {
+  "dept": "소프트웨어학과",
+  "id": "software|2023|2-2|leave",
+  "f": {
+   "seed": 3595850159,
+   "year": "2023",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": "2024-2"
+  },
+  "tracks": [
+   "네트워크/사물인터넷(loT) 소프트웨어 전문가",
+   "블록체인,정보보호 및 보안 전문가"
+  ],
+  "sea": false,
+  "audit": "b933a932a5d412fa87ac93b2fce48cf9cb5852fb709a82d7ec2e4eb84a721c28",
+  "plan": "7ee10106516a729517112b9cdfda450991fe3f164daf2db8c1a74bf4a08e6ce7"
+ },
+ {
+  "dept": "소프트웨어학과",
+  "id": "software|2024|2-2|double",
+  "f": {
+   "seed": 1378220268,
+   "year": "2024",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "빅데이터 및 인공지능 소프트웨어 전문가"
+  ],
+  "sea": false,
+  "audit": "a22eeb1204059b24cee9afcd69ed35c9d4d6fc4f57445abd3734654c060201be",
+  "plan": "508af6c16b7594da2502b7eba8bdb9bf17af19ef1643a18f485051e686b6bef1"
+ },
+ {
+  "dept": "소프트웨어학과",
+  "id": "software|2025|2-2|r80",
+  "f": {
+   "seed": 3941595330,
+   "year": "2025",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": null
+  },
+  "tracks": [
+   "네트워크/사물인터넷(loT) 소프트웨어 전문가"
+  ],
+  "sea": true,
+  "audit": "bf0aa58b7597394d40c69792146a5375bfa09405428d5890b91e29cc48ddc1b4",
+  "plan": "9b7bdddb39d9da13eb47f3c7035435580c90e6288b4eb8eb544bfbc7d14dd15a"
+ },
+ {
+  "dept": "소프트웨어학과",
+  "id": "software|2026|2-2|minor",
+  "f": {
+   "seed": 4272089294,
+   "year": "2026",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "minor",
+   "leave": null
+  },
+  "tracks": [],
+  "sea": false,
+  "audit": "7a8d2174c735618ab85f6bc869b5c910bb93d6b09d5270f747cf1a9aad9074a5",
+  "plan": "06de1c362c38689ca92c1eae65b21b883eb7a711d61048a89e579512e4ddf312"
+ },
+ {
+  "dept": "간호학과",
+  "id": "nursing|2022|1-2|double",
+  "f": {
+   "seed": 1268409480,
+   "year": "2022",
+   "now": "1-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "간호사"
+  ],
+  "sea": false,
+  "audit": "638dbb73c6cfc9413cec4b1712cb6c09c8a547dacdd28e6843a29bdc29a6343f",
+  "plan": "47e1b13a684fbead2c5c0574f66f93c6103bd14c6c1452572639e2e0ec2aabed"
+ },
+ {
+  "dept": "간호학과",
+  "id": "nursing|2023|2-2|leave",
+  "f": {
+   "seed": 470531496,
+   "year": "2023",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": "2024-2"
+  },
+  "tracks": [
+   "간호사"
+  ],
+  "sea": false,
+  "audit": "b89ba570ec096948005995e4faf09a4ed5c8abc051dfdc5961b412acb4582bc8",
+  "plan": "2b233e052295045639faa7563b94b7e616b6090a324f53e3970fb0f85936a6bd"
+ },
+ {
+  "dept": "간호학과",
+  "id": "nursing|2024|2-2|double",
+  "f": {
+   "seed": 351591970,
+   "year": "2024",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "double",
+   "leave": null
+  },
+  "tracks": [
+   "간호사"
+  ],
+  "sea": false,
+  "audit": "28e40a08b18fb51b2422d3ca250e235d667c9859f69ecf6646a3a19d0eccbf47",
+  "plan": "a6bdebb27da145de631cb2219fde7631c7be46b0355fab3f429dd63c133fc163"
+ },
+ {
+  "dept": "간호학과",
+  "id": "nursing|2025|2-2|r80",
+  "f": {
+   "seed": 3453589730,
+   "year": "2025",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "single",
+   "leave": null
+  },
+  "tracks": [
+   "간호사"
+  ],
+  "sea": true,
+  "audit": "60ce36e6c5820b5ccd6516d11bb2c41fb3eabc2a6888e5ab6ee872ef91c8d14f",
+  "plan": "6ebec91382a586c04eb5b68439d558171eb1fa18ec274e97c83a7be6e499e658"
+ },
+ {
+  "dept": "간호학과",
+  "id": "nursing|2026|2-2|minor",
+  "f": {
+   "seed": 526298664,
+   "year": "2026",
+   "now": "2-2",
+   "p": "r80",
+   "mode": "minor",
+   "leave": null
+  },
+  "tracks": [],
+  "sea": false,
+  "audit": "700880d95c9515f7f6ab32fae695b44a79f91da0884e326d86a0f09a34015cbd",
+  "plan": "6fd4fbdbc6051cfd95d011dd36012b9bb16e044a04a46737b97e22d5f246d169"
+ }
+]
