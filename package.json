@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "highs": "1.15.3"
   }
 }
