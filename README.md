@@ -45,6 +45,10 @@ npm run build       # 배포용 빌드(dist/)
 | `SMUL_KEY_SECRET` | 예 | 학번·IP를 HMAC으로 가리는 임의의 긴 문자열 |
 | `VITE_REPORT_URL` | 아니요 | 졸업요건 오류 신고를 받을 주소. 없으면 신고 문구를 클립보드에 복사합니다 |
 
+## 배포
+
+Vercel 프로젝트 `grad-planner`(첫 버전과 같은 프로젝트, Git 연결만 이 저장소로 바꿈). `main`에 병합하면 운영 배포(https://grad-planner-dusky.vercel.app), PR마다 미리보기 배포가 생깁니다. 위 환경 변수는 운영 배포에만 들어 있습니다.
+
 ## 문서
 
 | 문서 | 내용 |
