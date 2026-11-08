@@ -110,20 +110,28 @@ function basis(rule: Rule | undefined, r: Result, u: Univ): string | undefined {
   if (!rule) return;
   if (rule.hint) return rule.hint;
   if ('use' in rule) return basis(u.blocks[rule.use], r, u);
-  if ('all' in rule) { const n = (r.children ?? []).filter(c => c.label).length; return n ? (r.need < n ? `아래 ${n}개 중 ${r.need}개를 채우면 돼요` : `아래 ${n}개를 모두 채워야 해요`) : undefined; }
+  if ('all' in rule) { const n = (r.children ?? []).filter(c => c.label).length; return n ? (r.need < n ? `아래 ${n}개 중 ${r.need}개 충족 필요` : `아래 ${n}개 모두 충족 필요`) : undefined; }
 }
-// 들은 학점을 이수구분별로(1전선·전선 → 전선처럼 앞 숫자는 뺀다), 많은 순
-type Got = { got: [string, number][]; left: number };
-function breakdown(r: Result, items: Item[], es: Enrollment[]): Got | undefined {
+const short = (c: string) => c.replace(/^\d/, ''); // 1전선·전선 → 전선(앞 숫자는 뺀다)
+// 요건 칸이 세는 이수구분(짧은 이름). 이수구분 태그로 세는 칸만 — 지정 과목·교양 영역 칸은 빈 목록
+function catsOf(rule: Rule | undefined, u: Univ): string[] {
+  const f = rule && ofOf(rule, u), all = Object.values(u.categories).flat();
+  if (!f || f.codes || f.names || f.not || [...(f.tags ?? []), ...(f.every ?? [])].some(t => !all.includes(t))) return [];
+  const cats = Object.keys(u.categories).filter(c => (f.every ?? []).every(t => u.categories[c].includes(t)) && (!f.tags || f.tags.some(t => u.categories[c].includes(t))));
+  return [...new Set(cats.map(short))];
+}
+// 이수구분별 들은 학점(많은 순)과, 그 이수구분만 세는 다른 요건이 있으면 그 요건의 남은 학점(예: 전공 카드의 전심 → 전공심화)
+type Got = { rows: { c: string; n: number; more?: number }[]; left: number };
+function breakdown(r: Result, items: Item[], es: Enrollment[], cats: string[] = [], more = new Map<string, number>()): Got | undefined {
   if (r.kind !== 'credits') return;
-  const m = new Map<string, number>();
-  for (const i of r.used ?? []) { const it = items[i]; if (!it) continue; const c = (es[it.i]?.category ?? it.cat ?? '기타').replace(/^\d/, ''); m.set(c, (m.get(c) ?? 0) + it.cr); }
-  return { got: [...m].map(([c, n]): [string, number] => [c, +n.toFixed(1)]).sort((x, y) => y[1] - x[1]), left: +Math.max(0, r.need - r.have).toFixed(1) };
+  const m = new Map<string, number>(cats.length > 1 ? cats.filter(c => more.has(c)).map(c => [c, 0]) : []);
+  for (const i of r.used ?? []) { const it = items[i]; if (!it) continue; const c = short(es[it.i]?.category ?? it.cat ?? '기타'); m.set(c, (m.get(c) ?? 0) + it.cr); }
+  return { rows: [...m].map(([c, n]) => ({ c, n: +n.toFixed(1), ...(cats.length > 1 && more.get(c) ? { more: more.get(c) } : {}) })).sort((x, y) => y.n - x.n), left: +Math.max(0, r.need - r.have).toFixed(1) };
 }
-// 예: 전선 21학점, 전심 6학점 이수 · 48학점 남음
-const GotLine = ({ g }: { g: Got }) => <p className="basis got">
-  {g.got.length ? <>{g.got.map(([c, n], i) => <span key={c}>{i > 0 && ', '}{c} <b>{n}</b>학점</span>)} 이수</> : '이수 없음'}
-  {' · '}{g.left > 0 ? <><b>{g.left}</b>학점 남음</> : '충족'}</p>;
+// 한 줄에 이수구분 하나: 전선 27학점 / 전심 0학점 15학점 더 필요 / 남음 48학점
+const GotLine = ({ g }: { g: Got }) => <dl className="got">
+  {g.rows.map(x => <div key={x.c}><dt>{x.c}</dt><dd><span><b>{x.n}</b>학점</span>{x.more ? <small>{x.more}학점 더 필요</small> : null}</dd></div>)}
+  <div className="left"><dt>남음</dt><dd>{g.left > 0 ? <span><b>{g.left}</b>학점</span> : '충족'}</dd></div></dl>;
 const subIds = (program: string, r: Result, out = new Set<string>()) => { out.add(`${program}.${r.id}`); r.children?.forEach(c => subIds(program, c, out)); return out; };
 
 export function ResultPage(props: PageProps) {
@@ -153,9 +161,12 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
   const pct = total && total.need ? Math.min(100, Math.round((total.have / total.need) * 100)) : 0;
   const tracks = calc ? a.programs.filter(g => g.role === 'track') : [];
   const exts = profile.programs.filter(g => g.role === 'second' || g.role === 'minor' || g.role === 'micro');
+  const prims = prim ? cardsOf(prim, exts.some(g => g.id === 'ext')) : [];
+  // 이수구분 하나만 세는 요건(전공심화 → 전심 등)의 남은 학점. 여러 이수구분을 세는 카드(전공·교양)에서 줄마다 보인다
+  const more = new Map(prims.flatMap(r => { const cs = catsOf(look.rules.get(r), univ); return r.kind === 'credits' && cs.length === 1 ? [[cs[0], +Math.max(0, r.need - r.have).toFixed(1)] as [string, number]] : []; }));
   const cards: Card[] = [
-    ...(prim ? cardsOf(prim, exts.some(g => g.id === 'ext')).map(r => ({ key: r.id, title: r.label ?? r.id, rs: [{ r, program: primary!.id }],
-      basis: basis(look.rules.get(r), r, univ), now: breakdown(r, a.items, es) })) : []),
+    ...prims.map(r => ({ key: r.id, title: r.label ?? r.id, rs: [{ r, program: primary!.id }],
+      basis: basis(look.rules.get(r), r, univ), now: breakdown(r, a.items, es, catsOf(look.rules.get(r), univ), more) })),
     ...exts.filter(g => g.id !== 'ext').flatMap(g => { const res = a.programs.find(x => x.id === g.id)?.result; return res ? [{ key: g.id,
       title: g.role === 'micro' ? roleText(univ, g) : `${progName(univ, g)} · ${roleText(univ, g)}`, rs: [{ r: top(res), program: g.id }], now: breakdown(top(res), a.items, es) }] : []; }),
   ];
@@ -222,7 +233,7 @@ function ResultCard({ c, input, body }: { c: Card; input?: ReactNode; body?: Rea
   return <details className={'rc fold-card ' + tone} onToggle={e => setOpen(e.currentTarget.open)}><summary aria-label={`${c.title} 펼치기`}><b>{c.title}</b><span className="v">{v}</span>
     {r.kind !== 'check' ? <div className="bar"><i style={{ width: pct + '%' }} /></div> : <span />}
     {r.kind === 'check' && r.ok === null ? <span className="st null">펼쳐서 입력</span> : <span className={'st ' + cls.split(' ')[0]}>{txt}</span>}<Caret corner /></summary>
-    {open && <div className="rc-body">{c.now && <GotLine g={c.now} />}{c.basis && <p className="basis">{c.basis}</p>}
+    {open && <div className="rc-body">{c.basis && <p className="basis">{c.basis}</p>}{c.now && <GotLine g={c.now} />}
       {input && <div className="rc-input">{input}</div>}{body}</div>}</details>;
 }
 

@@ -576,6 +576,11 @@ details.fold-panel[open] > summary { border-bottom: 1px solid var(--line-2); }
   .stats { width: 100%; justify-content: space-between; gap: 12px; }
   .term > header { padding: 16px 18px 12px; }
 }
-/* 펼친 요건 카드 첫 줄: 이수구분별 들은 학점과 더 들을 학점 */
-.rc-body .basis.got { color: var(--text); font-size: 15px; }
-.basis.got b { font-weight: 700; font-variant-numeric: tabular-nums; }
+/* 펼친 요건 카드: 이수구분 한 줄씩(이름 · 들은 학점 · 더 필요), 마지막 줄 남음 */
+dl.got { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 20px; max-width: 360px; margin: 0 0 14px; font-size: 15px; }
+dl.got > div { display: contents; }
+dl.got dt { color: var(--muted); }
+dl.got dd { margin: 0; display: flex; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; }
+dl.got dd b { font-weight: 700; }
+dl.got dd small { font-size: 13px; color: var(--bad); }
+dl.got .left dt, dl.got .left dd { padding-top: 6px; border-top: 1px solid var(--line-2); color: var(--text); font-weight: 600; }
