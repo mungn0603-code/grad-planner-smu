@@ -576,3 +576,6 @@ details.fold-panel[open] > summary { border-bottom: 1px solid var(--line-2); }
   .stats { width: 100%; justify-content: space-between; gap: 12px; }
   .term > header { padding: 16px 18px 12px; }
 }
+/* 펼친 요건 카드 첫 줄: 이수구분별 들은 학점과 더 들을 학점 */
+.rc-body .basis.got { color: var(--text); font-size: 15px; }
+.basis.got b { font-weight: 700; font-variant-numeric: tabular-nums; }

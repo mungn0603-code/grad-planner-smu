@@ -51,7 +51,7 @@ const usedIn = (r: Result, out = new Set<number>()) => { r.used?.forEach(i => ou
 // ponytail: 묶음 id(primary·gearea·ext)는 상명 천안 데이터 기준. 다른 대학을 열면 데이터에 카드 표시 여부를 둔다
 const cardsOf = (r: Result, sumExt: boolean) => (r.children ?? []).flatMap(c => (c.id === 'primary' || c.id === 'gearea' || !c.label) && c.children ? c.children : [c])
   .filter(c => c.id !== 'total' && !(c.kind === 'credits' && c.need === 0) && (sumExt || c.id !== 'ext'));
-export type Card = { key: string; title: string; rs: { r: Result; program: string; title?: string }[]; basis?: string; now?: string };
+export type Card = { key: string; title: string; rs: { r: Result; program: string; title?: string }[]; basis?: string; now?: Got };
 
 // 결과 칸 → 규칙. 결과 트리와 규칙 트리를 나란히 따라간다(use는 바깥 규칙을 남긴다: hint가 거기 있을 수 있다)
 function mapRules(rule: Rule, res: Result, u: Univ, out: Map<Result, Rule>) {
@@ -105,31 +105,25 @@ function CheckHelp({ rule, gpa }: { rule?: Rule; gpa?: Gpa }) {
   </div>;
 }
 
-// 무엇이 인정되는지 한 줄: 이수구분·교양 영역·지정 과목
-function ofText(f: Filter, u: Univ): string {
-  const tagged = (tags: string[]) => ({ cats: Object.keys(u.categories).filter(c => u.categories[c].some(t => tags.includes(t))), areas: Object.keys(u.areas).filter(a => u.areas[a].some(t => tags.includes(t))) });
-  let t = '';
-  if (f.codes || f.names) t = `지정 과목(${new Set([...(f.codes ?? []), ...(f.names ?? [])]).size}개 중)`;
-  else if (f.every?.some(x => x !== 'ge')) { const { areas } = tagged(f.every.filter(x => x !== 'ge')); t = `교양 중 ${areas.join('·') || '해당 영역'} 과목`; }
-  else if (f.every || f.tags) { const tags = [...(f.tags ?? []), ...(f.every ?? [])], { cats } = tagged(tags); t = cats.length ? `이수구분 ${cats.join('·')} 과목` : '해당 과목'; }
-  else t = '이수한 모든 과목(재수강 전 기록·F 제외)';
-  return f.not ? t + '(일부 제외)' : t;
-}
+// 펼친 카드 맨 위 안내. 하위 항목이 있으면 몇 개를 채워야 하는지만 적는다(인정 기준 문구는 화면에 쓰지 않는다, 이슈 #42)
 function basis(rule: Rule | undefined, r: Result, u: Univ): string | undefined {
   if (!rule) return;
   if (rule.hint) return rule.hint;
   if ('use' in rule) return basis(u.blocks[rule.use], r, u);
-  // 하위 항목 이름은 펼친 목록에 바로 나오므로 몇 개를 채워야 하는지만 적는다
   if ('all' in rule) { const n = (r.children ?? []).filter(c => c.label).length; return n ? (r.need < n ? `아래 ${n}개 중 ${r.need}개를 채우면 돼요` : `아래 ${n}개를 모두 채워야 해요`) : undefined; }
-  if ('check' in rule) return undefined;
-  return `${ofText(rule.of, u)}을 인정해요`;
 }
-// 지금 들어간 학점을 이수구분별로(예: 1전선 6 + 1전심 3)
-function breakdown(r: Result, items: Item[], es: Enrollment[]) {
-  if (r.kind !== 'credits' || !r.used?.length) return;
-  const m = new Map<string, number>(); for (const i of r.used) { const it = items[i]; if (!it) continue; const c = es[it.i]?.category ?? it.cat ?? '기타'; m.set(c, (m.get(c) ?? 0) + it.cr); }
-  return m.size > 1 ? [...m].map(([c, n]) => `${c} ${+n.toFixed(1)}`).join(' + ') : undefined;
+// 들은 학점을 이수구분별로(1전선·전선 → 전선처럼 앞 숫자는 뺀다), 많은 순
+type Got = { got: [string, number][]; left: number };
+function breakdown(r: Result, items: Item[], es: Enrollment[]): Got | undefined {
+  if (r.kind !== 'credits') return;
+  const m = new Map<string, number>();
+  for (const i of r.used ?? []) { const it = items[i]; if (!it) continue; const c = (es[it.i]?.category ?? it.cat ?? '기타').replace(/^\d/, ''); m.set(c, (m.get(c) ?? 0) + it.cr); }
+  return { got: [...m].map(([c, n]): [string, number] => [c, +n.toFixed(1)]).sort((x, y) => y[1] - x[1]), left: +Math.max(0, r.need - r.have).toFixed(1) };
 }
+// 예: 전선 21학점, 전심 6학점 들었어요. 48학점 더 들어야 해요
+const GotLine = ({ g }: { g: Got }) => <p className="basis got">
+  {g.got.length ? <>{g.got.map(([c, n], i) => <span key={c}>{i > 0 && ', '}{c} <b>{n}</b>학점</span>)} 들었어요. </> : '아직 들은 과목이 없어요. '}
+  {g.left > 0 ? <><b>{g.left}</b>학점 더 들어야 해요</> : '다 채웠어요'}</p>;
 const subIds = (program: string, r: Result, out = new Set<string>()) => { out.add(`${program}.${r.id}`); r.children?.forEach(c => subIds(program, c, out)); return out; };
 
 export function ResultPage(props: PageProps) {
@@ -163,7 +157,7 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
     ...(prim ? cardsOf(prim, exts.some(g => g.id === 'ext')).map(r => ({ key: r.id, title: r.label ?? r.id, rs: [{ r, program: primary!.id }],
       basis: basis(look.rules.get(r), r, univ), now: breakdown(r, a.items, es) })) : []),
     ...exts.filter(g => g.id !== 'ext').flatMap(g => { const res = a.programs.find(x => x.id === g.id)?.result; return res ? [{ key: g.id,
-      title: g.role === 'micro' ? roleText(univ, g) : `${progName(univ, g)} · ${roleText(univ, g)}`, rs: [{ r: top(res), program: g.id }] }] : []; }),
+      title: g.role === 'micro' ? roleText(univ, g) : `${progName(univ, g)} · ${roleText(univ, g)}`, rs: [{ r: top(res), program: g.id }], now: breakdown(top(res), a.items, es) }] : []; }),
   ];
   const report = (program: string) => (rule: string) => {
     const x = reportHref({ univ: univ.id, program, year: s.me.year, rule });
@@ -228,7 +222,7 @@ function ResultCard({ c, input, body }: { c: Card; input?: ReactNode; body?: Rea
   return <details className={'rc fold-card ' + tone} onToggle={e => setOpen(e.currentTarget.open)}><summary aria-label={`${c.title} 펼치기`}><b>{c.title}</b><span className="v">{v}</span>
     {r.kind !== 'check' ? <div className="bar"><i style={{ width: pct + '%' }} /></div> : <span />}
     {r.kind === 'check' && r.ok === null ? <span className="st null">펼쳐서 입력</span> : <span className={'st ' + cls.split(' ')[0]}>{txt}</span>}<Caret corner /></summary>
-    {open && <div className="rc-body">{(c.basis || c.now) && <p className="basis">{c.basis}{c.now && <>{c.basis && ' · '}지금 {c.now}</>}</p>}
+    {open && <div className="rc-body">{c.now && <GotLine g={c.now} />}{c.basis && <p className="basis">{c.basis}</p>}
       {input && <div className="rc-input">{input}</div>}{body}</div>}</details>;
 }
 
