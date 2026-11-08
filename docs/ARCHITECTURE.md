@@ -305,7 +305,7 @@ src/ (React+Vite 웹앱 MVP, 성적은 기기 localStorage, §10) ──▶ 정�
 - **입력 경로**: 샘물 가져오기, 과목 검색, 직접 입력만 남겼다. 붙여넣기·북마클릿·백업 내보내기/가져오기(상명프렌즈 JSON 포함)는 코드까지 지웠다(`engine/fromLegacy.ts`는 엔진 쪽이라 남김). 다시 가져오면 샘물 기록으로 바꾸되 편입·학점교류 인정과 다음 학기 이후 계획은 남긴다.
 - **졸업요건 요약**: 주전공 결과에서 규칙 id `total`·`major`·`ge`·`ext`를 찾아 졸업 기준·총 이수·전공·교양·다전공을 보이고, 일반 = 총 이수 − 전공 − 교양 − 다전공(0 이상, 전공심화는 전공에 포함). 카드는 `primary`·`gearea`·라벨 없는 묶음을 한 단계 풀어 만든다(상명 천안 데이터 기준, `src/pages.tsx` `cardsOf`).
 - **요건별 과목**: 엔진 `Result`에 `used`(셈에 들어간 기록 번호, credits·courses만)를 더했다. 모달은 요건 트리와 들어간 과목 표를 보여 준다. 아직 안 들은 필수 과목 목록은 엔진이 내지 않으므로 학기추천으로 안내한다.
-- **자산·보안 헤더**: `public/logo.jpg`(smu.ac.kr UI 시그니처 type1, 가로 420px), `public/campus.jpg`(smu.ac.kr 상명 갤러리 '천안캠퍼스 여름 스케치' 2023, 1920px). 글꼴 Noto Sans KR(Google Fonts) 때문에 CSP에 `style-src https://fonts.googleapis.com`, `font-src https://fonts.gstatic.com`을 더했다.
+- **자산·보안 헤더**: `public/logo.jpg`(smu.ac.kr UI 시그니처 type1, 가로 420px), `public/campus.jpg`(smu.ac.kr 상명 갤러리 '천안캠퍼스 여름 스케치' 2023, 1920px). 글꼴 Pretendard(jsDelivr, ADR 0028) 때문에 CSP `style-src`·`font-src`에 `https://cdn.jsdelivr.net`을 더했다.
 - **확인한 것**: `npm run build` 통과, `npm test` 통과. 개발 서버에서 `/api/smul` 응답만 가짜로 바꿔 동의 → 학번·비밀번호 → 확인(학과 자동 맞춤·입학년도) → 저장 → 졸업요건(요약·카드·모달) → 학기추천 → 마이페이지(과목 추가 모달)를 1280px·375px에서 확인했다. 빌드본(`vite preview`, 배포와 같은 CSP)에서 로고·사진·글꼴이 오류 없이 뜬다.
 - **확인 불가**: 실제 샘물 계정으로 가져오기(학생 본인 계정 필요), Safari·Firefox.
 

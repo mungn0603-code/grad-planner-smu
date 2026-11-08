@@ -1,12 +1,12 @@
 // 전공제도 계획(학점 플래너): 제2·3전공·부전공·연계·융합·자기설계·마이크로전공을 함께 골라 같은 기록으로 판정해 본다.
 // 저장된 학적·기록은 바꾸지 않는다. 고른 전공의 교육과정 과목은 그 종류의 이수구분으로 옮긴 사본으로 평가한다(engine reassign).
 // 과목 배정(한 과목은 한 곳에만)과 다전공 과목 추천은 엔진이 한다(ADR 0024). 전공선택(후보 전공 비교)·자기설계 과목 입력도 여기 둔다
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { audit, reassign, find, type Ctx } from '../engine/audit.ts';
 import type { Filter, Row, Univ } from '../engine/types.ts';
 import { loadCtx, primaries, progsFor } from './data.ts';
 import { toProfile, roleText, progName, canDeep, OWN, type Me, type PageProps, type Prog, type State, type WhatIf } from './state.ts';
-import { Caret, Fold, Loading } from './ui.tsx';
+import { Caret, Fold, Icon, Loading } from './ui.tsx';
 
 type MdRule = { id: string; label: string; courses: number; of: Filter };
 const mdRulesOf = (u: Univ) => { const m = u.blocks['md.all']; return (m && 'all' in m ? m.all : []) as MdRule[]; };
@@ -45,62 +45,67 @@ export function useWhatIf({ s, univ, ctx }: PageProps, w: WhatIf | undefined) {
   }, [w, univ, ctx, cx, s.me, s.es]);
 }
 
+
 // 고른 값만 남긴 계획. 지금 학적과 같으면 undefined(계획 없음)
 export const wiOf = (d: WhatIf, me: Me): WhatIf | undefined => same(d.ext, me.ext) && !d.mds.length ? undefined : d;
 
-// 전공제도 고르기. 심화전공은 다전공·부전공을 하지 않는 것이라 고르면 목록을 비운다(engine withOf: 프로그램이 없으면 심화전공).
-// 다전공·부전공은 종류를 고르고 그 종류의 전공을 더한다. 다전공은 제3전공까지(2개). 이수 제외 학생(편입 등)은 심화전공을 할 수 없어 deep=false
+// 설정 한 줄: 왼쪽 이름, 오른쪽 고르는 칸(학점 추천 조건·전공제도 계획이 같이 쓴다)
+export const Opt = ({ label, children }: { label: string; children: ReactNode }) =>
+  <div className="opt"><span className="opt-l">{label}</span><div className="opt-v">{children}</div></div>;
+
+// 전공제도 고르기. 종류를 누르면 그 종류의 전공 목록이 나오고, 고르면 바로 반영된다. 심화전공은 다전공·부전공을 하지 않는 것이라 누르면 바로 목록을 비운다(engine withOf).
+// 처음 고른 종류는 학생이 지금 하는 전공제도(첫 다전공·부전공), 없으면 심화전공. 다전공은 제3전공까지(2개). 이수 제외 학생(편입 등)은 심화전공을 할 수 없어 deep=false
 const KINDS = [['deep', '심화전공'], ['dept', '제2·3전공'], ['minor', '부전공'], ['linked', '연계전공'], ['fusion', '융합전공'], ['ism', '자기설계융합전공']] as const;
 type Kind = typeof KINDS[number][0];
-export function ExtFields({ univ, primary, ext, set, deep = true, empty = !ext.length, clear = () => set([]) }:
-  { univ: Univ; primary: string; ext: Prog[]; set: (ext: Prog[]) => void; deep?: boolean; empty?: boolean; clear?: () => void }) {
-  const [kind, setKind] = useState<Kind>('dept'), role = kind === 'minor' ? 'minor' : 'second';
+const kindOf = (u: Univ, ext: Prog[]): Kind => {
+  const g = ext[0]; if (!g) return 'deep'; if (g.role === 'minor') return 'minor';
+  const k = u.programs[g.id]?.kind; return k === 'linked' || k === 'fusion' || k === 'ism' ? k : 'dept';
+};
+export function ExtFields({ univ, primary, ext, set, deep = true, clear = () => set([]) }:
+  { univ: Univ; primary: string; ext: Prog[]; set: (ext: Prog[]) => void; deep?: boolean; clear?: () => void }) {
+  const [kind, setKind] = useState<Kind>(() => { const k = kindOf(univ, ext); return k === 'deep' && !deep ? 'dept' : k; });
+  const role = kind === 'minor' ? 'minor' : 'second';
   const opts = progsFor(univ, role).filter(p => p.kind === (kind === 'minor' ? 'dept' : kind) && p.id !== primary && !ext.some(g => g.id === p.id));
   const full = role === 'second' && ext.filter(g => g.role === 'second').length >= 2;
-  return <>
+  return <div className="ext">
+    <div className="kinds" role="radiogroup" aria-label="전공제도 종류">{KINDS.filter(([k]) => deep || k !== 'deep').map(([k, l]) =>
+      <button key={k} type="button" role="radio" aria-checked={k === kind} onClick={() => { setKind(k); if (k === 'deep') clear(); }}>{l}</button>)}</div>
+    {kind !== 'deep' && <select className="pick" value="" disabled={full || !opts.length} aria-label="전공 고르기" onChange={e => e.target.value && set([...ext, { id: e.target.value, role }])}>
+      <option value="">{full ? '다전공 최대 2개 선택' : opts.length ? '전공 고르기' : '고를 수 있는 전공 없음'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>}
     {ext.length > 0 && <ul className="chips">{ext.map(g => <li key={g.id + g.role}>
-      <button className="pill on" aria-label={`${progName(univ, g)} 빼기`} onClick={() => set(ext.filter(x => x !== g))}>{progName(univ, g)} · {roleText(univ, g)} ✕</button></li>)}</ul>}
-    <div className="grid">
-      <label className="field">종류<select value={kind} onChange={e => setKind(e.target.value as Kind)}>{KINDS.filter(([k]) => deep || k !== 'deep').map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
-      {kind === 'deep' ? <div className="field"><span>&nbsp;</span><button type="button" className="btn" disabled={empty} onClick={clear}>{empty ? '심화전공으로 계산 중' : '심화전공으로 바꾸기'}</button></div>
-        : <label className="field">전공<select value="" disabled={full || !opts.length} onChange={e => e.target.value && set([...ext, { id: e.target.value, role }])}>
-          <option value="">{full ? '다전공은 2개까지' : '고르기'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>}
-    </div>
-  </>;
+      <button className="pill on" aria-label={`${progName(univ, g)} 빼기`} onClick={() => set(ext.filter(x => x !== g))}>{progName(univ, g)}<small>{roleText(univ, g)}</small><Icon id="x" size={14} /></button></li>)}</ul>}
+  </div>;
 }
 
 // 계획 입력: 다전공·부전공과 마이크로전공(고른 순서 = 1MD~3MD)
 export function WhatIfFields({ s, univ, d, set }: { s: State; univ: Univ; d: WhatIf; set: (v: Partial<WhatIf>) => void }) {
-  const mdRules = mdRulesOf(univ), label = (id: string) => mdRules.find(r => r.id === id)?.label;
+  const mdRules = mdRulesOf(univ), label = (id: string) => mdRules.find(r => r.id === id)?.label, full = d.mds.length >= 3;
   return <>
-    <ExtFields univ={univ} primary={s.me.program} ext={d.ext} set={ext => set({ ext })} deep={canDeep(s.me)} empty={!d.ext.length && !d.mds.length} clear={() => set({ ext: [], mds: [] })} />
-    {mdRules.length > 0 && <div className="grid"><label className="field">마이크로전공<select value="" disabled={d.mds.length >= 3} onChange={e => e.target.value && set({ mds: [...d.mds, e.target.value] })}>
-      <option value="">고르기</option>{mdRules.filter(r => !d.mds.includes(r.id)).map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</select></label></div>}
-    {d.mds.length > 0 && <ul className="chips">
-      {d.mds.map((id, k) => <li key={id}><button className="pill on" aria-label={`${label(id)} 빼기`} onClick={() => set({ mds: d.mds.filter(x => x !== id) })}>{k + 1}. {label(id)} ✕</button></li>)}</ul>}
+    <Opt label="전공제도"><ExtFields univ={univ} primary={s.me.program} ext={d.ext} set={ext => set({ ext })} deep={canDeep(s.me)} clear={() => set({ ext: [], mds: [] })} /></Opt>
+    {mdRules.length > 0 && <Opt label="마이크로전공">
+      <select className="pick" value="" disabled={full} aria-label="마이크로전공 고르기" onChange={e => e.target.value && set({ mds: [...d.mds, e.target.value] })}>
+        <option value="">{full ? '마이크로전공 최대 3개 선택' : '마이크로전공 고르기'}</option>{mdRules.filter(r => !d.mds.includes(r.id)).map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</select>
+      {d.mds.length > 0 && <ul className="chips">{d.mds.map((id, k) => <li key={id}>
+        <button className="pill on" aria-label={`${label(id)} 빼기`} onClick={() => set({ mds: d.mds.filter(x => x !== id) })}>{label(id)}<small>{k + 1}순위</small><Icon id="x" size={14} /></button></li>)}</ul>}
+    </Opt>}
   </>;
 }
 
+// 전공제도 계획. 고르면 바로 반영하고(확인 버튼 없음), 처음 값은 학생의 지금 전공제도다
 export function WhatIfBox({ s, univ, dispatch, moved }: PageProps & { univ: Univ; moved: string[] }) {
-  const cur = s.whatif, empty: WhatIf = { ext: s.me.ext, mds: [] };
-  const [d, setD] = useState<WhatIf>(cur ?? empty), next = wiOf(d, s.me);
-  const apply = (w?: WhatIf) => dispatch({ t: 'opt', v: { whatif: w } });
-  return <details className="rc fold-card wi" open><summary aria-label="전공제도 계획 접기·펼치기"><b>전공제도 계획</b><span className="v" />
-    <span className="st">{cur ? '반영 중' : ''}</span><Caret corner /></summary>
-    <div className="rc-body form">
-      <WhatIfFields s={s} univ={univ} d={d} set={v => setD({ ...d, ...v })} />
-      <div className="row">
-        <button className="btn p" disabled={JSON.stringify(next) === JSON.stringify(cur)} onClick={() => apply(next)}>반영하기</button>
-        {cur && <button className="btn" onClick={() => { apply(undefined); setD(empty); }}>되돌리기</button>}
-      </div>
-      {cur && moved.length > 0 && <Fold title={`옮긴 과목 ${moved.length}개`}><ul className="small">{moved.map(m => <li key={m}>{m}</li>)}</ul></Fold>}
-      <ul className="small muted">
-        <li>다전공·부전공을 신청하지 않으면 3학년 1학기에 심화전공으로 바뀌어요.</li>
-        <li>다전공은 제3전공까지 신청할 수 있어요. 마이크로전공은 2개 이상 이수하면 다전공·부전공·심화전공을 대신해요.</li>
-        <li>신청 전에 들은 과목을 반영하려면 학기 중(개강일~종강일)에 샘물에서 이수구분 정정을 신청하세요.</li>
-        {d.mds.length > 1 && <li>두 마이크로전공에 겹치는 과목은 먼저 고른 쪽에 들어가요.</li>}
-      </ul>
-    </div></details>;
+  const d = s.whatif ?? { ext: s.me.ext, mds: [] }, [n, setN] = useState(0); // n: 되돌리면 종류 고르기를 처음 상태로
+  const set = (v: Partial<WhatIf>) => dispatch({ t: 'opt', v: { whatif: wiOf({ ...d, ...v }, s.me) } });
+  return <section className="panel">
+    <WhatIfFields key={n} s={s} univ={univ} d={d} set={set} />
+    {s.whatif && <Opt label=""><button className="lnk" onClick={() => { dispatch({ t: 'opt', v: { whatif: undefined } }); setN(n + 1); }}>내 전공제도로 되돌리기</button></Opt>}
+    {moved.length > 0 && <Fold title={`이수구분이 바뀌는 과목 ${moved.length}개`}><ul className="small">{moved.map(m => <li key={m}>{m}</li>)}</ul></Fold>}
+    <Fold title="신청 안내"><ul className="small muted">
+      <li>다전공·부전공을 신청하지 않으면 3학년 1학기에 심화전공으로 바뀌어요.</li>
+      <li>다전공은 제3전공까지 신청할 수 있어요. 마이크로전공은 2개 이상 이수하면 다전공·부전공·심화전공을 대신해요.</li>
+      <li>신청 전에 들은 과목을 반영하려면 학기 중(개강일~종강일)에 샘물에서 이수구분 정정을 신청하세요.</li>
+      {d.mds.length > 1 && <li>두 마이크로전공에 겹치는 과목은 먼저 고른 쪽에 들어가요.</li>}
+    </ul></Fold>
+  </section>;
 }
 
 // 자기설계융합전공 이수계획표 과목. 학교 교육과정에서 골라 넣는다(이수구분은 다전공과 같은 2전선으로 본다, ADR 0024)
@@ -112,39 +117,44 @@ export function OwnBox({ s, dispatch, univ }: PageProps & { univ: Univ }) {
     return [...m.values()]; }, [cx]);
   const own = s.me.own ?? [], hit = list.find(r => q.startsWith(r.c + ' ') || q === r.c || q === r.n);
   const set = (rows: Row[]) => dispatch({ t: 'me', v: { own: rows.length ? rows : undefined } });
-  return <details className="rc fold-card wi"><summary aria-label="자기설계융합전공 과목 펼치기"><b>자기설계융합전공 과목</b><span className="v" />
-    <span className="st">{own.length ? `${own.length}과목 · ${own.reduce((n, r) => n + r.cr, 0)}학점` : ''}</span><Caret corner /></summary>
-    <div className="rc-body form">
-      <p className="small muted">승인받은 이수계획표의 과목을 넣으세요.</p>
-      {!cx ? <Loading /> : <form className="grid" onSubmit={e => { e.preventDefault(); if (hit && !own.some(r => r.c === hit.c)) { set([...own, { c: hit.c, n: hit.n, cr: hit.cr, t: '2전선' }]); setQ(''); } }}>
-        <label className="field" style={{ gridColumn: '1 / -1' }}>과목명 또는 학수번호<input list="own-catalog" value={q} onChange={e => setQ(e.target.value)} placeholder={`${list.length}과목에서 검색`} />
-          <datalist id="own-catalog">{list.map(r => <option key={r.c} value={`${r.c} ${r.n}`}>{`${r.cr}학점`}</option>)}</datalist></label>
-        <div className="field"><button className="btn p" disabled={!hit}>{hit ? `${hit.n} 넣기` : '넣기'}</button></div>
-      </form>}
-      {own.length > 0 && <ul className="chips">{own.map(r => <li key={r.c}><button className="pill on" aria-label={`${r.n} 빼기`} onClick={() => set(own.filter(x => x !== r))}>{r.n} · {r.cr} ✕</button></li>)}</ul>}
-    </div></details>;
+  // 목록에서 고르면 바로 넣는다(넣기 버튼 없음)
+  const pick = (v: string) => { setQ(v); const h = list.find(r => v.startsWith(r.c + ' ')); if (h && !own.some(r => r.c === h.c)) { set([...own, { c: h.c, n: h.n, cr: h.cr, t: '2전선' }]); setQ(''); } };
+  return <section className="panel">
+    <Opt label="자기설계 과목">
+      {!cx ? <Loading /> : <form onSubmit={e => { e.preventDefault(); if (hit) pick(`${hit.c} ${hit.n}`); }}>
+        <input className="pick" list="own-catalog" value={q} onChange={e => pick(e.target.value)} placeholder="이수계획표 과목 검색" aria-label="자기설계융합전공 과목 검색" />
+        <datalist id="own-catalog">{list.map(r => <option key={r.c} value={`${r.c} ${r.n}`}>{`${r.cr}학점`}</option>)}</datalist></form>}
+      {own.length > 0 && <ul className="chips">{own.map(r => <li key={r.c}><button className="pill on" aria-label={`${r.n} 빼기`} onClick={() => set(own.filter(x => x !== r))}>{r.n}<small>{r.cr}학점</small><Icon id="x" size={14} /></button></li>)}</ul>}
+    </Opt>
+  </section>;
 }
 
-// 전공선택: 학부·자유전공 입학생이 주전공을 정하기 전에 후보 전공을 같은 수강 기록으로 비교한다(주전공만 바꿔 판정, 다전공·학생별 기준은 빼고)
+// 전공선택: 학부·자유전공 입학생이 주전공을 정하기 전에 후보 전공을 같은 수강 기록으로 비교한다(주전공만 바꿔 판정, 다전공·학생별 기준은 빼고).
+// 그 학과 교육과정(모든 판)에 전공 이수구분으로 있는 과목만 전공 학점으로 센다. 다른 학과에서 전공으로 들은 과목은 일반선택(일선)으로 옮겨 판정한다(이슈 #42).
+// 반대로 그 학과 과목을 일반선택으로 들은 경우는 학교 정정 절차가 확인 불가라 옮기지 않는다
+const FREE = '일선';
 export function CompareBox({ s, univ }: PageProps & { univ: Univ }) {
   const [ids, setIds] = useState<string[]>([]), [cx, setCx] = useState<Ctx | null>(null);
   const me = (id: string): Me => ({ ...s.me, program: id, ext: [], tracks: [], base: undefined });
   useEffect(() => { setCx(null); if (!ids.length) return; let off = false;
     loadCtx(univ, ids.flatMap(id => toProfile(me(id), univ).programs.map(p => p.id))).then(c => { if (!off) setCx(c); }, e => console.error(e)); return () => { off = true; }; }, [univ, ids.join()]); // eslint-disable-line
   const rows = useMemo(() => !cx ? [] : ids.map(id => {
-    try { const r = audit(toProfile(me(id), univ), s.es, cx).programs[0].result, t = find(r, 'total'), m = find(r, 'major');
+    try {
+      const p = toProfile(me(id), univ);
+      const codes = [...new Set((univ.programs[id]?.catalogs ?? []).flatMap(c => Object.values(cx.catalogs[c]?.editions ?? {}).flat()).filter(r => univ.categories[r.t]?.includes('major')).map(r => r.c))];
+      const moved = reassign(p, s.es, cx, [{ cat: FREE, of: { tags: ['major'], not: { codes } } }]);
+      const r = audit(p, s.es.map((e, i) => moved[i] ? { ...e, category: moved[i] } : e), cx).programs[0].result, t = find(r, 'total'), m = find(r, 'major');
       return { id, left: t ? +Math.max(0, t.need - t.have).toFixed(1) : null, major: m ? `${+m.have.toFixed(1)} / ${m.need}` : '—', ok: r.ok };
     } catch { return { id, left: null, major: '—', ok: null }; } }), [cx, ids, s.es, s.me]); // eslint-disable-line
-  return <details className="rc fold-card wi"><summary aria-label="전공선택 후보 비교 펼치기"><b>전공선택 · 후보 전공 비교</b><span className="v" />
-    <span className="st">{ids.length ? `${ids.length}개` : ''}</span><Caret corner /></summary>
-    <div className="rc-body form">
-      <p className="small muted">학부·자유전공으로 입학했다면 주전공을 고르기 전에 후보 전공마다 남은 학점을 비교해 보세요.</p>
-      <div className="grid"><label className="field">후보 전공<select value="" disabled={ids.length >= 3} onChange={e => e.target.value && setIds([...ids, e.target.value])}>
-        <option value="">{ids.length >= 3 ? '3개까지' : '고르기'}</option>{primaries(univ).filter(p => !ids.includes(p.id)).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label></div>
-      {ids.length > 0 && (!cx ? <Loading /> : <div className="scroll-x tbl-box"><table className="tbl"><thead><tr><th>전공</th><th>졸업까지</th><th>전공 학점</th><th>상태</th><th /></tr></thead><tbody>
-        {rows.map(r => <tr key={r.id}><td className="l">{univ.programs[r.id]?.name}</td><td>{r.left == null ? '—' : `${r.left}학점`}</td><td>{r.major}</td>
-          <td><span className={'chip ' + (r.ok === true ? 'ok' : r.ok === false ? 'bad' : 'null')}>{r.ok === true ? '충족' : r.ok === false ? '부족' : '입력 필요'}</span></td>
-          <td><button className="icon-btn sm" aria-label={`${univ.programs[r.id]?.name} 빼기`} onClick={() => setIds(ids.filter(x => x !== r.id))}>✕</button></td></tr>)}
-      </tbody></table></div>)}
-    </div></details>;
+  return <details className="panel fold-panel"><summary><b>후보 전공 비교</b><small className="muted">학부·자유전공 입학생</small><Caret /></summary>
+    <Opt label="후보 전공">
+      <select className="pick" value="" disabled={ids.length >= 3} aria-label="후보 전공 고르기" onChange={e => e.target.value && setIds([...ids, e.target.value])}>
+        <option value="">{ids.length >= 3 ? '후보 전공 최대 3개 선택' : '후보 전공 고르기'}</option>{primaries(univ).filter(p => !ids.includes(p.id)).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>
+    </Opt>
+    {ids.length > 0 && (!cx ? <Loading /> : <div className="scroll-x tbl-box cmp"><table className="tbl"><thead><tr><th>전공</th><th>졸업까지</th><th>전공 학점</th><th>상태</th><th /></tr></thead><tbody>
+      {rows.map(r => <tr key={r.id}><td className="l">{univ.programs[r.id]?.name}</td><td><b>{r.left == null ? '—' : r.left}</b>{r.left != null && '학점'}</td><td>{r.major}</td>
+        <td><span className={'chip ' + (r.ok === true ? 'ok' : r.ok === false ? 'bad' : 'null')}>{r.ok === true ? '충족' : r.ok === false ? '부족' : '입력 필요'}</span></td>
+        <td><button className="icon-btn sm" aria-label={`${univ.programs[r.id]?.name} 빼기`} onClick={() => setIds(ids.filter(x => x !== r.id))}><Icon id="x" size={14} /></button></td></tr>)}
+    </tbody></table></div>)}
+  </details>;
 }
