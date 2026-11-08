@@ -7,3 +7,4 @@ oracle/expected/
 !.env.example
 .vercel/
 CLAUDE.md
+etl/smu-cheonan/raw/pdf/
