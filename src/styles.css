@@ -1,4 +1,4 @@
-/* docs/wireframe-smu.html에서 옮긴 스타일. 색은 상명 전용색(SM Blue #0E207F, smu.ac.kr UI). 밝은 화면만 */
+/* docs/wireframe-smu.html에서 옮긴 스타일. 색은 상명 전용색(SM Blue #0E207F, smu.ac.kr UI). 밝은 화면만. 글꼴 Pretendard(OFL-1.1, jsDelivr) */
 :root {
   --sm: #0E207F; --sm-d: #0a1860; --sm-50: #eef0f8; --gray: #333B3D; --line: #e4e7ec; --line-2: #eef0f3; --bg: #f6f7f9; --surface: #fff; --text: #191c1f; --muted: #5f6670;
   --hover: rgba(14,32,127,.05); --ok: #1a7346; --bad: #c2372f; --warn: #8a6a0c; --shadow: 0 6px 24px rgba(14,32,127,.10); --r: 8px;
@@ -7,7 +7,7 @@
 }
 * { box-sizing: border-box; }
 html { interpolate-size: allow-keywords; }
-body { margin: 0; background: var(--surface); color: var(--text); letter-spacing: -.01em; font: 16px/1.6 "Noto Sans KR", system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--surface); color: var(--text); letter-spacing: -.01em; font: 16px/1.6 "Pretendard Variable", Pretendard, system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; -webkit-font-smoothing: antialiased; }
 #root { display: contents; }
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; color: inherit; }
@@ -486,3 +486,101 @@ details.callout > summary::-webkit-details-marker { display: none; }
 /* 학점 플래너 다전공·마이크로전공 계획 */
 .wi-box { margin: 0 0 16px; }
 .wi-h { margin: 32px 0 12px; }
+
+/* ── 학점 플래너 (이슈 #42) ──
+   설정은 한 판(panel) 안의 줄(opt): 왼쪽 이름, 오른쪽 고르는 칸. 바꾸면 바로 반영되므로 확인 버튼이 없다.
+   학기 카드는 머리에 '담은 학점 / 상한'과 막대, 과목은 이름·학점 한 줄 + 이수구분 색 표시 한 줄 */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 2px 20px; margin-bottom: 16px; }
+.opt { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 8px 16px; align-items: start; padding: 14px 0; }
+.opt + .opt { border-top: 1px solid var(--line-2); }
+.opt-l { padding-top: 6px; font-size: 14px; font-weight: 600; color: var(--gray); }
+.opt-v { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.opt-v > .chips, .ext > .chips { margin-top: 0; }
+.opt-v > .lnk { align-self: flex-start; font-size: 14px; }
+.ext { display: flex; flex-direction: column; gap: 10px; }
+.kinds { display: flex; flex-wrap: wrap; gap: 6px; }
+.kinds button { height: 34px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; transition: background .15s, border-color .15s, color .15s; }
+.kinds button:hover { border-color: color-mix(in srgb, var(--sm) 40%, var(--line)); }
+.kinds button[aria-checked="true"], .kinds button[aria-pressed="true"] { background: var(--sm); border-color: var(--sm); color: #fff; font-weight: 600; }
+select.pick, input.pick { width: 100%; max-width: 360px; height: 40px; padding: 0 12px; border: 1px solid #d6d9de; border-radius: 8px; background: #fff; color: var(--text); }
+select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-shadow: 0 0 0 3px var(--hover); }
+.chips .pill.on { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px 0 12px; }
+.chips .pill.on small { font-size: 12px; font-weight: 500; opacity: .7; }
+.chips .pill.on svg { opacity: .6; } .chips .pill.on:hover svg { opacity: 1; }
+.toggles { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-top: 4px; }
+.tg { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; cursor: pointer; }
+.panel details.fold > summary { font-size: 14px; color: var(--muted); }
+.panel .fold-body ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* 추천 요약: 판정 한 마디 + 숫자 셋, 못 채우는 요건은 바로 아래 */
+.plan-sum { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 20px; margin-bottom: 16px; transition: opacity .25s var(--ease); }
+.plan-sum.stale { opacity: .55; }
+.verdict { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+.verdict svg { stroke-width: 2.6; }
+.verdict.ok { color: var(--ok); } .verdict.bad { color: var(--bad); }
+.stats { display: flex; gap: 32px; margin: 0; }
+.stats div { display: flex; flex-direction: column; gap: 2px; }
+.stats dt { font-size: 13px; color: var(--muted); }
+.stats dd { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.unmet { flex-basis: 100%; list-style: none; margin: 0; padding: 12px 0 0; border-top: 1px solid var(--line-2); display: grid; gap: 6px; font-size: 14px; }
+.unmet li { display: flex; justify-content: space-between; gap: 12px; }
+.unmet b { color: var(--bad); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* 학기 카드 */
+.term > header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px 12px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line-2); }
+.term > header > b { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+.term > header .n { font-size: 13px; } .term > header .n b { font-size: 15px; font-weight: 700; color: var(--text); }
+.load { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
+.load i { display: block; height: 100%; border-radius: inherit; background: var(--sm); transition: width .4s var(--ease); }
+.term > header + .course { border-top: 0; }
+.term .course-btn, .term .course.fixed { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; }
+.c-n { font-weight: 500; overflow-wrap: anywhere; word-break: keep-all; }
+.c-cr { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.term .course small { grid-column: 1 / -1; }
+.term .course.fixed .c-n { font-weight: 400; }
+.term .course.fixed small svg { color: var(--ok); stroke-width: 2.4; }
+.term .course:has(.course-btn):hover { background: #fafbfc; }
+.term .course.open { background: var(--sm-50); box-shadow: none; }
+.term .course.swapped .c-n::after { content: "바꾼 과목"; margin-left: 6px; font-size: 12px; font-weight: 600; color: var(--warn); }
+.cat { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #f0f1f3; color: var(--gray); }
+.cat.mj { background: var(--sm-50); color: var(--sm); }
+.cat.m2 { background: #e5f3f0; color: #0d6b63; }
+.cat.md { background: #fbf0dc; color: #875700; }
+.cat.ge { background: #f0f1f3; color: #4b525a; }
+.term .swap-mark { margin: 0; font-size: 12px; font-weight: 500; color: var(--muted); }
+.empty-t { padding: 14px 16px; }
+
+/* 후보 전공 비교(접는 판) */
+details.fold-panel > summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 16px 0; cursor: pointer; }
+details.fold-panel > summary::-webkit-details-marker { display: none; }
+details.fold-panel > summary b { font-size: 16px; font-weight: 600; }
+details.fold-panel > summary small { font-size: 13px; }
+details.fold-panel > summary .caret { margin-left: auto; }
+details.fold-panel[open] > summary { border-bottom: 1px solid var(--line-2); }
+.cmp { margin: 0 0 16px; }
+.req + .fold-panel { margin-top: 28px; }
+.cmp td b { font-size: 16px; font-variant-numeric: tabular-nums; margin-right: 1px; }
+
+@media (max-width: 760px) {
+  .panel { border: 0; border-radius: var(--r); padding: 2px 18px; margin-bottom: 12px; }
+  .opt { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 16px 0; }
+  .opt-l { padding-top: 0; font-size: 13px; }
+  .opt-l:empty { display: none; }
+  .toggles { flex-direction: column; gap: 14px; }
+  .tg { justify-content: space-between; flex-direction: row-reverse; }
+  select.pick, input.pick { max-width: none; height: 48px; font-size: 16px; border-radius: 10px; }
+  .kinds { flex-wrap: nowrap; overflow-x: auto; margin: 0 -18px; padding: 0 18px 2px; scrollbar-width: none; }
+  .kinds::-webkit-scrollbar { display: none; }
+  .kinds button { flex: none; height: 38px; }
+  .plan-sum { border: 0; padding: 18px; margin-bottom: 12px; }
+  .stats { width: 100%; justify-content: space-between; gap: 12px; }
+  .term > header { padding: 16px 18px 12px; }
+}
+/* 펼친 요건 카드: 이수구분 한 줄씩(이름 · 들은 학점 · 더 필요), 마지막 줄 남음 */
+dl.got { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 20px; max-width: 360px; margin: 0 0 14px; font-size: 15px; }
+dl.got > div { display: contents; }
+dl.got dt { color: var(--muted); }
+dl.got dd { margin: 0; display: flex; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; }
+dl.got dd b { font-weight: 700; }
+dl.got dd small { font-size: 13px; color: var(--bad); }
+dl.got .left dt, dl.got .left dd { padding-top: 6px; border-top: 1px solid var(--line-2); color: var(--text); font-weight: 600; }
