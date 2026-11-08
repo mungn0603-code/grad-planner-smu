@@ -34,9 +34,40 @@ rules.policy.assign = {
 // 2. 자기설계융합전공: 학교 카탈로그가 없고 교육과정은 학생이 넣는다(Profile.own, id 'ism')
 rules.programs.ism = { name: '자기설계융합전공', catalogs: [], kind: 'ism' };
 
+// 2-1. 연계·융합전공(raw/linked-fusion.json, 천안 교육과정표 PDF 2023~2026에서 추출): 전공마다 카탈로그·프로그램
+const LF: Record<string, string> = {
+  '디지털경영학연계전공': 'lk-digitalbiz', '스마트웹&앱연계전공': 'lk-smartwebapp', '글로벌커뮤니케이션연계전공': 'lk-globalcomm',
+  '글로벌문화콘텐츠연계전공': 'lk-globalculture', '스토리텔링연계전공': 'lk-storytelling', 'AI영상디자인연계전공': 'lk-aivideo',
+  '빅데이터융합전공': 'fu-bigdata', '글로벌데이터경영융합전공': 'fu-globaldata', '글로벌마케팅융합전공': 'fu-globalmkt',
+  '라이프스타일융합전공': 'fu-lifestyle', '로봇AI융합전공': 'fu-robotai', '스마트게임&콘텐츠융합전공': 'fu-smartgame',
+  '스마트리빙디자인융합전공': 'fu-smartliving', '트랜스미디어디자인융합전공': 'fu-transmedia', '미래모빌리티융합시스템융합전공': 'fu-mobility',
+  '디스플레이-반도체소부장융합전공': 'fu-display', '에너지융합전공': 'fu-energy',
+};
+const lfRaw = JSON.parse(fs.readFileSync(new URL('../../etl/smu-cheonan/raw/linked-fusion.json', import.meta.url), 'utf8'));
+// 과목의 학년·학기(y·s·alt)는 개설 학과 교육과정을 따른다: 학과 카탈로그 최신 판에 같은 학수번호가 있으면 그 값(파일 이름 순서로 처음 찾은 것)
+const lfIds = new Set(Object.values(LF));
+const owner = new Map<string, Record<string, unknown>>();
+for (const f of fs.readdirSync(new URL('gen/', DIR)).sort()) {
+  const c = JSON.parse(fs.readFileSync(new URL(`gen/${f}`, DIR), 'utf8'));
+  if (!c.editions || lfIds.has(c.id)) continue;
+  const eds = Object.keys(c.editions).sort(); for (const r of c.editions[eds[eds.length - 1]] ?? []) if (!owner.has(r.c)) owner.set(r.c, r);
+}
+const lf: { id: string; src: string[] }[] = [];
+for (const [name, e] of Object.entries<any>(lfRaw.programs)) {
+  const id = LF[name]; if (!id) throw new Error(`연계·융합전공 id 없음: ${name}`);
+  rules.programs[id] = { name, catalogs: [id], kind: name.endsWith('연계전공') ? 'linked' : 'fusion' };
+  const editions = Object.fromEntries(Object.entries<any[]>(e.editions).map(([y, rows]) => [y, rows.map(r => {
+    const o = owner.get(r.c); if (!o) return r;
+    const { y: _y, s: _s, alt: _a, ...rest } = r;
+    return { ...rest, ...(o.y != null ? { y: o.y } : {}), ...(o.s != null ? { s: o.s } : {}), ...(o.alt != null ? { alt: o.alt } : {}) };
+  })]));
+  fs.writeFileSync(new URL(`gen/${id}.json`, DIR), JSON.stringify({ id, name, editions }, null, 1) + '\n');
+  lf.push({ id, src: e.src });
+}
+
 // 3. 블록: 프로그램마다 배정된 과목 학점, 편입생 교양 영역, 한국어졸업인증, 마이크로전공 겹침 금지
 const depts = Object.keys(rules.programs).filter(id => rules.programs[id].college);
-for (const id of [...depts, 'ism']) rules.blocks[`m2.${id}`] = { id: 'm2', label: '전공 학점', credits: '$need', of: { tags: [`@${id}`] } };
+for (const id of [...depts, 'ism', ...lf.map(x => x.id)]) rules.blocks[`m2.${id}`] = { id: 'm2', label: '전공 학점', credits: '$need', of: { tags: [`@${id}`] } };
 rules.blocks['gearea.transfer'] = { id: 'gearea', label: '교양 필수 영역(편입생 기준 확인 필요)', check: 'transfer.gearea',
   hint: '편입생에게 이 기준이 같은지 학점플래너 데이터로는 알 수 없습니다. 샘물 학점이수상황표에서 확인하고, 충족했으면 켜 주세요.' };
 for (const lv of [4, 3]) rules.blocks[`topik.${lv}`] = { id: 'topik', label: `한국어졸업인증(TOPIK ${lv}급 이상)`, check: 'topik', min: lv,
@@ -78,6 +109,8 @@ for (const id of depts) {
 }
 out.push(line({ program: 'ism', role: 'second', from: yrs[0], to: yrs[1], with: '', admission: '', student: '', blocks: 'm2.ism', vars: 'need=36',
   src: `${MARK} 자기설계융합전공을 다전공으로 이수 시 36(학사안내 multiMajor3.do)` }));
+for (const { id, src } of lf) out.push(line({ program: id, role: 'second', from: yrs[0], to: yrs[1], with: '', admission: '', student: '', blocks: `m2.${id}`, vars: 'need=36',
+  src: `${MARK} 연계·융합전공 36학점 이상(학사안내 multiMajor2.do) · 교육과정 ${src.join(' ')}` }));
 
 fs.writeFileSync(new URL('rules.json', DIR), JSON.stringify(rules, null, 1) + '\n');
 fs.writeFileSync(new URL('sets.csv', DIR), [head, ...keep, ...out].join('\n') + '\n');

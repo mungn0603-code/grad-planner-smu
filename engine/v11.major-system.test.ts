@@ -58,6 +58,32 @@ test('MJ05 제2전공 + 부전공: 주전공 45, 이수구분 종류로 나눈�
   assert.equal(c.ok, true);
 });
 
+test('MJ06 연계·융합전공: 교육과정 과목을 연선·융선으로 36학점이면 충족, 2024에만 있던 전공도 판정', () => {
+  const latest = (id: string) => { const e = ctx.catalogs[id].editions; return e[Object.keys(e).sort().pop()!]; };
+  const sw = codes('software');
+  const story = latest('lk-storytelling').map(r => r.c).filter(c => !sw.has(c)).slice(0, 12);
+  const p: Profile = { ...P, programs: [...P.programs, { id: 'lk-storytelling', role: 'second' }] };
+  assert.equal(story.length, 12);
+  assert.equal(find(res(p, take(story, '연선'), 'lk-storytelling'), 'm2')!.have, 36);
+  assert.equal(res(p, take(story, '연선'), 'lk-storytelling').ok, true);
+  const robot = latest('fu-robotai').map(r => r.c).filter(c => !sw.has(c)).slice(0, 12);
+  const q: Profile = { ...P, programs: [...P.programs, { id: 'fu-robotai', role: 'second' }] };
+  assert.equal(res(q, take(robot, '융선'), 'fu-robotai').ok, robot.length === 12);
+  assert.ok(Object.keys(ctx.catalogs['fu-robotai'].editions).every(y => y <= '2025')); // 2026에는 없는 융합전공
+});
+
+test('MJ06b 제2전공 + 연계전공: 같은 과목도 이수구분 종류(2전선·연선)로 나눈다', () => {
+  const p: Profile = { ...P, programs: [...P.programs, { id: 'green', role: 'second' }, { id: 'lk-globalculture', role: 'second' }] };
+  const gc = codes('lk-globalculture');
+  const shared = [...gc].find(c => codes('depenglish').has(c))!; // 영어권지역학 과목이면서 연계전공 교육과정
+  const a = audit(p, [...green36, ...take([shared], '연선')], ctx);
+  assert.equal(find(a.programs.find(x => x.id === 'lk-globalculture')!.result, 'm2')!.have, 3);
+  assert.equal(find(a.programs.find(x => x.id === 'green')!.result, 'm2')!.have, 36);
+  const b = audit(p, take([shared], '2전선'), ctx); // 다전공 이수구분이면 연계전공 교육과정에 있어도 제2전공으로
+  assert.equal(find(b.programs.find(x => x.id === 'green')!.result, 'm2')!.have, 3);
+  assert.equal(find(b.programs.find(x => x.id === 'lk-globalculture')!.result, 'm2')!.have, 0);
+});
+
 test('MJ08 마이크로전공: 두 묶음이 같은 과목을 쓰면 하나로만 센다', () => {
   const p: Profile = { ...P, programs: [...P.programs, { id: 'md', role: 'micro' }] };
   const protein = take(['HBEC0021', 'HBEC0006', 'HBEC0018', 'HBEC0010'], 'MD'), chem = take(['HBEC0029', 'HBEC0030', 'HBJG4148'], 'MD'); // 화학기초는 HBEC0010을 함께 쓴다
