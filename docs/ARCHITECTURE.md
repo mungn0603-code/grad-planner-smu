@@ -191,7 +191,7 @@ src/ (React+Vite 웹앱 MVP, 성적은 기기 localStorage, §10) ──▶ 정�
 
 ### 6-5. 샘물 서버 대리 로그인(2026-10-21, 학교 허가)
 
-사용자가 상명대(상명프렌즈 융합혁신대학)의 공식 허가를 받아 학생이 넣은 학번·샘물 비밀번호로 서버가 대신 로그인하는 방식으로 바꿨다. 요청 주소·본문은 §6-3에서 실제 샘물 세션으로 확인한 구조를 따른다. 코드는 `api/smul.ts`(Vercel 함수, 다른 파일 import 없음).
+사용자가 상명대(상명프렌즈 융합혁신대학)의 공식 허가를 받아 학생이 넣은 학번·샘물 비밀번호로 서버가 대신 로그인하는 방식으로 바꿨다. 요청 주소·본문은 §6-3에서 실제 샘물 세션으로 확인한 구조를 따른다. 코드는 `api/smul.ts`(Vercel 함수, 다른 파일 import 없음). 새 저장소 P6에서 진입 파일만 남기고 `server/smul/`로 나눴다([0025](decisions/0025-smul-split-and-profile.md)).
 
 ```
 화면(동의 필수, 학번·비밀번호) ─POST /api/smul─▶ api/smul.ts
@@ -374,7 +374,7 @@ src/ (React+Vite 웹앱 MVP, 성적은 기기 localStorage, §10) ──▶ 정�
 | `data/yonsei/`, `data/cnu/` | V2 외부 대학 |
 | `etl/compose.ts`, `etl/tsv2catalog.ts` | 판 추가, 표 → 카탈로그 |
 | `oracle/` | 현재 앱 사본·하니스·설명된 차이 |
-| `api/smul.ts` | 샘물 서버 대리 로그인(Vercel 함수, §6-5), IP·학번 시도 횟수 제한 |
+| `api/smul.ts` | 샘물 서버 대리 로그인(Vercel 함수, §6-5). 새 저장소에서는 진입 파일만, 로그인·변환·횟수 제한·차단기는 `server/smul/` |
 | `supabase/migrations/` | Supabase 스키마(적용한 마이그레이션 SQL). 지금은 `smul_try`(§6-5) |
 | `src/main.tsx` | 앱 뼈대: 상태·저장·데이터 불러오기·상단 메뉴·화면 전환 |
 | `src/pages.tsx` | 홈·샘물 가져오기·졸업요건·학기추천·마이페이지·이용안내 화면 |
