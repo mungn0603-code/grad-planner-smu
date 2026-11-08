@@ -95,7 +95,7 @@ export function PlanPage(props: PageProps) {
             {rows.map(r => { const alts = (P.alts[r.k] ?? []).filter(x => !usedCodes.has(x.code)), open = openKey === r.k, can = alts.length > 0 || r.swapped, cat = r.cat ?? catOf(r.code);
               return <div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '')} key={r.k}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : r.k)}><span className="c-n">{r.name}</span><span className="c-cr">{r.cr}</span>
-                  <small>{cat && univ && <span className={'cat ' + grp(univ, cat)}>{cat}</span>}{can && <span className="swap-mark">바꾸기 가능</span>}</small></button>
+                  <small>{cat && univ && <span className={'cat ' + grp(univ, cat)}>{cat}</span>}{can && <span className="swap-mark" role="img" aria-label="다른 과목으로 바꾸기 가능" title="다른 과목으로 바꾸기 가능"><Icon id="swap" size={14} /></span>}</small></button>
                 {open && <div className="alts" role="group" aria-label={`${r.orig.name} 담기·바꾸기`}>
                   <button className="btn p" onClick={() => take({ code: r.code, name: r.name, term: t })}>이수 예정으로 담기</button>
                   {r.swapped && <button className="pill" onClick={() => setSwap(r.k, null)}>↺ {r.orig.name} · {r.orig.cr}</button>}

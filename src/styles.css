@@ -547,7 +547,8 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .cat.m2 { background: #e5f3f0; color: #0d6b63; }
 .cat.md { background: #fbf0dc; color: #875700; }
 .cat.ge { background: #f0f1f3; color: #4b525a; }
-.term .swap-mark { margin: 0; font-size: 12px; font-weight: 500; color: var(--muted); }
+.term .swap-mark { display: inline-flex; margin: 0; color: var(--sm); }
+.term .swap-mark svg { stroke-width: 2; }
 .empty-t { padding: 14px 16px; }
 
 /* 후보 전공 비교(접는 판) */
