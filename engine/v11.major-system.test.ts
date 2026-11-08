@@ -139,6 +139,14 @@ test('MJ14 자기설계융합전공: 학생이 넣은 교육과정으로 36, 같
   assert.equal(find(a.programs.find(x => x.id === 'ism')!.result, 'm2')!.have, CIVIL.length * 3);
 });
 
+test('추천 행·바꾸기 후보는 들을 때의 이수구분을 함께 준다(다전공 과목은 2전선, 주전공 과목은 카탈로그 값)', () => {
+  const r = plan({ ...P, now: '2023-2', programs: [...P.programs, { id: 'green', role: 'second' }] }, [], ctx);
+  const g = codes('green'), s = codes('software'), only = r.rows.filter(x => g.has(x.code) && !s.has(x.code));
+  assert.ok(only.length > 0 && only.every(x => x.cat === '2전선'), JSON.stringify(only.map(x => x.cat)));
+  assert.ok(r.rows.filter(x => s.has(x.code)).every(x => x.cat && x.cat !== '2전선'));
+  assert.ok(Object.values(r.alts).flat().every(x => x.cat));
+});
+
 test('추천: 다전공 교육과정에만 있는 과목을 다전공 이수구분으로 추천해 다전공 36을 채운다', () => {
   const p: Profile = { ...P, now: '2023-2', programs: [...P.programs, { id: 'green', role: 'second' }] };
   const r = plan(p, [], ctx);

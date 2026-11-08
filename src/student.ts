@@ -31,20 +31,23 @@ export function programId(u: Univ, name: string, role: 'primary' | 'second' | 'm
   return Object.keys(u.programs).find(id => ks.includes(key(u.programs[id].name)) && u.sets.some(s => s.program === id && s.when?.role === role));
 }
 
+// 학점이수상황표 기준을 프로그램에 넣는다: 주전공은 이수 형태별 열 → vars, 다전공·부전공은 각자의 need. 화면이 프로그램 목록을 바꿀 때도 쓴다
+export function withBase(programs: Prog[], base: Record<string, number> | undefined, who: Pick<Profile, 'admission' | 'student' | 'exempt'>): { programs: Prog[]; vars?: Record<string, number> } {
+  if (!base) return { programs };
+  const ps = programs.map(g => { const c = (NEED as Record<string, string>)[g.role], need = c ? base[c] : undefined; return typeof need === 'number' ? { ...g, vars: { need } } : g; });
+  const vars = pick(base, BASE[withOf({ programs, ...who })]);
+  return { programs: ps, ...(Object.keys(vars).length ? { vars } : {}) };
+}
+
 // primary: 주전공 프로그램 id(학생이 고른 값, 없으면 학과 이름으로 찾음). 전공제도 이수 제외(공학인증 등)는 샘물에 없어 학생이 따로 표시한다(Profile.exempt)
 export function fromSmul(u: Univ, st: Student, base?: Record<string, number>, primary = programId(u, st.dept, 'primary')):
   Pick<Profile, 'programs'> & Partial<Pick<Profile, 'admission' | 'student' | 'vars'>> {
-  const b = base ?? {};
-  const ext: Prog[] = st.majors.filter(m => m.kind in ROLE).map(m => {
-    const role = ROLE[m.kind], need = b[NEED[role]];
-    // 이름으로 못 찾은 다전공·부전공은 과목 데이터 없는 'ext'로 둔다(주전공 기준 45·60은 맞게 잡힌다)
-    return { id: programId(u, m.name, role) ?? 'ext', role, ...(typeof need === 'number' ? { vars: { need } } : {}) };
-  });
+  // 이름으로 못 찾은 다전공·부전공은 과목 데이터 없는 'ext'로 둔다(주전공 기준 45·60은 맞게 잡힌다)
+  const ext: Prog[] = st.majors.filter(m => m.kind in ROLE).map(m => ({ id: programId(u, m.name, ROLE[m.kind]) ?? 'ext', role: ROLE[m.kind] }));
   // 학적의 마이크로전공은 '신청'이라 이수 형태를 바꾸지 않는다(2개 이상 '이수'해야 대체, ADR 0017). 대체는 계획 화면에서 고른다
   const admission = !st.entr ? undefined : /학사\s*편입/.test(st.entr) ? 'bachelor' : /편입/.test(st.entr) ? 'transfer' : 'freshman';
   // 외국인특별전형은 입학구분 이름으로, 그 밖에는 국적으로 본다(일반전형 유학생과 구분하지 않음, ADR 0024)
   const student = /외국인/.test(st.entr) || st.intl ? 'international' : st.intl === false ? 'domestic' : undefined;
-  const programs: Prog[] = [...(primary ? [{ id: primary, role: 'primary' as const }] : []), ...ext];
-  const vars = pick(b, BASE[withOf({ programs, admission: admission ?? 'freshman', student: student ?? 'domestic' })]);
-  return { programs, ...(admission ? { admission } : {}), ...(student ? { student } : {}), ...(Object.keys(vars).length ? { vars } : {}) };
+  const { programs, vars } = withBase([...(primary ? [{ id: primary, role: 'primary' as const }] : []), ...ext], base, { admission: admission ?? 'freshman', student: student ?? 'domestic' });
+  return { programs, ...(admission ? { admission } : {}), ...(student ? { student } : {}), ...(vars ? { vars } : {}) };
 }
