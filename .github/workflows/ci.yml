@@ -1,5 +1,4 @@
-# PR과 dev·main push 때 설치와 테스트를 돌린다. 실패하면 병합이 막힌다(main·dev 보호 규칙의 필수 검사).
-# 빌드는 P7에서 단계로 더한다.
+# PR과 dev·main push 때 설치·타입 검사·빌드·테스트를 돌린다. 실패하면 병합이 막힌다(main·dev 보호 규칙의 필수 검사).
 name: CI
 
 on:
@@ -22,6 +21,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
+      - run: npx vite build
       # 오라클 정답(oracle/expected)은 git에 넣지 않는 생성물이다. 첫 앱으로 다시 만들고, 기록해 둔 해시와 같은지 확인한다.
       - run: npm run oracle
       - run: cd oracle/expected && sha256sum -c ../expected.sha256
