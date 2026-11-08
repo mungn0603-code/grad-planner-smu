@@ -27,6 +27,8 @@ npm ci
 npm run oracle      # 첫 앱으로 오라클 정답을 만든다(V1 테스트가 씀, git에는 넣지 않음)
 npm run typecheck   # 타입 검사
 npm test            # 엔진 테스트
+npm run dev         # 개발 서버(http://localhost:5173), /api/smul도 함께 붙는다
+npm run build       # 배포용 빌드(dist/)
 ```
 
 오라클은 상명프렌즈 첫 앱(V44)이 낸 판정 결과입니다. 새 엔진이 같은 사례에서 같은 결과를 내는지 비교해 이식이 맞는지 확인합니다([ADR 0004](docs/decisions/0004-oracle-verification.md)).
@@ -64,7 +66,7 @@ npm test            # 엔진 테스트
 | P5b | 연계·융합전공 데이터 | 완료 |
 | P5c | 교육과정 빈칸 정리 | 완료 |
 | P6 | 샘물 가져오기 | 완료 |
-| P7 | 화면 | 대기 |
+| P7 | 화면 | 완료 |
 | P8 | 회원제 | 대기 |
 | P9 | 홈 화면 설치·앱 포장 | 대기 |
 
