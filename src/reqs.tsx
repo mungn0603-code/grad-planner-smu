@@ -120,10 +120,10 @@ function breakdown(r: Result, items: Item[], es: Enrollment[]): Got | undefined 
   for (const i of r.used ?? []) { const it = items[i]; if (!it) continue; const c = (es[it.i]?.category ?? it.cat ?? '기타').replace(/^\d/, ''); m.set(c, (m.get(c) ?? 0) + it.cr); }
   return { got: [...m].map(([c, n]): [string, number] => [c, +n.toFixed(1)]).sort((x, y) => y[1] - x[1]), left: +Math.max(0, r.need - r.have).toFixed(1) };
 }
-// 예: 전선 21학점, 전심 6학점 들었어요. 48학점 더 들어야 해요
+// 예: 전선 21학점, 전심 6학점 이수 · 48학점 남음
 const GotLine = ({ g }: { g: Got }) => <p className="basis got">
-  {g.got.length ? <>{g.got.map(([c, n], i) => <span key={c}>{i > 0 && ', '}{c} <b>{n}</b>학점</span>)} 들었어요. </> : '아직 들은 과목이 없어요. '}
-  {g.left > 0 ? <><b>{g.left}</b>학점 더 들어야 해요</> : '다 채웠어요'}</p>;
+  {g.got.length ? <>{g.got.map(([c, n], i) => <span key={c}>{i > 0 && ', '}{c} <b>{n}</b>학점</span>)} 이수</> : '이수 없음'}
+  {' · '}{g.left > 0 ? <><b>{g.left}</b>학점 남음</> : '충족'}</p>;
 const subIds = (program: string, r: Result, out = new Set<string>()) => { out.add(`${program}.${r.id}`); r.children?.forEach(c => subIds(program, c, out)); return out; };
 
 export function ResultPage(props: PageProps) {
