@@ -64,6 +64,8 @@ export function modeOf(p: Profile, me: Me): string {
   if (w === 'single') return me.admission === 'freshman' && semNo(me) < 4 ? '심화전공 예정' : '심화전공';
   return ({ double: '다전공', minor: '부전공', micro: '마이크로전공', exempt: '전공제도 이수 제외' } as const)[w];
 }
+// 심화전공을 할 수 있는 학생인지(편입·외국인특별전형·이수 제외 표시는 심화전공 이수 불가, engine withOf와 같은 규칙)
+export const canDeep = (me: Me) => me.admission === 'freshman' && me.student !== 'international' && !me.exempt;
 // 프로그램 종류 이름(다전공·부전공 목록 표시용). 'ext'는 학과 정보 없이 가져온 다전공·부전공
 const KIND: Record<string, string> = { dept: '다전공', linked: '연계전공', fusion: '융합전공', ism: '자기설계융합전공' };
 export const roleText = (u: Univ, g: Prog) => g.role === 'minor' ? '부전공' : g.role === 'micro' ? '마이크로전공' : KIND[u.programs[g.id]?.kind ?? 'dept'] ?? '다전공';

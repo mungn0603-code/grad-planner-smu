@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { audit, reassign, find, type Ctx } from '../engine/audit.ts';
 import type { Filter, Row, Univ } from '../engine/types.ts';
 import { loadCtx, primaries, progsFor } from './data.ts';
-import { toProfile, roleText, progName, OWN, type Me, type PageProps, type Prog, type State, type WhatIf } from './state.ts';
+import { toProfile, roleText, progName, canDeep, OWN, type Me, type PageProps, type Prog, type State, type WhatIf } from './state.ts';
 import { Caret, Fold, Loading } from './ui.tsx';
 
 type MdRule = { id: string; label: string; courses: number; of: Filter };
@@ -48,10 +48,12 @@ export function useWhatIf({ s, univ, ctx }: PageProps, w: WhatIf | undefined) {
 // 고른 값만 남긴 계획. 지금 학적과 같으면 undefined(계획 없음)
 export const wiOf = (d: WhatIf, me: Me): WhatIf | undefined => same(d.ext, me.ext) && !d.mds.length ? undefined : d;
 
-// 다전공·부전공 고르기. 종류를 고르고 그 종류의 전공을 더한다. 다전공은 제3전공까지(2개)
-const KINDS = [['dept', '제2·3전공'], ['minor', '부전공'], ['linked', '연계전공'], ['fusion', '융합전공'], ['ism', '자기설계융합전공']] as const;
+// 전공제도 고르기. 심화전공은 다전공·부전공을 하지 않는 것이라 고르면 목록을 비운다(engine withOf: 프로그램이 없으면 심화전공).
+// 다전공·부전공은 종류를 고르고 그 종류의 전공을 더한다. 다전공은 제3전공까지(2개). 이수 제외 학생(편입 등)은 심화전공을 할 수 없어 deep=false
+const KINDS = [['deep', '심화전공'], ['dept', '제2·3전공'], ['minor', '부전공'], ['linked', '연계전공'], ['fusion', '융합전공'], ['ism', '자기설계융합전공']] as const;
 type Kind = typeof KINDS[number][0];
-export function ExtFields({ univ, primary, ext, set }: { univ: Univ; primary: string; ext: Prog[]; set: (ext: Prog[]) => void }) {
+export function ExtFields({ univ, primary, ext, set, deep = true, empty = !ext.length, clear = () => set([]) }:
+  { univ: Univ; primary: string; ext: Prog[]; set: (ext: Prog[]) => void; deep?: boolean; empty?: boolean; clear?: () => void }) {
   const [kind, setKind] = useState<Kind>('dept'), role = kind === 'minor' ? 'minor' : 'second';
   const opts = progsFor(univ, role).filter(p => p.kind === (kind === 'minor' ? 'dept' : kind) && p.id !== primary && !ext.some(g => g.id === p.id));
   const full = role === 'second' && ext.filter(g => g.role === 'second').length >= 2;
@@ -59,9 +61,10 @@ export function ExtFields({ univ, primary, ext, set }: { univ: Univ; primary: st
     {ext.length > 0 && <ul className="chips">{ext.map(g => <li key={g.id + g.role}>
       <button className="pill on" aria-label={`${progName(univ, g)} 빼기`} onClick={() => set(ext.filter(x => x !== g))}>{progName(univ, g)} · {roleText(univ, g)} ✕</button></li>)}</ul>}
     <div className="grid">
-      <label className="field">종류<select value={kind} onChange={e => setKind(e.target.value as Kind)}>{KINDS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
-      <label className="field">전공<select value="" disabled={full || !opts.length} onChange={e => e.target.value && set([...ext, { id: e.target.value, role }])}>
-        <option value="">{full ? '다전공은 2개까지' : '고르기'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
+      <label className="field">종류<select value={kind} onChange={e => setKind(e.target.value as Kind)}>{KINDS.filter(([k]) => deep || k !== 'deep').map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
+      {kind === 'deep' ? <div className="field"><span>&nbsp;</span><button type="button" className="btn" disabled={empty} onClick={clear}>{empty ? '심화전공으로 계산 중' : '심화전공으로 바꾸기'}</button></div>
+        : <label className="field">전공<select value="" disabled={full || !opts.length} onChange={e => e.target.value && set([...ext, { id: e.target.value, role }])}>
+          <option value="">{full ? '다전공은 2개까지' : '고르기'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>}
     </div>
   </>;
 }
@@ -70,7 +73,7 @@ export function ExtFields({ univ, primary, ext, set }: { univ: Univ; primary: st
 export function WhatIfFields({ s, univ, d, set }: { s: State; univ: Univ; d: WhatIf; set: (v: Partial<WhatIf>) => void }) {
   const mdRules = mdRulesOf(univ), label = (id: string) => mdRules.find(r => r.id === id)?.label;
   return <>
-    <ExtFields univ={univ} primary={s.me.program} ext={d.ext} set={ext => set({ ext })} />
+    <ExtFields univ={univ} primary={s.me.program} ext={d.ext} set={ext => set({ ext })} deep={canDeep(s.me)} empty={!d.ext.length && !d.mds.length} clear={() => set({ ext: [], mds: [] })} />
     {mdRules.length > 0 && <div className="grid"><label className="field">마이크로전공<select value="" disabled={d.mds.length >= 3} onChange={e => e.target.value && set({ mds: [...d.mds, e.target.value] })}>
       <option value="">고르기</option>{mdRules.filter(r => !d.mds.includes(r.id)).map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</select></label></div>}
     {d.mds.length > 0 && <ul className="chips">
@@ -92,6 +95,7 @@ export function WhatIfBox({ s, univ, dispatch, moved }: PageProps & { univ: Univ
       </div>
       {cur && moved.length > 0 && <Fold title={`옮긴 과목 ${moved.length}개`}><ul className="small">{moved.map(m => <li key={m}>{m}</li>)}</ul></Fold>}
       <ul className="small muted">
+        <li>다전공·부전공을 신청하지 않으면 3학년 1학기에 심화전공으로 바뀌어요.</li>
         <li>다전공은 제3전공까지 신청할 수 있어요. 마이크로전공은 2개 이상 이수하면 다전공·부전공·심화전공을 대신해요.</li>
         <li>신청 전에 들은 과목을 반영하려면 학기 중(개강일~종강일)에 샘물에서 이수구분 정정을 신청하세요.</li>
         {d.mds.length > 1 && <li>두 마이크로전공에 겹치는 과목은 먼저 고른 쪽에 들어가요.</li>}

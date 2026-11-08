@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import type { Ctx } from '../engine/audit.ts';
 import type { Enrollment, Row, Univ } from '../engine/types.ts';
 import { primaries, yearsOf, collegesOf } from './data.ts';
-import { termOrd, termLabel, termOptions, isPlanned, blank, modeOf, progName, roleText, type Me, type PageProps } from './state.ts';
+import { termOrd, termLabel, termOptions, isPlanned, blank, modeOf, progName, roleText, canDeep, type Me, type PageProps } from './state.ts';
 import { useChecks } from './checks.tsx';
 import { MajorRows } from './join.tsx';
 import { ExtFields } from './major.tsx';
@@ -84,7 +84,7 @@ function ProfileForm({ s, dispatch, univ }: PageProps) {
           <option value="domestic">내국인</option><option value="international">외국인특별전형</option></select></label>
       </>}
     </div>
-    {!me.sno && univ && <div className="field">다전공·부전공<ExtFields univ={univ} primary={me.program} ext={me.ext} set={ext => set({ ext })} /></div>}
+    {!me.sno && univ && <div className="field">전공제도<ExtFields univ={univ} primary={me.program} ext={me.ext} set={ext => set({ ext })} deep={canDeep(me)} /></div>}
     {me.sno ? <p className="muted small">입학년도·다전공·입학구분은 샘물 학적 값입니다. 바뀌었으면 샘물에서 다시 가져오세요.</p>
       : me.admission !== 'freshman' && <p className="muted small">편입 인정학점은 과목 추가 → 직접 입력에서 '편입 인정(일괄)'로 넣습니다. 샘물에서 가져오면 전적대학 인정학점이 함께 들어옵니다.</p>}
     <label className="check-row"><Switch on={!!me.exempt} set={v => set({ exempt: v ? true : undefined })} label="전공제도 이수 제외 대상" />
