@@ -86,7 +86,7 @@ export function WhatIfFields({ s, univ, d, set }: { s: State; univ: Univ; d: Wha
       <select className="pick" value="" disabled={full} aria-label="마이크로전공 고르기" onChange={e => e.target.value && set({ mds: [...d.mds, e.target.value] })}>
         <option value="">{full ? '마이크로전공 최대 3개 선택' : '마이크로전공 고르기'}</option>{mdRules.filter(r => !d.mds.includes(r.id)).map(r => <option key={r.id} value={r.id}>{r.label}</option>)}</select>
       {d.mds.length > 0 && <ul className="chips">{d.mds.map((id, k) => <li key={id}>
-        <button className="pill on" aria-label={`${label(id)} 빼기`} onClick={() => set({ mds: d.mds.filter(x => x !== id) })}>{label(id)}<small>{k + 1}순위</small><Icon id="x" size={14} /></button></li>)}</ul>}
+        <button className="pill on" aria-label={`${label(id)} 빼기`} onClick={() => set({ mds: d.mds.filter(x => x !== id) })}>{label(id)}<small>{k + 1}MD</small><Icon id="x" size={14} /></button></li>)}</ul>}
     </Opt>}
   </>;
 }
