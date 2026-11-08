@@ -49,6 +49,7 @@ npm test            # 엔진 테스트
 | [작업명세서](docs/SPEC.md) | 무엇을, 왜, 어떤 순서로 만드는지. 전공제도 명세, 기능 범위, 개발 규칙, 이식 계획, 테스트 기준 |
 | [설계 결정 기록](docs/decisions/README.md) | 결정마다 근거와 검토한 대안 (ADR) |
 | [구현 기록](docs/ARCHITECTURE.md) | 첫 버전의 설계·검증 기록 |
+| [핸드오프](docs/handoff/2026-11-08-p6-onward.md) | 지금 상태와 다음 파트(P6~)의 시작점 |
 
 ## 이식 진행
 
