@@ -17,9 +17,16 @@ import { MyPage } from './my.tsx';
 const KEY = 'credit-planner.v1';
 const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* 저장 불가(사생활 모드 등) */ } } };
 
+// 첫 버전과 같은 주소·같은 키로 배포해서 학생 기기에 첫 버전 저장값이 남아 있다(이슈 #32).
+// 이수 형태(mode) 다전공·부전공 → 과목 데이터 없는 'ext' 프로그램(첫 버전과 같은 판정), 옛 모양의 전공제도 계획은 버린다
+function migrate(j: any) {
+  const { mode, ...me } = j.me;
+  if (!me.ext) me.ext = mode === 'double' ? [{ id: 'ext', role: 'second' }] : mode === 'minor' ? [{ id: 'ext', role: 'minor' }] : [];
+  return { ...j, me, whatif: Array.isArray(j.whatif?.ext) ? j.whatif : undefined };
+}
 function init(): State {
   const b = blank();
-  try { const j = JSON.parse(store.get(KEY) || 'null'); if (j?.me) return { ...b, ...j, me: { ...b.me, ...j.me, univ: b.me.univ } }; } catch { /* 깨진 저장값은 버린다 */ }
+  try { const j = JSON.parse(store.get(KEY) || 'null'); if (j?.me) { const m = migrate(j); return { ...b, ...m, me: { ...b.me, ...m.me, univ: b.me.univ } }; } } catch { /* 깨진 저장값은 버린다 */ }
   return b;
 }
 function reduce(s: State, a: Action): State {
