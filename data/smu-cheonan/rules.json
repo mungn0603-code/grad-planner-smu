@@ -1153,6 +1153,125 @@
    "name": "자기설계융합전공",
    "catalogs": [],
    "kind": "ism"
+  },
+  "lk-digitalbiz": {
+   "name": "디지털경영학연계전공",
+   "catalogs": [
+    "lk-digitalbiz"
+   ],
+   "kind": "linked"
+  },
+  "lk-smartwebapp": {
+   "name": "스마트웹&앱연계전공",
+   "catalogs": [
+    "lk-smartwebapp"
+   ],
+   "kind": "linked"
+  },
+  "fu-bigdata": {
+   "name": "빅데이터융합전공",
+   "catalogs": [
+    "fu-bigdata"
+   ],
+   "kind": "fusion"
+  },
+  "lk-globalcomm": {
+   "name": "글로벌커뮤니케이션연계전공",
+   "catalogs": [
+    "lk-globalcomm"
+   ],
+   "kind": "linked"
+  },
+  "lk-globalculture": {
+   "name": "글로벌문화콘텐츠연계전공",
+   "catalogs": [
+    "lk-globalculture"
+   ],
+   "kind": "linked"
+  },
+  "fu-globaldata": {
+   "name": "글로벌데이터경영융합전공",
+   "catalogs": [
+    "fu-globaldata"
+   ],
+   "kind": "fusion"
+  },
+  "fu-globalmkt": {
+   "name": "글로벌마케팅융합전공",
+   "catalogs": [
+    "fu-globalmkt"
+   ],
+   "kind": "fusion"
+  },
+  "fu-lifestyle": {
+   "name": "라이프스타일융합전공",
+   "catalogs": [
+    "fu-lifestyle"
+   ],
+   "kind": "fusion"
+  },
+  "fu-robotai": {
+   "name": "로봇AI융합전공",
+   "catalogs": [
+    "fu-robotai"
+   ],
+   "kind": "fusion"
+  },
+  "fu-smartgame": {
+   "name": "스마트게임&콘텐츠융합전공",
+   "catalogs": [
+    "fu-smartgame"
+   ],
+   "kind": "fusion"
+  },
+  "fu-smartliving": {
+   "name": "스마트리빙디자인융합전공",
+   "catalogs": [
+    "fu-smartliving"
+   ],
+   "kind": "fusion"
+  },
+  "lk-storytelling": {
+   "name": "스토리텔링연계전공",
+   "catalogs": [
+    "lk-storytelling"
+   ],
+   "kind": "linked"
+  },
+  "fu-transmedia": {
+   "name": "트랜스미디어디자인융합전공",
+   "catalogs": [
+    "fu-transmedia"
+   ],
+   "kind": "fusion"
+  },
+  "fu-mobility": {
+   "name": "미래모빌리티융합시스템융합전공",
+   "catalogs": [
+    "fu-mobility"
+   ],
+   "kind": "fusion"
+  },
+  "fu-display": {
+   "name": "디스플레이-반도체소부장융합전공",
+   "catalogs": [
+    "fu-display"
+   ],
+   "kind": "fusion"
+  },
+  "fu-energy": {
+   "name": "에너지융합전공",
+   "catalogs": [
+    "fu-energy"
+   ],
+   "kind": "fusion"
+  },
+  "lk-aivideo": {
+   "name": "AI영상디자인연계전공",
+   "catalogs": [
+    "lk-aivideo"
+   ],
+   "kind": "linked"
   }
  },
  "blocks": {
@@ -27373,6 +27492,176 @@
    "check": "topik",
    "min": 3,
    "hint": "외국인특별전형 입학생은 한국어능력시험(TOPIK) 3급 이상 성적으로 한국어졸업인증을 받아야 졸업합니다."
+  },
+  "m2.lk-digitalbiz": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-digitalbiz"
+    ]
+   }
+  },
+  "m2.lk-smartwebapp": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-smartwebapp"
+    ]
+   }
+  },
+  "m2.fu-bigdata": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-bigdata"
+    ]
+   }
+  },
+  "m2.lk-globalcomm": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-globalcomm"
+    ]
+   }
+  },
+  "m2.lk-globalculture": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-globalculture"
+    ]
+   }
+  },
+  "m2.fu-globaldata": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-globaldata"
+    ]
+   }
+  },
+  "m2.fu-globalmkt": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-globalmkt"
+    ]
+   }
+  },
+  "m2.fu-lifestyle": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-lifestyle"
+    ]
+   }
+  },
+  "m2.fu-robotai": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-robotai"
+    ]
+   }
+  },
+  "m2.fu-smartgame": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-smartgame"
+    ]
+   }
+  },
+  "m2.fu-smartliving": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-smartliving"
+    ]
+   }
+  },
+  "m2.lk-storytelling": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-storytelling"
+    ]
+   }
+  },
+  "m2.fu-transmedia": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-transmedia"
+    ]
+   }
+  },
+  "m2.fu-mobility": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-mobility"
+    ]
+   }
+  },
+  "m2.fu-display": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-display"
+    ]
+   }
+  },
+  "m2.fu-energy": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@fu-energy"
+    ]
+   }
+  },
+  "m2.lk-aivideo": {
+   "id": "m2",
+   "label": "전공 학점",
+   "credits": "$need",
+   "of": {
+    "tags": [
+     "@lk-aivideo"
+    ]
+   }
   }
  },
  "policy": {
