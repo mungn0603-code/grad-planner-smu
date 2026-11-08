@@ -9,6 +9,6 @@
     "allowImportingTsExtensions": true,
     "skipLibCheck": true
   },
-  "include": ["engine"],
-  "exclude": ["engine/*.test.ts", "engine/load.node.ts"]
+  "include": ["engine", "api", "server", "src"],
+  "exclude": ["engine/*.test.ts", "engine/load.node.ts", "src/*.test.ts"]
 }

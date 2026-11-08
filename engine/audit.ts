@@ -107,11 +107,11 @@ export function resolve(p: Profile, es: Enrollment[], ctx: Ctx): { items: Item[]
   return { items, warnings };
 }
 
-const withOf = (p: Profile): With => p.programs.some(g => g.role === 'second') ? 'double' : p.programs.some(g => g.role === 'minor') ? 'minor' : p.programs.some(g => g.role === 'micro') ? 'micro'
+export const withOf = (p: Pick<Profile, 'programs' | 'admission' | 'student' | 'exempt'>): With => p.programs.some(g => g.role === 'second') ? 'double' : p.programs.some(g => g.role === 'minor') ? 'minor' : p.programs.some(g => g.role === 'micro') ? 'micro'
   : p.exempt || p.admission !== 'freshman' || p.student === 'international' ? 'exempt' : 'single';
 const whenOk = (w: When | undefined, p: Profile, prog: { role: string }, wi: With) => !w || ((!w.role || w.role === prog.role) && (!w.with || w.with === wi) &&
   (!w.admission || w.admission === p.admission) && (!w.student || w.student === p.student));
-export function pickSet(p: Profile, prog: { id: string; role: string }, univ: Univ): ReqSet | null {
+export function pickSet(p: Profile, prog: { id: string; role: string; vars?: Record<string, number> }, univ: Univ): ReqSet | null {
   const w = withOf(p), ok = univ.sets.filter(s => s.program === prog.id && s.years[0] <= p.catalogYear && p.catalogYear <= s.years[1] && whenOk(s.when, p, prog, w));
   if (!ok.length) return null;
   const spec = (s: ReqSet) => Object.keys(s.when || {}).length;
@@ -119,7 +119,7 @@ export function pickSet(p: Profile, prog: { id: string; role: string }, univ: Un
   if (ok.length > 1 && spec(ok[0]) === spec(ok[1])) throw new Error(`요건 세트 겹침: ${prog.id} ${p.catalogYear}`);
   const ex = prog.role === 'primary' ? (univ.policy.extra ?? []).filter(x => (!x.programs || x.programs.includes(prog.id)) && whenOk(x.when, p, prog, w)) : [];
   const s0 = ok[0], s = ex.length && 'all' in s0.rule ? { ...s0, rule: { ...s0.rule, all: [...s0.rule.all, ...ex.map((x): Rule => ({ use: x.use }))] } } : s0;
-  const v = prog.role === 'primary' ? p.vars : undefined;
+  const v = prog.role === 'primary' ? p.vars : prog.vars;
   const tu = p.admission === 'transfer' && !s.when?.admission ? univ.policy.transferUnknown ?? [] : [];
   if (!(v && Object.keys(v).length) && !tu.length || !('all' in s.rule)) return s;
   // 세트 맨 위 묶음마다: 학교 기준 숫자는 세트에 있는 이름만 덮어쓰고, 편입생에게 같은지 모르는 묶음은 확인 필요 항목으로 바꾼다

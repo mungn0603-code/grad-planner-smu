@@ -23,7 +23,7 @@ export interface Enrollment {
 export interface Profile {
   univ: string;
   catalogYear: number;                // 요건 연도. 기본 = 입학년도
-  programs: { id: string; role: Role }[];
+  programs: { id: string; role: Role; vars?: Record<string, number> }[]; // vars: 이 프로그램 세트의 학생별 기준(샘물 학점이수상황표, 예: 다전공 need). 주전공은 Profile.vars
   admission: 'freshman' | 'transfer' | 'bachelor'; // bachelor: 학사편입
   student: 'domestic' | 'international';
   exempt?: true;                      // 전공제도 이수 의무 제외 대상(공학인증·체육특기자 등). 편입·외국인특별전형은 표시하지 않아도 제외
