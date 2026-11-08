@@ -13,10 +13,10 @@ let highs = (globalThis as any).process?.versions?.node ? await loadHighs().catc
 export async function initHighs(settings?: Parameters<typeof loadHighs>[0]) { highs = await loadHighs(settings).catch(() => null); return !!highs; }
 
 export interface PlanOpts { tracks?: string[]; season?: boolean; overload?: boolean; exact?: boolean; timeLimit?: number }
-export interface PlanRow { term: Term; code: string; name: string; cr: number; why: string[]; keys?: string[] } // keys: 채우는 요건 칸 '프로그램.id'(why는 id만)
+export interface PlanRow { term: Term; code: string; name: string; cr: number; why: string[]; keys?: string[]; cat?: string } // keys: 채우는 요건 칸 '프로그램.id'(why는 id만), cat: 들을 때의 이수구분(다전공 과목은 그 종류의 이수구분)
 export interface Unmet { program: string; id: string; label?: string; gap: number; reachable: boolean }
 export interface Exact { status: string; optimal: boolean; ms: number; slack: Record<string, number> } // slack: 요건 칸 id → 풀이기가 본 부족분
-export interface Alt { code: string; name: string; cr: number }
+export interface Alt { code: string; name: string; cr: number; cat?: string }
 export interface Plan { alts: Record<string, Alt[]>; rows: PlanRow[]; fut: Term[]; sea: Term[]; load: Record<Term, number>; lim: Record<Term, number>;
   lb: number; capacity: number; unmet: Unmet[]; shortfall: number; after: Audit; repaired: number; strategy: 'milp' | 'greedy'; exact?: Exact }
 
@@ -278,12 +278,12 @@ export function plan(p: Profile, es: Enrollment[], ctx: Ctx, opts: PlanOpts = {}
   // 그 학기에 들을 수 있고 학기 상한을 넘지 않는 다른 후보. 그래서 바꿔도 요건 판정은 나빠지지 않는다
   const inOut = new Set(out.map(r => r.code)), byCode = new Map(cand.map(c => [c.row.c, c])), alts: Record<string, Alt[]> = {};
   for (const r of out) { const c = byCode.get(r.code); if (!c) continue;
-    r.keys = L0.filter((l, i) => c.M[i] && l.rem > 0).map(l => `${l.program}.${l.id}`);
+    r.keys = L0.filter((l, i) => c.M[i] && l.rem > 0).map(l => `${l.program}.${l.id}`); if (c.it.cat) r.cat = c.it.cat;
     const need = L0.map((l, i) => (c.M[i] && l.rem > 0 && !l.total ? i : -1)).filter(i => i >= 0);
     const xs = cand.filter(x => x !== c && !inOut.has(x.row.c) && x.cr >= c.cr && canIn(x, r.term) && load[r.term] - c.cr + x.cr <= lim[r.term]
       && need.every(i => x.M[i]) && (need.length > 0 || x.major === c.major))
       .sort((a, b) => +b.interest - +a.interest || a.cr - b.cr || (a.defOrd ?? 99) - (b.defOrd ?? 99)).slice(0, 12);
-    if (xs.length) alts[`${r.term}|${r.code}`] = xs.map(x => ({ code: x.row.c, name: x.it.name, cr: x.cr })); }
+    if (xs.length) alts[`${r.term}|${r.code}`] = xs.map(x => ({ code: x.row.c, name: x.it.name, cr: x.cr, ...(x.it.cat ? { cat: x.it.cat } : {}) })); }
   return { alts, rows: out, fut, sea, load, lim, lb, capacity, unmet, shortfall: P.shortfall(fails), after, repaired: g?.repaired ?? 0,
     strategy: ex ? 'milp' : 'greedy', ...(ex ? { exact: ex.info } : {}) };
 }
