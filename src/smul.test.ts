@@ -170,10 +170,11 @@ test('차단기 상태: 시스템 장애만 보고, 의심이면 줄이고 심�
   assert.equal(state(c({ 'brk:ramp': 1 }), 1), 'throttled');                           // 닫은 뒤 단계적 재개
 });
 
-test('학번 대기: 실패할수록 늘고(30초·1분·15분) 상한을 넘지 않는다', () => {
-  const d = Array.from({ length: 10 }, (_, i) => idDelay(i + 1));
-  assert.deepEqual(d.slice(0, 4), [30, 60, 900, 900]);
-  assert.ok(d.every((x, i) => x <= LIMIT.id.cooldownSec && (i === 0 || x >= d[i - 1])));
+test('학번 잠금: 5번 실패마다 1분·5분·10분, 그 뒤로 30분 고정', () => {
+  const d = Array.from({ length: 30 }, (_, i) => idDelay(i + 1));
+  assert.deepEqual(d.filter(Boolean), [60, 300, 600, 1800, 1800, 1800]);
+  assert.deepEqual(d.slice(0, 5), [0, 0, 0, 0, 60]);
+  assert.equal(LIMIT.id.every, 5);
 });
 
 test('샘물 실패 분류: 상태 코드·예외를 분류하고, 근거 없는 응답은 UNKNOWN', async t => {
@@ -238,27 +239,19 @@ test('샘물 함수: IP 최근 24시간 로그인 실패 49회는 통과, 50회�
   });
 });
 
-test('샘물 함수: 학번 실패마다 대기가 늘고 상한(15분)을 넘지 않으며, 다른 학번으로 번지지 않는다', async t => {
+test('샘물 함수: 학번 5번 실패마다 잠금(1분·5분·10분·30분 고정), IP를 바꿔도 학번으로 세고 다른 학번으로 번지지 않는다', async t => {
   const x = withLimit();
   t.mock.method(console, 'error', () => {});
+  let ip = 0;
   await run(t, ENV, x.f, async req => {
-    assert.equal((await handler.fetch(req('bad', '1.1.1.1'))).status, 401);
-    let r = await handler.fetch(req('pw', '2.2.2.2'));                                   // IP를 바꿔도 학번으로 센다
-    assert.equal(r.status, 429); assert.match(await err(r), /30초/);
-    assert.equal(sso(x), 1);
-    assert.equal((await handler.fetch(req('pw', '2.2.2.2', '202300002'))).status, 200); // 다른 학번은 대기 없음
-    t.mock.timers.tick(30_000);
-    assert.equal((await handler.fetch(req('bad', '3.3.3.3'))).status, 401);
-    r = await handler.fetch(req('bad', '3.3.3.3')); assert.match(await err(r), /1분/);
-    t.mock.timers.tick(60_000);
-    assert.equal((await handler.fetch(req('bad', '4.4.4.4'))).status, 401);
-    r = await handler.fetch(req('bad', '4.4.4.4')); assert.match(await err(r), /15분/);
-    t.mock.timers.tick(899_000);
-    assert.equal((await handler.fetch(req('bad', '4.4.4.4'))).status, 429);
-    t.mock.timers.tick(1_000);
-    assert.equal((await handler.fetch(req('bad', '5.5.5.5'))).status, 401);              // 4번째 실패도 15분(상한)
-    r = await handler.fetch(req('bad', '5.5.5.5')); assert.match(await err(r), /15분/);
-    assert.equal(sso(x), 5);                                                              // 이 학번 4번 + 다른 학번 1번
+    for (const [lock, wait] of [['1분', 60_000], ['5분', 300_000], ['10분', 600_000], ['30분', 1_800_000], ['30분', 1_800_000]] as const) {
+      for (let i = 0; i < 5; i++) assert.equal((await handler.fetch(req('bad', `9.9.9.${ip++}`))).status, 401); // 1~4번째 실패는 잠그지 않는다
+      const r = await handler.fetch(req('pw', `9.9.9.${ip++}`));
+      assert.equal(r.status, 429); assert.match(await err(r), new RegExp(lock));
+      assert.equal((await handler.fetch(req('pw', `9.9.8.${ip}`, '202300002'))).status, 200); // 다른 학번은 그대로
+      t.mock.timers.tick(wait);
+    }
+    assert.equal(sso(x), 25 + 5);
   });
 });
 
@@ -266,6 +259,7 @@ test('샘물 함수: 같은 학번 동시 요청은 IP가 달라도 하나만 �
   const x = withLimit();
   t.mock.method(console, 'error', () => {});
   await run(t, ENV, x.f, async req => {
+    x.set('idf:' + await h('id:202300001'), 4, 90_000);                                   // 다음 실패가 5번째(잠금)
     const rs = await Promise.all(['1.1.1.1', '2.2.2.2', '3.3.3.3', '4.4.4.4', '5.5.5.5'].map(ip => handler.fetch(req('bad', ip))));
     assert.deepEqual(rs.map(r => r.status).sort(), [401, 429, 429, 429, 429]);
     assert.equal(sso(x), 1);
