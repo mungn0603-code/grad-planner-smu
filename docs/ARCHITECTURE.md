@@ -226,10 +226,10 @@ src/ (React+Vite 웹앱 MVP, 성적은 기기 localStorage, §10) ──▶ 정�
     - 실패 분류 `Kind` 8가지(`AUTH_REJECTED`·`ACCOUNT_LOCKED`·`UPSTREAM_TIMEOUT`·`UPSTREAM_CONNECTION_ERROR`·`UPSTREAM_SERVER_ERROR`·`UPSTREAM_RATE_LIMITED`·`AUTHORIZATION_OR_ACCESS_BLOCK`·`UNKNOWN_UPSTREAM_ERROR`). 실패마다 `smul fail <분류> <상태>` 로그.
     - 전체 차단기는 시스템 장애(시간 초과·연결·5xx·429)만 센다. 분모 = 성공 + 시스템 장애(비밀번호 오류·잠김·UNKNOWN·접근 거부는 분자·분모 모두 제외, UNKNOWN·접근 거부는 `all:unk`·`all:blk`로 따로 셈). 10분 창 `all:ok:<창>`·`all:sys:<창>`. 장애 5회·20% 이상이거나 샘물 429면 **줄임**(전체 1분 20회·동시 2개), 20회·50% 이상이면 **열림**(5분, 1시간 안 재열림은 두 배·최대 10분), 대기 뒤 **반쯤 열림**(한 번에 하나, 먼저 비밀번호 없는 `GET https://smul.smu.ac.kr/` 시험, 성공 2번이면 닫고 10분 줄임). 상태는 표 행 `brk:open`·`brk:half`·`brk:ramp`·`brk:trips`·`brk:ok`, 동시 자리는 `slot:<i>`.
     - IP: 최근 24시간(1시간 칸 24개 `HMAC('ipf:'+IP):<시>`) 로그인 실패 50회면 그 IP만 429. 1분 10회는 그대로. `x-forwarded-for`는 `VERCEL`일 때만 믿는다.
-    - 학번: 한 번에 하나(`idl:` 자리, 60초 만료), 로그인 실패 k번째 뒤 대기 30초·1분·(3번째부터) 15분(`idw:`), 실패 수 1일(`idf:`), 성공 시 삭제. 키는 `HMAC('id:'+학번)` 앞에 접두사.
+    - 학번: 한 번에 하나(`idl:` 자리, 60초 만료), 로그인 5번 실패마다 잠금 1분·5분·10분·(4번째 잠금부터) 30분(`idw:`, 2026-11-10 사용자 결정, 0013), 실패 수 1일(`idf:`), 성공 시 삭제. 키는 `HMAC('id:'+학번)` 앞에 접두사.
     - 서버·화면 모두 자동 재시도 없음(로그인 재시도는 비밀번호를 다시 내는 것).
     - 값은 `api/smul.ts` `LIMIT` 한 곳(초기 후보, 이용량 확인 불가). 마이그레이션 변경 없음.
-    - 한계: 남이 한 학번을 노리면 약 31분 만에 샘물 5회 잠금에 닿을 수 있다(전에는 약 1시간). 여러 IP 스프레이는 차단기를 열지 않는다. 공유 와이파이는 IP 하나로 묶인다.
+    - 한계: 남이 한 학번을 노리면 우리 잠금 전에 5번을 바로 시도할 수 있어 샘물 5회 잠금에 곧바로 닿는다(2026-11-10 5회 기준으로 바꾸며 받아들임). 여러 IP 스프레이는 차단기를 열지 않는다. 공유 와이파이는 IP 하나로 묶인다.
   - 키: `HMAC-SHA256(SMUL_KEY_SECRET, 'ip:'+IP | 'id:'+학번)` 16진수. 학번은 10⁹가지라 그냥 해시는 되돌릴 수 있어서 서버 비밀값을 쓴다. IP는 `x-forwarded-for` 첫 값(Vercel이 덮어써 위조 불가, 공식 문서).
   - 저장소: Supabase `credit-planner` 표 `smul_try(k, n, until)`, 마이그레이션 `supabase/migrations/20261021131227_smul_try.sql`(적용됨). RLS on·정책 없음, 함수는 `security definer`이고 실행 권한은 service_role만(공개 키로 부르면 401 `permission denied` 확인). 만료된 행은 `smul_try`를 부를 때 지운다.
   - 환경변수(Vercel 서버 전용): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`(새 `sb_secret_` 키나 예전 service_role 키, `apikey` 헤더로만 보냄), `SMUL_KEY_SECRET`(충분히 긴 임의 문자열). 셋 중 하나라도 없으면 로컬 개발에서는 제한을 건너뛰고, Vercel(`VERCEL` 있음)에서는 503. Supabase가 응답하지 않아도(3초) 503 — 학생 계정 잠금 방지를 먼저 둔다.

@@ -1,7 +1,7 @@
 // 남용·장애 방어(§6-5, docs/decisions/0010·0013): 샘물에 요청하기 전에 차단기·IP·학번 횟수를 보고, 끝나면 결과를 센다.
 // 모든 횟수는 store.ts(Supabase smul_try)에 둔다. 설정이 없으면 로컬 개발에서는 건너뛰고 Vercel에서는 막는다.
 // ① 전체 차단기(breaker.ts) ② IP: 1분 요청 10회, 최근 24시간(1시간 칸) 로그인 실패 50회. 그 IP만 막는다
-// ③ 학번: 한 번에 하나만 샘물로(동시 요청 방지), 로그인 실패마다 늘어나는 대기(최대 cooldownSec). 성공하면 실패 기록을 지운다
+// ③ 학번: 한 번에 하나만 샘물로(동시 요청 방지), 로그인 5번 실패마다 늘어나는 잠금(1·5·10·30분). 성공하면 실패 기록을 지운다
 import { SYS, type Kind } from './login.ts';
 import { env, hmac, inc, del, counts, num, type Env } from './store.ts';
 import { BREAKER, state, trip, close, probe } from './breaker.ts';
@@ -10,11 +10,11 @@ import { BREAKER, state, trip, close, probe } from './breaker.ts';
 export const LIMIT = {
   ip: { n: 10, sec: 60 },
   ipFail: { n: 50, hours: 24 },
-  id: { baseSec: 30, factor: 2, maxDelaySec: 120, cooldownAfter: 3, cooldownSec: 900, failSec: 86_400, leaseSec: 60 },
+  id: { every: 5, lockSec: [60, 300, 600, 1800], failSec: 86_400, leaseSec: 60 }, // 5번 틀릴 때마다 잠금: 1·5·10분, 4번째 잠금부터 30분
   ...BREAKER,
 };
-// k번째 로그인 실패 뒤 다음 시도까지 기다릴 초: 30·60초, 3번째부터 15분
-export const idDelay = (k: number) => k >= LIMIT.id.cooldownAfter ? LIMIT.id.cooldownSec : Math.min(LIMIT.id.baseSec * LIMIT.id.factor ** (k - 1), LIMIT.id.maxDelaySec);
+// k번째 로그인 실패 뒤 잠글 초. 5의 배수가 아니면 0(잠그지 않음). 2026-11-10 사용자 결정: 샘물 5회 잠금과 겹치는 것을 알고 은행식 5회 기준을 택함
+export const idDelay = (k: number) => { const { every, lockSec } = LIMIT.id; return k % every ? 0 : lockSec[Math.min(k / every, lockSec.length) - 1]; };
 
 // 가져오기를 막을 때 학생에게 보이는 문구
 const MSG = {
@@ -87,7 +87,8 @@ export async function record(g: Gate, kind: Kind | null) {
     } else if (kind === 'AUTH_REJECTED' || kind === 'ACCOUNT_LOCKED') {
       // 끝난 앞 대기 행을 먼저 지운다(읽기는 우리 시계로 만료를 보지만 smul_try는 DB 시계로 지워서, 시계가 어긋나면 옛 기한이 남는다)
       const [k] = await Promise.all([inc(e, 'idf:' + g.idKey, LIMIT.id.failSec), del(e, 'idw:' + g.idKey), ...(g.ipKey ? [inc(e, `${g.ipKey}:${g.h}`, (LIMIT.ipFail.hours + 1) * 3600)] : [])]);
-      await inc(e, 'idw:' + g.idKey, idDelay(k));
+      const d = idDelay(k);
+      if (d) await inc(e, 'idw:' + g.idKey, d);
     } else await inc(e, `all:${kind === 'UNKNOWN_UPSTREAM_ERROR' ? 'unk' : 'blk'}:${g.b}`, LIMIT.win); // 차단기 근거로 쓰지 않고 따로 센다
   } catch (x) { console.error('smul record', (x as Error).message); }
   await release(e, g.held);
