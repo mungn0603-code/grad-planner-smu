@@ -1,6 +1,6 @@
 # 0011. 2단계 회원제·서버 저장은 Supabase(서울)
 
-- 상태: 설계(미구현). 프로젝트 생성은 2026-10-21 사용자 승인, 현재 표는 `smul_try`(0010)뿐
+- 상태: 일부 대체됨(→ [0029](0029-social-login.md)): 가입·로그인 방식(학번 + 사이트 비밀번호)과 서버 함수 목록은 0029로 바뀜. Supabase(서울) 사용은 유지. 프로젝트 생성은 2026-10-21 사용자 승인
 - 관련: [`docs/superpowers/specs/2026-10-21-smu-cheonan-redesign-design.md` §4](../superpowers/specs/2026-10-21-smu-cheonan-redesign-design.md)
 
 ## 맥락
