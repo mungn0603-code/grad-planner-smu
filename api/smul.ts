@@ -4,8 +4,6 @@
 import { MSG, type Fail } from '../server/smul/login.ts';
 import { courses } from '../server/smul/parse.ts';
 import { limit, record } from '../server/smul/limit.ts';
-import { env } from '../server/smul/store.ts';
-import { makeProof } from '../server/account.ts';
 
 export { courses } from '../server/smul/parse.ts';
 export { LIMIT, idDelay } from '../server/smul/limit.ts';
@@ -24,8 +22,7 @@ export default {
     const g = await limit(req, id);
     if ('block' in g) return json(g.block[0], { error: g.block[1] });
     // 샘물로 다시 보내지 않는다(재시도는 비밀번호를 한 번 더 내는 것이라 샘물 실패 횟수를 늘릴 수 있다)
-    // 성공하면 학번 연결 증명(link)을 붙인다. 로그인한 계정을 이 학번에 연결할 때 쓴다(ADR 0029)
-    const [status, body, kind] = await courses(id, pw).then(async out => [200, { ...out, link: await makeProof(env(), id) }, null] as const,
+    const [status, body, kind] = await courses(id, pw).then(out => [200, out, null] as const,
       (e: Fail) => [e.status ?? 503, { error: e.status ? e.message : MSG.login }, e.kind ?? 'UNKNOWN_UPSTREAM_ERROR'] as const);
     if (kind) console.error('smul fail', kind, status); // 분류와 상태만(학번·IP 없음)
     await record(g.gate, kind);

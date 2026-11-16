@@ -1,10 +1,10 @@
-// 회원제 브라우저 쪽(docs/decisions/0029): 구글·카카오 로그인(PKCE), 세션 보관·갱신, 불러오기·저장·학번 연결. 서버는 api/account.ts
-// 세션은 localStorage, PKCE verifier·돌아갈 화면·샘물 연결 증명은 sessionStorage(이 탭에서만)
+// 회원제 브라우저 쪽(docs/decisions/0029): 구글·카카오 로그인(PKCE), 세션 보관·갱신, 계정 저장값 불러오기·저장. 서버는 api/account.ts
+// 세션은 localStorage, PKCE verifier·돌아갈 화면은 sessionStorage(이 탭에서만)
 export type Provider = 'google' | 'kakao';
-export type Acct = { provider: string; linked: boolean };
+export type Acct = { provider: string };
 type Session = { at: string; rt: string; exp: number };
 
-const SK = 'credit-planner.session', VK = 'credit-planner.pkce', BK = 'credit-planner.back', PK = 'credit-planner.link';
+const SK = 'credit-planner.session', VK = 'credit-planner.pkce', BK = 'credit-planner.back', NK = 'credit-planner.nudge';
 const get = (st: Storage, k: string) => { try { return st.getItem(k); } catch { return null; } };
 const set = (st: Storage, k: string, v: string | null) => { try { v == null ? st.removeItem(k) : st.setItem(k, v); } catch { /* 저장 불가 */ } };
 const b64url = (b: ArrayBuffer | Uint8Array) => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -15,10 +15,13 @@ export async function login(p: Provider) {
   set(sessionStorage, VK, v); set(sessionStorage, BK, location.hash);
   location.href = `/api/account?p=${p}&c=${b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v)))}`;
 }
-export const logout = () => { set(localStorage, SK, null); set(sessionStorage, PK, null); };
-// 샘물 가져오기가 준 연결 증명을 둔다(로그인 상태면 다음 저장 때, 아니면 로그인한 뒤 연결)
-export const keepProof = (p: unknown) => { if (typeof p === 'string') set(sessionStorage, PK, p); };
-export const hasProof = () => !!get(sessionStorage, PK);
+export const logout = () => set(localStorage, SK, null);
+// 샘물에서 막 가져왔을 때 계산기 위에서 로그인을 한 번 권한다(이 탭에서만). ×를 누르면 이 기기에서는 다시 권하지 않는다
+export const nudge = {
+  on: () => { if (get(localStorage, NK) !== 'off') set(sessionStorage, NK, '1'); },
+  shown: () => !!get(sessionStorage, NK),
+  off: () => { set(sessionStorage, NK, null); set(localStorage, NK, 'off'); },
+};
 
 async function post(body: object, at?: string) {
   const r = await fetch('/api/account', { method: 'POST', headers: { 'content-type': 'application/json', ...(at ? { authorization: `Bearer ${at}` } : {}) }, body: JSON.stringify(body) });
@@ -36,27 +39,21 @@ async function access(): Promise<string | null> {
 }
 const authed = async (body: object) => { const at = await access(); if (!at) throw Object.assign(new Error('다시 로그인해 주세요.'), { status: 401 }); return post(body, at); };
 
-// 첫 화면: 로그인에서 돌아왔으면 code를 세션으로 바꾸고, 로그인돼 있으면 계정 상태와 저장값을 받는다.
-// 이 탭에 샘물 연결 증명이 남아 있으면 이 기기 값이 더 새것이라 저장값을 돌려주지 않는다(곧 저장이 덮어쓴다)
-export async function start(): Promise<{ acct: Acct | null; data?: unknown; error?: string }> {
+// 첫 화면: 로그인에서 돌아왔으면 code를 세션으로 바꾸고(fresh), 로그인돼 있으면 계정과 저장값(data, 저장 시각 at)을 받는다
+export async function start(): Promise<{ acct: Acct | null; data?: unknown; at?: string; fresh?: boolean; error?: string }> {
   const q = new URLSearchParams(location.search), code = q.get('code'), v = get(sessionStorage, VK);
-  let error: string | undefined;
+  let error: string | undefined, fresh = false;
   if (code || q.has('error')) {
     history.replaceState(null, '', location.pathname + (get(sessionStorage, BK) || ''));
     set(sessionStorage, VK, null); set(sessionStorage, BK, null);
-    if (code && v) { try { set(localStorage, SK, JSON.stringify(await post({ op: 'token', code, verifier: v }))); } catch { error = '로그인하지 못했습니다. 다시 시도해 주세요.'; } }
+    if (code && v) { try { set(localStorage, SK, JSON.stringify(await post({ op: 'token', code, verifier: v }))); fresh = true; } catch { error = '로그인하지 못했습니다. 다시 시도해 주세요.'; } }
     else error = '로그인하지 못했습니다. 다시 시도해 주세요.';
   }
   if (!(await access())) return { acct: null, error };
   try {
     const j = await authed({ op: 'load' });
-    return { acct: { provider: j.provider, linked: j.linked }, data: j.linked && !get(sessionStorage, PK) ? j.data ?? undefined : undefined, error };
-  } catch { return { acct: (await access()) ? { provider: '', linked: false } : null, error }; }
+    return { acct: { provider: j.provider }, data: j.data ?? undefined, at: j.at ?? undefined, fresh, error };
+  } catch { return { acct: (await access()) ? { provider: '' } : null, error }; }
 }
-// 저장. 연결 증명이 있으면 먼저 연결한다. 연결 여부를 돌려준다
-export async function push(data: unknown): Promise<boolean> {
-  const proof = get(sessionStorage, PK);
-  if (proof) { await authed({ op: 'link', proof }).catch(x => { if ((x as { status?: number }).status === 400) set(sessionStorage, PK, null); throw x; }); set(sessionStorage, PK, null); }
-  return (await authed({ op: 'save', data })).linked;
-}
+export const push = (data: unknown) => authed({ op: 'save', data });
 export async function quit() { await authed({ op: 'quit' }); logout(); }
