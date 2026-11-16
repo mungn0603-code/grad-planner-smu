@@ -13,6 +13,7 @@ import { ResultPage } from './reqs.tsx';
 import { PlanPage } from './plan.tsx';
 import { RecordPage } from './record.tsx';
 import { MyPage } from './my.tsx';
+import { start, push, hasProof, type Acct } from './account.ts';
 
 const KEY = 'credit-planner.v1';
 const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* 저장 불가(사생활 모드 등) */ } } };
@@ -24,10 +25,13 @@ function migrate(j: any) {
   if (!me.ext) me.ext = mode === 'double' ? [{ id: 'ext', role: 'second' }] : mode === 'minor' ? [{ id: 'ext', role: 'minor' }] : [];
   return { ...j, me, whatif: Array.isArray(j.whatif?.ext) ? j.whatif : undefined };
 }
+// 기기 저장값·서버 저장값(ADR 0029)을 지금 모양으로. 모양이 아니면 null
+function restore(j: any): State | null {
+  if (!j?.me) return null;
+  const b = blank(), m = migrate(j); return { ...b, ...m, me: { ...b.me, ...m.me, univ: b.me.univ } };
+}
 function init(): State {
-  const b = blank();
-  try { const j = JSON.parse(store.get(KEY) || 'null'); if (j?.me) { const m = migrate(j); return { ...b, ...m, me: { ...b.me, ...m.me, univ: b.me.univ } }; } } catch { /* 깨진 저장값은 버린다 */ }
-  return b;
+  try { return restore(JSON.parse(store.get(KEY) || 'null')) ?? blank(); } catch { return blank(); } // 깨진 저장값은 버린다
 }
 function reduce(s: State, a: Action): State {
   switch (a.t) {
@@ -50,6 +54,16 @@ const pageOf = (): Page => { const h = location.hash.replace(/^#\/?/, ''); retur
 function App() {
   const [s, dispatch] = useReducer(reduce, undefined, init);
   useEffect(() => store.set(KEY, JSON.stringify(s)), [s]);
+
+  // ── 계정(구글·카카오, ADR 0029): undefined = 확인 중, null = 로그인 안 함. 로그인돼 있으면 서버 저장값을 불러오고, 바뀌면 1.5초 뒤 올린다 ──
+  const [acct, setAcct] = useState<Acct | null | undefined>(undefined);
+  useEffect(() => { start().then(r => { setAcct(r.acct); const d = restore(r.data); if (d) dispatch({ t: 'load', s: d }); if (r.error) toast(r.error); }); }, []);
+  useEffect(() => {
+    if (!acct || !(acct.linked || hasProof())) return;
+    const t = setTimeout(() => push(s).then(linked => { if (linked !== acct.linked) setAcct({ ...acct, linked }); },
+      x => { if ((x as { status?: number }).status === 401) setAcct(null); else toast((x as Error).message); }), 1500);
+    return () => clearTimeout(t);
+  }, [s, acct]);
 
   // ── 데이터: 대학(상명 천안 고정) → 프로그램 카탈로그 ──
   const [univ, setUniv] = useState<Univ | null>(null), [ctx, setCtx] = useState<Ctx | null>(null), [err, setErr] = useState('');
@@ -96,7 +110,7 @@ function App() {
       {(err || (a instanceof Error && s.es.length > 0)) && <div className="callout top-callout">{err ? '정보를 불러오지 못했습니다. 새로고침해 주세요.' : '졸업요건을 계산하지 못했습니다. 새로고침해 주세요.'}</div>}
       {page === '' ? <HomePage start={s.es.length ? '#/plan' : '#/join'} />
         : page === 'join' ? <JoinPage {...props} /> : page === 'result' ? <ResultPage {...props} /> : page === 'plan' ? <PlanPage {...props} /> : page === 'record' ? <RecordPage {...props} />
-        : page === 'my' ? <MyPage {...props} /> : <TermsPage />}
+        : page === 'my' ? <MyPage {...props} acct={acct} setAcct={setAcct} /> : <TermsPage />}
     </main>
     {/* 휴대폰: 주 메뉴를 아래 탭바로(Material 내비게이션 바·iOS 탭바, 3~5개 목적지) */}
     <nav className="tabbar" aria-label="주 메뉴">{MENU.map(k => <a key={k} href={`#/${k}`} aria-current={k === page ? 'page' : undefined}><Icon id={k} />{TAB[k]}</a>)}</nav>
