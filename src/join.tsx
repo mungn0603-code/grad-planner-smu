@@ -92,7 +92,7 @@ function SmulLogin({ consent, onDone }: { consent: boolean; onDone: (x: Got) => 
 
 function Preview({ rows, terms, now, add, onDone, label, disabled }: { rows: string[][]; terms: string[]; now: string; add: (es: Enrollment[]) => void; onDone: () => void; label?: string; disabled?: boolean }) {
   const res = useMemo(() => rowsToEnrollments(rows), [rows]), [def, setDef] = useState(now); // 샘물 행은 학수번호가 항상 있어 카탈로그로 채우지 않는다
-  if (!res.header) return <div className="preview"><p className="warn">수강 기록을 가져오지 못했습니다. 잠시 뒤 다시 시도하거나 마이페이지에서 과목을 직접 추가하세요.</p>
+  if (!res.header) return <div className="preview"><p className="warn">수강 기록을 가져오지 못했습니다. 잠시 뒤 다시 시도하거나 이수 현황에서 과목을 직접 추가하세요.</p>
     <button className="btn" onClick={onDone}>닫기</button></div>;
   const noTerm = res.es.filter(e => !e.term).length, out = res.es.map(e => (e.term || !def ? e : { ...e, term: def }));
   return <div className="preview">

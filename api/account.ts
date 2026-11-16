@@ -11,7 +11,8 @@ const MAX = 512_000; // 저장값 크기 상한(바이트). 과목 수백 개도
 export default {
   async fetch(req: Request) {
     const e = env(), url = new URL(req.url);
-    if (!e.SUPABASE_URL || !e.SUPABASE_SERVICE_ROLE_KEY) return json(503, { error: '지금 로그인을 쓸 수 없습니다.' });
+    if (!e.SUPABASE_URL || !e.SUPABASE_SERVICE_ROLE_KEY) // 로그인 버튼(GET)은 화면 이동이라 JSON 대신 앱으로 돌려보내 '로그인하지 못했습니다'를 띄운다
+      return req.method === 'GET' ? Response.redirect(`${url.origin}/?error=unavailable`, 302) : json(503, { error: '지금 로그인을 쓸 수 없습니다.' });
     if (req.method === 'GET') {
       const p = url.searchParams.get('p') ?? '', c = url.searchParams.get('c') ?? '';
       if (!(PROVIDERS as readonly string[]).includes(p) || !/^[\w-]{43}$/.test(c)) return json(400, { error: '잘못된 요청입니다.' });

@@ -24,9 +24,13 @@ export const snoKey = (e: Env, sno: string) => hmac(e.SMUL_KEY_SECRET!, `acct:${
 const call = (e: Env, path: string, init: RequestInit & { headers?: Record<string, string> } = {}) =>
   fetch(`${e.SUPABASE_URL}${path}`, { ...init, signal: AbortSignal.timeout(5000), headers: { apikey: e.SUPABASE_SERVICE_ROLE_KEY!, 'content-type': 'application/json', ...init.headers } });
 
+// Supabase 기본 카카오 연결은 이메일(account_email)을 늘 같이 요청해 비즈 앱이 아니면 KOE205가 난다.
+// 그래서 카카오는 직접 추가한 OIDC 연결(custom:kakao, 닉네임만 요청)로 보낸다(ADR 0029)
+const AUTH_ID: Record<string, string> = { kakao: 'custom:kakao' };
+export const providerName = (id: string) => id.replace(/^custom:/, '');
 // 소셜 로그인 시작 주소(PKCE). redirect는 Supabase Redirect URLs에 있어야 한다
 export const authorizeUrl = (e: Env, provider: string, challenge: string, redirect: string) =>
-  `${e.SUPABASE_URL}/auth/v1/authorize?${new URLSearchParams({ provider, redirect_to: redirect, code_challenge: challenge, code_challenge_method: 's256' })}`;
+  `${e.SUPABASE_URL}/auth/v1/authorize?${new URLSearchParams({ provider: AUTH_ID[provider] ?? provider, redirect_to: redirect, code_challenge: challenge, code_challenge_method: 's256' })}`;
 
 export type Session = { at: string; rt: string; exp: number };
 // grant: pkce(로그인 직후 code 교환) 또는 refresh_token. 실패하면 null
@@ -41,7 +45,7 @@ export async function user(e: Env, at: string): Promise<{ id: string; provider: 
   const r = await call(e, '/auth/v1/user', { headers: { authorization: `Bearer ${at}` } });
   if (!r.ok) return null;
   const j = await r.json() as { id: string; app_metadata?: { provider?: string } };
-  return { id: j.id, provider: j.app_metadata?.provider ?? '' };
+  return { id: j.id, provider: providerName(j.app_metadata?.provider ?? '') };
 }
 async function rpc(e: Env, fn: string, args: object) {
   const r = await call(e, `/rest/v1/rpc/${fn}`, { method: 'POST', body: JSON.stringify(args) });

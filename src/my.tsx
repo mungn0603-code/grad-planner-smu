@@ -1,4 +1,4 @@
-// 마이페이지: 내 정보·정보 수정·직접 입력 항목·이수 과목 목록·과목 추가
+// 마이페이지: 내 정보·정보 수정·직접 입력 항목·계정. 과목 목록·추가·삭제는 이수 현황(record.tsx)
 import { useMemo, useState } from 'react';
 import type { Ctx } from '../engine/audit.ts';
 import type { Enrollment, Row, Univ } from '../engine/types.ts';
@@ -7,21 +7,18 @@ import { termOrd, termLabel, termOptions, isPlanned, blank, modeOf, progName, ro
 import { useChecks } from './checks.tsx';
 import { MajorRows } from './join.tsx';
 import { ExtFields } from './major.tsx';
-import { Page, Modal, Seg, Switch, Icon, Caret, Loading } from './ui.tsx';
+import { Page, Seg, Switch, Caret, Loading } from './ui.tsx';
 import { login, logout, quit, type Acct } from './account.ts';
 
 type AcctProps = { acct: Acct | null | undefined; setAcct: (a: Acct | null) => void };
 
 export function MyPage(p: PageProps & AcctProps) {
-  const { s, dispatch, univ, profile, a } = p, me = s.me, [modal, setModal] = useState<'add' | null>(null);
+  const { s, univ, profile } = p, me = s.me;
   const prog = univ?.programs[me.program];
-  const rows = a ? a.items.map((it, i) => ({ it, e: s.es[i], i })).sort((x, y) => termOrd(x.it.term) - termOrd(y.it.term)) : [];
-  const counted = a ? a.items.filter(it => !it.out) : [];
   const checks = useChecks(p);
   // 샘물에서 가져왔으면 학적의 다전공 이름 그대로, 아니면 직접 고른 다전공·부전공
   const majors = me.majors ?? (univ ? me.ext.map(g => ({ kind: roleText(univ, g), name: progName(univ, g) })) : []);
-  return <Page title="마이페이지" sub={<a className="cta small-cta" href="#/result">학점 계산기 보기</a>}>
-    <div className="my">
+  return <Page title="마이페이지" sub={<a className="cta small-cta" href="#/result">학점 계산기 보기</a>} narrow>
       <div className="box">
         <h2>내 정보</h2>
         {!me.sno && !s.es.length ? <p className="muted">아직 가져온 정보가 없습니다.</p> : <table className="info"><tbody>
@@ -39,24 +36,7 @@ export function MyPage(p: PageProps & AcctProps) {
         {!!checks.count && <details className="fold"><summary><span>직접 입력 항목 <small className="muted">평점·인증 등 {checks.count}개</small></span><Caret /></summary>
           <div className="fold-body">{checks.form}</div></details>}
         <Account {...p} />
-        <div className="sec"><span className="danger">이 기기의 정보·기록 초기화</span>
-          <button className="btn" onClick={() => { if (confirm('이 기기에 저장된 내 정보와 수강 기록을 모두 초기화할까요?')) dispatch({ t: 'load', s: blank() }); }}>초기화</button></div>
       </div>
-      <div className="box">
-        <h2>이수 과목 <span className="sub">{s.es.length}과목 · 인정 {counted.reduce((x, it) => x + it.cr, 0)}학점</span></h2>
-        <div className="row" style={{ marginBottom: 12 }}><a className="btn p" href="#/join">{s.es.length ? '샘물에서 다시 가져오기' : '샘물에서 가져오기'}</a><button className="btn" onClick={() => setModal('add')}>과목 추가</button></div>
-        {a?.warnings.length ? <ul className="warn">{[...new Set(a.warnings)].slice(0, 6).map(w => <li key={w}>{w}</li>)}</ul> : null}
-        {!rows.length ? <div className="ph">아직 기록이 없습니다. 샘물에서 가져오거나 과목을 추가하세요.</div> :
-          <div className="scroll-x tbl-box"><table className="tbl"><thead><tr><th>학기</th><th>학수번호</th><th>과목명</th><th>이수구분</th><th>학점</th><th>성적</th><th>상태</th><th></th></tr></thead><tbody>
-            {rows.map(({ it, e, i }) => <tr key={i} className={it.out ? 'out' : ''}>
-              <td>{termLabel(it.term)}</td><td className="muted">{it.code ?? '—'}</td><td className="l">{it.name}{e.lump && <span className="chip unv">일괄</span>}</td><td>{it.cat || '—'}</td><td>{it.cr}</td><td>{e.grade ?? '—'}</td>
-              <td>{it.out ? <span className="chip unv">{({ retake: '재수강 제외', dup: '중복 제외', fail: '미취득' })[it.out]}</span>
-                : <button className={'chip ' + (e.planned ? 'null' : 'ok')} title="눌러서 이수/이수 예정 바꾸기" onClick={() => dispatch({ t: 'edit', i, v: { planned: e.planned ? undefined : true } })}>{e.planned ? '이수 예정' : '이수'}</button>}</td>
-              <td><button className="icon-btn sm" aria-label={`${it.name} 삭제`} onClick={() => dispatch({ t: 'del', i })}><Icon id="x" size={14} /></button></td></tr>)}
-          </tbody></table></div>}
-      </div>
-    </div>
-    <Modal open={modal === 'add'} onClose={() => setModal(null)} title="과목 추가"><AddCourse {...p} /></Modal>
   </Page>;
 }
 
@@ -104,7 +84,7 @@ function ProfileForm({ s, dispatch, univ }: PageProps) {
 }
 
 type AddTab = 'search' | 'direct';
-function AddCourse({ s, dispatch, univ, ctx, toast }: PageProps) {
+export function AddCourse({ s, dispatch, univ, ctx, toast }: PageProps) {
   const [tab, setTab] = useState<AddTab>('search');
   const terms = termOptions(s.me.year || new Date().getFullYear());
   const add = (es: Enrollment[]) => { dispatch({ t: 'add', es: es.map(e => ({ ...e, ...(isPlanned(e.term, s.me.now) ? { planned: true as const } : {}) })) }); toast(`${es.length}과목 추가`); };
@@ -151,18 +131,23 @@ function DirectAdd({ univ, terms, now, add }: { univ: Univ; terms: string[]; now
 
 // 로그인(구글·카카오, ADR 0029). 로그인한 뒤 샘물에서 가져오면 그 학번에 연결되어 저장된다
 const NAME: Record<string, string> = { google: '구글', kakao: '카카오' };
+export const LoginButtons = () => <span className="row"><button className="btn sns google" onClick={() => login('google')}><GoogleMark />구글</button>
+  <button className="btn sns kakao" onClick={() => login('kakao')}><KakaoMark />카카오</button></span>;
+// 로그아웃 하나로 이 기기의 정보까지 지운다(초기화 버튼 없음). 로그인 안 했으면 로그인 버튼, 했으면 계정 상태·탈퇴
 function Account({ s, dispatch, toast, acct, setAcct }: PageProps & AcctProps) {
   if (acct === undefined) return null;
-  if (!acct) return <div className="sec acct"><span>로그인<small className="muted">다른 기기에서도 이어서 볼 수 있습니다.</small></span>
-    <span className="row"><button className="btn sns google" onClick={() => login('google')}><GoogleMark />구글</button>
-      <button className="btn sns kakao" onClick={() => login('kakao')}><KakaoMark />카카오</button></span></div>;
+  const out = () => { if (!confirm(acct?.linked ? '로그아웃하면 이 기기의 정보는 지웁니다. 다시 로그인하면 불러옵니다.' : '로그아웃하면 이 기기의 내 정보와 수강 기록을 지웁니다.')) return;
+    if (acct) logout(); dispatch({ t: 'load', s: blank() }); setAcct(null); };
+  const outBtn = <button className="btn" onClick={out}>로그아웃</button>;
+  if (!acct) return <>
+    <div className="sec acct"><span>로그인<small className="muted">다른 기기에서도 이어서 볼 수 있습니다.</small></span><LoginButtons /></div>
+    {(s.me.sno || s.es.length > 0) && <div className="sec out">{outBtn}</div>}</>;
   const who = `${NAME[acct.provider] ?? ''} 계정`.trim();
-  return <div className="sec acct"><span>{acct.linked ? `${who}에 저장 중` : `${who}으로 로그인됨`}
-      {!acct.linked && <small className="muted">{s.me.sno ? '샘물에서 다시 가져오면 이 계정에 저장됩니다.' : '샘물에서 가져오면 이 계정에 저장됩니다.'}</small>}</span>
-    <span className="row">
-      <button className="btn" onClick={() => { if (acct.linked && !confirm('로그아웃하면 이 기기의 정보는 지웁니다. 다시 로그인하면 불러옵니다.')) return; logout(); if (acct.linked) dispatch({ t: 'load', s: blank() }); setAcct(null); }}>로그아웃</button>
-      <button className="btn" onClick={async () => { if (!confirm('탈퇴하면 서버에 저장한 정보를 지웁니다. 이 기기의 정보는 남습니다.')) return;
-        try { await quit(); setAcct(null); toast('탈퇴했습니다.'); } catch (x) { toast((x as Error).message); } }}>탈퇴</button></span></div>;
+  return <div className="sec"><span>{acct.linked ? `${who}에 저장 중` : `${who}으로 로그인됨`}
+      {!acct.linked && <small className="muted">{s.me.sno ? '샘물에서 다시 가져오면 이 계정에 저장됩니다.' : '샘물에서 가져오면 이 계정에 저장됩니다.'}</small>}
+      <button className="lnk small quit" onClick={async () => { if (!confirm('탈퇴하면 서버에 저장한 정보를 지웁니다. 이 기기의 정보는 남습니다.')) return;
+        try { await quit(); setAcct(null); toast('탈퇴했습니다.'); } catch (x) { toast((x as Error).message); } }}>탈퇴</button></span>
+    {outBtn}</div>;
 }
 // 각 회사의 로그인 버튼 안내에 맞춘 표시(구글 G, 카카오 말풍선)
 const GoogleMark = () => <svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true">
