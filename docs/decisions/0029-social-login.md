@@ -57,4 +57,12 @@
 - 구글 로그인은 Supabase `auth.users`에 이메일을 남긴다. 개인정보 처리방침(이용안내)에 보관 항목(로그인 계정 식별값·이메일(구글)·저장한 정보), 보관 위치(서울), 탈퇴 시 삭제를 적는다.
 - 저장은 마지막에 쓴 쪽이 이긴다(기기 둘에서 동시에 고치면 늦게 저장한 값이 남는다). 학생 한 명이 쓰는 서비스라 충돌 합치기는 만들지 않는다.
 - 토큰(refresh)은 localStorage에 둔다. supabase-js 기본값과 같다. XSS가 나면 털릴 수 있으므로 CSP(`script-src 'self'`)를 유지한다.
-- **확인 불가**: 카카오 동의 항목에서 `account_email`을 뺀 앱으로 Supabase 기본 scope 요청이 통과하는지(문서는 된다고 함), 실제 로그인 왕복(사용자가 공급자 설정을 마친 뒤 확인).
+- ~~확인 불가: 카카오 동의 항목에서 `account_email`을 뺀 앱으로 Supabase 기본 scope 요청이 통과하는지~~ → 통과하지 않음(아래 2026-11-16 수정).
+
+## 수정(2026-11-16): 카카오는 직접 추가한 OIDC 연결로
+
+- **문제**: 운영에서 카카오 로그인이 KOE205로 실패. Supabase 기본 카카오 연결은 요청 항목을 따로 지정해도 `account_email profile_image profile_nickname`을 보낸다(이메일이 빠지지 않음). 비즈 앱이 아니면 이메일 동의 항목을 켤 수 없다.
+- **결정**: 카카오를 Supabase 사용자 정의 연결 `custom:kakao`(OIDC, 발급자 `https://kauth.kakao.com`, 요청 `openid profile_nickname`, `email_optional`)로 바꾼다. 이메일을 받지 않는 방침은 그대로. 코드는 `server/account.ts`에서 `kakao` → `custom:kakao`로 보내고, 사용자 정보의 `custom:` 접두어를 떼어 표시한다.
+- **근거(공식 문서)**: supabase.com/docs/guides/auth/custom-oauth-providers — `custom:` 식별자, OIDC 자동 탐색, `email_optional`, 공급자 쪽 PKCE 기본 켜짐(`pkce_enabled`, 안 되면 끌 수 있음). 무료 플랜은 사용자 정의 연결 3개까지.
+- **기각**: 카카오 앱 비즈 앱 전환(이메일 수집으로 방침·이용안내가 바뀌고, 개인 개발자 전환 조건 확인 불가).
+- **확인 불가**: 카카오 토큰 요청이 Supabase의 비밀키 전달 방식·PKCE를 받아 주는지, 실제 로그인 왕복. 안 되면 `pkce_enabled: false`부터 시험한다.
