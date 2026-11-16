@@ -12,7 +12,7 @@ import { JoinPage } from './join.tsx';
 import { ResultPage } from './reqs.tsx';
 import { PlanPage } from './plan.tsx';
 import { RecordPage } from './record.tsx';
-import { MyPage } from './my.tsx';
+import { MyPage, LoginButtons } from './my.tsx';
 import { start, push, hasProof, type Acct } from './account.ts';
 
 const KEY = 'credit-planner.v1';
@@ -56,7 +56,7 @@ function App() {
   useEffect(() => store.set(KEY, JSON.stringify(s)), [s]);
 
   // ── 계정(구글·카카오, ADR 0029): undefined = 확인 중, null = 로그인 안 함. 로그인돼 있으면 서버 저장값을 불러오고, 바뀌면 1.5초 뒤 올린다 ──
-  const [acct, setAcct] = useState<Acct | null | undefined>(undefined);
+  const [acct, setAcct] = useState<Acct | null | undefined>(undefined), [skip, setSkip] = useState(false);
   useEffect(() => { start().then(r => { setAcct(r.acct); const d = restore(r.data); if (d) dispatch({ t: 'load', s: d }); if (r.error) toast(r.error); }); }, []);
   useEffect(() => {
     if (!acct || !(acct.linked || hasProof())) return;
@@ -108,6 +108,10 @@ function App() {
     </div></nav>
     <main key={page} className="view">
       {(err || (a instanceof Error && s.es.length > 0)) && <div className="callout top-callout">{err ? '정보를 불러오지 못했습니다. 새로고침해 주세요.' : '졸업요건을 계산하지 못했습니다. 새로고침해 주세요.'}</div>}
+      {/* 샘물에서 막 가져왔고 로그인 전이면 결과 화면 위에서 한 번 권한다(연결 증명은 이 탭에 10분) */}
+      {page === 'result' && acct === null && !skip && hasProof() && <div className="callout ok-box top-callout ask-login">
+        <span>로그인하면 다른 기기에서도 이어서 봅니다.</span><LoginButtons />
+        <button className="icon-btn sm" aria-label="닫기" onClick={() => setSkip(true)}><Icon id="x" size={14} /></button></div>}
       {page === '' ? <HomePage start={s.es.length ? '#/plan' : '#/join'} />
         : page === 'join' ? <JoinPage {...props} /> : page === 'result' ? <ResultPage {...props} /> : page === 'plan' ? <PlanPage {...props} /> : page === 'record' ? <RecordPage {...props} />
         : page === 'my' ? <MyPage {...props} acct={acct} setAcct={setAcct} /> : <TermsPage />}
