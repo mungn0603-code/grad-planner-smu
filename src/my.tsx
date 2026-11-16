@@ -8,8 +8,11 @@ import { useChecks } from './checks.tsx';
 import { MajorRows } from './join.tsx';
 import { ExtFields } from './major.tsx';
 import { Page, Modal, Seg, Switch, Icon, Caret, Loading } from './ui.tsx';
+import { login, logout, quit, type Acct } from './account.ts';
 
-export function MyPage(p: PageProps) {
+type AcctProps = { acct: Acct | null | undefined; setAcct: (a: Acct | null) => void };
+
+export function MyPage(p: PageProps & AcctProps) {
   const { s, dispatch, univ, profile, a } = p, me = s.me, [modal, setModal] = useState<'add' | null>(null);
   const prog = univ?.programs[me.program];
   const rows = a ? a.items.map((it, i) => ({ it, e: s.es[i], i })).sort((x, y) => termOrd(x.it.term) - termOrd(y.it.term)) : [];
@@ -35,6 +38,7 @@ export function MyPage(p: PageProps) {
           <div className="fold-body"><ProfileForm {...p} /></div></details>
         {!!checks.count && <details className="fold"><summary><span>직접 입력 항목 <small className="muted">평점·인증 등 {checks.count}개</small></span><Caret /></summary>
           <div className="fold-body">{checks.form}</div></details>}
+        <Account {...p} />
         <div className="sec"><span className="danger">이 기기의 정보·기록 초기화</span>
           <button className="btn" onClick={() => { if (confirm('이 기기에 저장된 내 정보와 수강 기록을 모두 초기화할까요?')) dispatch({ t: 'load', s: blank() }); }}>초기화</button></div>
       </div>
@@ -144,3 +148,26 @@ function DirectAdd({ univ, terms, now, add }: { univ: Univ; terms: string[]; now
     <div className="field">&nbsp;<button className="btn p">추가</button></div>
   </form>;
 }
+
+// 로그인(구글·카카오, ADR 0029). 로그인한 뒤 샘물에서 가져오면 그 학번에 연결되어 저장된다
+const NAME: Record<string, string> = { google: '구글', kakao: '카카오' };
+function Account({ s, dispatch, toast, acct, setAcct }: PageProps & AcctProps) {
+  if (acct === undefined) return null;
+  if (!acct) return <div className="sec acct"><span>로그인<small className="muted">다른 기기에서도 이어서 볼 수 있습니다.</small></span>
+    <span className="row"><button className="btn sns google" onClick={() => login('google')}><GoogleMark />구글</button>
+      <button className="btn sns kakao" onClick={() => login('kakao')}><KakaoMark />카카오</button></span></div>;
+  const who = `${NAME[acct.provider] ?? ''} 계정`.trim();
+  return <div className="sec acct"><span>{acct.linked ? `${who}에 저장 중` : `${who}으로 로그인됨`}
+      {!acct.linked && <small className="muted">{s.me.sno ? '샘물에서 다시 가져오면 이 계정에 저장됩니다.' : '샘물에서 가져오면 이 계정에 저장됩니다.'}</small>}</span>
+    <span className="row">
+      <button className="btn" onClick={() => { if (acct.linked && !confirm('로그아웃하면 이 기기의 정보는 지웁니다. 다시 로그인하면 불러옵니다.')) return; logout(); if (acct.linked) dispatch({ t: 'load', s: blank() }); setAcct(null); }}>로그아웃</button>
+      <button className="btn" onClick={async () => { if (!confirm('탈퇴하면 서버에 저장한 정보를 지웁니다. 이 기기의 정보는 남습니다.')) return;
+        try { await quit(); setAcct(null); toast('탈퇴했습니다.'); } catch (x) { toast((x as Error).message); } }}>탈퇴</button></span></div>;
+}
+// 각 회사의 로그인 버튼 안내에 맞춘 표시(구글 G, 카카오 말풍선)
+const GoogleMark = () => <svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true">
+  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /></svg>;
+const KakaoMark = () => <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#000" d="M12 3C6.48 3 2 6.52 2 10.86c0 2.8 1.86 5.26 4.66 6.65l-.95 3.48c-.08.3.26.54.52.37l4.15-2.75c.53.07 1.07.11 1.62.11 5.52 0 10-3.52 10-7.86S17.52 3 12 3z" /></svg>;
