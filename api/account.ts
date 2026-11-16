@@ -1,9 +1,9 @@
 // 회원제(/api/account, docs/decisions/0029). 브라우저 대신 Supabase Auth·표를 부른다. 함수 본체는 server/account.ts
 // GET ?p=google|kakao&c=<PKCE challenge>  → 소셜 로그인 화면으로 보낸다
 // POST { op: 'token', code, verifier } | { op: 'refresh', rt }             → 세션 { at, rt, exp }
-// POST(Authorization: Bearer at) { op: 'load' } | { op: 'save', data } | { op: 'link', proof } | { op: 'quit' }
+// POST(Authorization: Bearer at) { op: 'load' } | { op: 'save', data } | { op: 'quit' }
 import { env } from '../server/smul/store.ts';
-import { PROVIDERS, authorizeUrl, token, user, readProof, link, load, save, quit } from '../server/account.ts';
+import { PROVIDERS, authorizeUrl, token, user, load, save, quit } from '../server/account.ts';
 
 const json = (status: number, body: object) => Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
 const MAX = 512_000; // 저장값 크기 상한(바이트). 과목 수백 개도 100KB 안쪽
@@ -35,10 +35,7 @@ export default {
       if (!u) return json(401, { error: '다시 로그인해 주세요.' });
       switch (b?.op) {
         case 'load': return json(200, { provider: u.provider, ...await load(e, u.id) });
-        case 'save': return json(200, { linked: await save(e, u.id, b.data) });
-        case 'link': { const sno = await readProof(e, b.proof);
-          if (!sno) return json(400, { error: '샘물에서 다시 가져와 주세요.' });
-          await link(e, sno, u.id); return json(200, { linked: true }); }
+        case 'save': await save(e, u.id, b.data); return json(200, {});
         case 'quit': await quit(e, u.id); return json(200, {});
       }
       return json(400, { error: '잘못된 요청입니다.' });

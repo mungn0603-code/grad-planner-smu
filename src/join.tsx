@@ -5,9 +5,9 @@ import { primaries, tracksOf, collegesOf } from './data.ts';
 import { rowsToEnrollments, guessLeaves } from './paste.ts';
 import { fromSmul, programId, type Student } from './student.ts';
 import { termOrd, termLabel, termOptions, isPlanned, norm, toProfile, modeOf, type Major, type Me, type PageProps } from './state.ts';
-import { Page, Loading } from './ui.tsx';
+import { Page, Loading, LoginButtons } from './ui.tsx';
 import { TERMS } from './home.tsx';
-import { keepProof } from './account.ts';
+import { nudge, type Acct } from './account.ts';
 
 type Retake = NonNullable<Me['retake']>[number];
 type Cdr = { tracks: string[]; done: string[] }; // 샘물 SM-CDR 이수조회: 신청한 트랙 이름, 이수한 비교과 프로그램 이름
@@ -20,7 +20,7 @@ export const MajorRows = ({ ms }: { ms: Major[] }) => <>
   <tr><td>다전공·부전공</td><td><MajorList ms={ms.filter(m => m.kind !== '마이크로전공')} kind /></td></tr>
   <tr><td>마이크로전공</td><td><MajorList ms={ms.filter(m => m.kind === '마이크로전공')} /></td></tr></>;
 
-export function JoinPage({ s, dispatch, univ, ctx }: PageProps) {
+export function JoinPage({ s, dispatch, univ, ctx, acct }: PageProps & { acct: Acct | null | undefined }) {
   const [got, setGot] = useState<Got | null>(null), [pick, setPick] = useState('');
   const consent = !!s.consent;
   const progs = univ ? primaries(univ) : [];
@@ -41,9 +41,11 @@ export function JoinPage({ s, dispatch, univ, ctx }: PageProps) {
     dispatch({ t: 'load', s: { ...s, me: { ...me, name: st.name || s.me.name, sno: got.id, entr: st.entr || s.me.entr, majors: st.majors, leaves,
       tracks: tracks.length ? tracks : program === s.me.program ? s.me.tracks : [], ...(cdr ? { done: cdr.done } : {}), cmp: got.cmp, retake: got.retake },
       es: [...keep, ...recg, ...es.map(e => ({ ...e, ...(isPlanned(e.term, s.me.now) ? { planned: true as const } : {}) }))] } });
-    location.hash = '#/result';
+    nudge.on(); location.hash = '#/result';
   };
   return <Page title="샘물 가져오기" sub="샘물 학번·비밀번호로 수강 기록과 학과를 한 번에 가져옵니다." narrow>
+    {/* 새 기기: 전에 로그인해서 저장했으면 샘물 비밀번호 없이 불러온다(ADR 0029) */}
+    {acct === null && !got && <div className="box ask-login"><span>전에 저장했다면<small className="muted">로그인하면 바로 불러옵니다.</small></span><LoginButtons /></div>}
     <div className="steps-h"><span className="on">1 동의</span><span className={consent ? 'on' : ''}>2 재학생 인증</span><span className={got ? 'on' : ''}>3 확인</span></div>
     {!got ? <div className="box">
       <h2>개인정보 수집·이용 동의</h2>{TERMS}
@@ -80,7 +82,7 @@ function SmulLogin({ consent, onDone }: { consent: boolean; onDone: (x: Got) => 
       const r = await fetch('/api/smul', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, pw }) });
       const j = await r.json().catch(() => null);
       if (!r.ok || !Array.isArray(j?.rows)) throw new Error(j?.error ?? '학점플래너 서버에 문제가 있습니다. 잠시 뒤 다시 시도해 주세요.');
-      setPw(''); keepProof(j.link); onDone({ id, rows: j.rows, student: { name: '', dept: '', entr: '', ...j.student, majors: Array.isArray(j.student?.majors) ? j.student.majors : [] }, ...(j.cdr ? { cdr: j.cdr } : {}), ...(j.cmp ? { cmp: j.cmp } : {}), ...(j.base ? { base: j.base } : {}), ...(j.retake ? { retake: j.retake } : {}), ...(Array.isArray(j.recg) ? { recg: j.recg } : {}) });
+      setPw(''); onDone({ id, rows: j.rows, student: { name: '', dept: '', entr: '', ...j.student, majors: Array.isArray(j.student?.majors) ? j.student.majors : [] }, ...(j.cdr ? { cdr: j.cdr } : {}), ...(j.cmp ? { cmp: j.cmp } : {}), ...(j.base ? { base: j.base } : {}), ...(j.retake ? { retake: j.retake } : {}), ...(Array.isArray(j.recg) ? { recg: j.recg } : {}) });
     } catch (x) { setErr(x instanceof TypeError ? '학점플래너 서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.' : (x as Error).message); }
     finally { setBusy(false); } }}>
     <input className="in-f" value={id} onChange={e => setId(e.target.value.trim())} inputMode="numeric" pattern="\d{9}" title="숫자 9자리" maxLength={9} autoComplete="username" placeholder="학번 (9자리)" aria-label="학번" required disabled={!consent} />
