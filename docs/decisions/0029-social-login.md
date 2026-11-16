@@ -21,7 +21,7 @@
 - **새 라이브러리 없이 PKCE**로 로그인한다. 브라우저가 code verifier를 만들고, Supabase Auth의 `authorize`(소셜 로그인)로 보낸 뒤 돌아온 `code`를 `/api/account`가 `token?grant_type=pkce`로 바꾼다.
 - **연결 증명**: `/api/smul`이 성공하면 `HMAC(SMUL_KEY_SECRET, 'link:학번:만료시각')`(10분)을 돌려준다. 학생이 그때 로그인돼 있으면 바로, 아니면 로그인한 뒤 이 증명으로 연결한다. 10분이 지나면 샘물에서 다시 가져와야 한다.
 - **탈퇴**하면 Supabase 사용자를 지우고, 연결·저장값은 외래 키 `on delete cascade`로 같이 지운다.
-- 카카오는 회원번호만 쓴다. 이메일(`account_email`)은 받지 않고 Supabase 카카오 설정에서 **Allow users without an email**을 켠다.
+- 카카오는 회원번호로 계정을 구분한다. 이메일(`account_email`)은 받지 않고(닉네임·프로필 사진은 Supabase 기본 요청이라 동의 항목에 둔다) Supabase 카카오 설정에서 **Allow users without an email**을 켠다.
 
 ## 근거
 
@@ -53,7 +53,7 @@
 
 ## 결과·한계
 
-- **사용자가 할 일(코드 밖)**: Google Cloud 콘솔 OAuth 클라이언트, Kakao Developers 앱(REST API 키·Client Secret·동의 항목 `profile_nickname`만), Supabase Authentication → Providers에서 Google·Kakao 켜기, URL Configuration의 Redirect URLs에 운영 주소와 `http://localhost:5173/` 추가. 비밀값은 Supabase 대시보드에만 넣는다.
+- **사용자가 할 일(코드 밖)**: Google Cloud 콘솔 OAuth 클라이언트, Kakao Developers 앱(REST API 키·Client Secret·동의 항목 `profile_nickname`·`profile_image`, Supabase가 이 둘을 기본으로 요청하므로), Supabase Authentication → Providers에서 Google·Kakao 켜기, URL Configuration의 Redirect URLs에 운영 주소와 `http://localhost:5173/` 추가. 비밀값은 Supabase 대시보드에만 넣는다.
 - 구글 로그인은 Supabase `auth.users`에 이메일을 남긴다. 개인정보 처리방침(이용안내)에 보관 항목(로그인 계정 식별값·이메일(구글)·저장한 정보), 보관 위치(서울), 탈퇴 시 삭제를 적는다.
 - 저장은 마지막에 쓴 쪽이 이긴다(기기 둘에서 동시에 고치면 늦게 저장한 값이 남는다). 학생 한 명이 쓰는 서비스라 충돌 합치기는 만들지 않는다.
 - 토큰(refresh)은 localStorage에 둔다. supabase-js 기본값과 같다. XSS가 나면 털릴 수 있으므로 CSP(`script-src 'self'`)를 유지한다.
