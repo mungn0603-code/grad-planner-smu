@@ -89,7 +89,7 @@ function App() {
 
   // ── 화면 전환 ──
   const [page, setPage] = useState<Page>(pageOf);
-  useEffect(() => { const on = () => setPage(pageOf()); addEventListener('hashchange', on); return () => removeEventListener('hashchange', on); }, []);
+  useEffect(() => { const on = () => setPage(pageOf()); on(); /* on(): 로그인에서 돌아오면 start()가 주소의 화면만 되돌리므로 한 번 다시 읽는다 */ addEventListener('hashchange', on); return () => removeEventListener('hashchange', on); }, []);
   useEffect(() => { document.title = page ? `${PAGES[page]} · 학점플래너` : '학점플래너 · 상명대 천안캠퍼스'; scrollTo(0, 0); }, [page]);
 
   // ── 알림 ──
