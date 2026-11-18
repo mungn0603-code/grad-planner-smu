@@ -14,10 +14,14 @@ const api = (h: Handler) => async (raw: unknown, res: { writeHead: (status: numb
 };
 const mount = (s: { middlewares: { use: (path: string, fn: ReturnType<typeof api>) => void } }) => { s.middlewares.use('/api/smul', api(smul)); s.middlewares.use('/api/account', api(account)); };
 
+const fs: { readFileSync: (p: string, e: string) => string } = await import('node:' + 'fs'); // @types/node 없이
+
 export default defineConfig(({ mode }) => {
   // 함수가 읽는 서버 비밀값(SUPABASE_URL 등)을 .env.local에서 process.env로(개발 서버에서만 쓰고 번들에는 넣지 않는다)
   const proc = (globalThis as { process?: { env: Record<string, string | undefined>; cwd: () => string } }).process;
   if (proc) Object.assign(proc.env, loadEnv(mode, proc.cwd(), ''), { ...proc.env });
+  // 테스트 아이디: 로컬에서는 private/test-accounts.json(git 제외)을 SMUL_TEST로 쓴다. 배포에서는 Vercel 환경 변수
+  if (proc && !proc.env.SMUL_TEST) try { proc.env.SMUL_TEST = fs.readFileSync('private/test-accounts.json', 'utf8'); } catch { /* 파일 없으면 테스트 아이디 없음 */ }
   return {
   base: './',                          // 정적 호스팅 어느 경로에 올려도 동작
   oxc: { jsx: { runtime: 'automatic' } },
