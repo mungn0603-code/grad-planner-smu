@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- 운영 주소를 이 앱으로 연다(로그인에서 돌아올 때). 확인 파일: public/.well-known/assetlinks.json -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="grad-planner-dusky.vercel.app" />
+            </intent-filter>
+
         </activity>
 
         <provider

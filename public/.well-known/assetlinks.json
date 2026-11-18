@@ -1,0 +1,4 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": { "namespace": "android_app", "package_name": "io.github.mungn0603code.gradplanner", "sha256_cert_fingerprints": ["49:0A:04:86:00:0B:E3:78:BC:B3:E9:4A:97:0E:A8:08:F6:8E:43:7F:21:0F:9C:D4:0E:D4:60:49:39:D2:04:AB"] }
+}]
