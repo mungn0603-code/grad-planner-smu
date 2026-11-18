@@ -1,0 +1,49 @@
+# 앱 포장(P9, docs/decisions/0030): Android 설치 파일(APK)과 iOS 빌드. 앱은 운영 주소를 여는 껍데기라
+# 화면 변경으로는 다시 빌드할 필요가 없고, 포장 쪽 파일이 바뀔 때와 손으로 돌릴 때만 돈다.
+name: App
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: [android/**, ios/**, capacitor.config.json, package.json, package-lock.json, .github/workflows/app.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - run: npx vite build
+      - run: npx cap sync android
+      - run: cd android && ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v7
+        with:
+          name: grad-planner-android
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+  # 서명하지 않은 시뮬레이터 빌드: 빌드가 되는지만 확인한다(스토어 등록 안 함, SPEC 미결 사항 1)
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx vite build
+      - run: npx cap sync ios
+      - run: xcodebuild -project ios/App/App.xcodeproj -scheme App -sdk iphonesimulator -configuration Debug -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
