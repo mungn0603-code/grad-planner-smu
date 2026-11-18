@@ -82,10 +82,10 @@ function SmulLogin({ consent, onDone }: { consent: boolean; onDone: (x: Got) => 
       const r = await fetch('/api/smul', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, pw }) });
       const j = await r.json().catch(() => null);
       if (!r.ok || !Array.isArray(j?.rows)) throw new Error(j?.error ?? '학점플래너 서버에 문제가 있습니다. 잠시 뒤 다시 시도해 주세요.');
-      setPw(''); onDone({ id, rows: j.rows, student: { name: '', dept: '', entr: '', ...j.student, majors: Array.isArray(j.student?.majors) ? j.student.majors : [] }, ...(j.cdr ? { cdr: j.cdr } : {}), ...(j.cmp ? { cmp: j.cmp } : {}), ...(j.base ? { base: j.base } : {}), ...(j.retake ? { retake: j.retake } : {}), ...(Array.isArray(j.recg) ? { recg: j.recg } : {}) });
+      setPw(''); onDone({ id: typeof j.id === 'string' ? j.id : id, rows: j.rows, student: { name: '', dept: '', entr: '', ...j.student, majors: Array.isArray(j.student?.majors) ? j.student.majors : [] }, ...(j.cdr ? { cdr: j.cdr } : {}), ...(j.cmp ? { cmp: j.cmp } : {}), ...(j.base ? { base: j.base } : {}), ...(j.retake ? { retake: j.retake } : {}), ...(Array.isArray(j.recg) ? { recg: j.recg } : {}) });
     } catch (x) { setErr(x instanceof TypeError ? '학점플래너 서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.' : (x as Error).message); }
     finally { setBusy(false); } }}>
-    <input className="in-f" value={id} onChange={e => setId(e.target.value.trim())} inputMode="numeric" pattern="\d{9}" title="숫자 9자리" maxLength={9} autoComplete="username" placeholder="학번 (9자리)" aria-label="학번" required disabled={!consent} />
+    <input className="in-f" value={id} onChange={e => setId(e.target.value.trim())} inputMode="numeric" pattern="\d{9}|\d{4}" title="숫자 9자리" maxLength={9} autoComplete="username" placeholder="학번 (9자리)" aria-label="학번" required disabled={!consent} />
     <input className="in-f" type="password" value={pw} onChange={e => setPw(e.target.value)} maxLength={100} autoComplete="current-password" placeholder="샘물 비밀번호" aria-label="샘물 비밀번호" required disabled={!consent} />
     {err && <p className="warn" role="alert">{err}</p>}
     <button className={'cta blue wide' + (busy ? ' busy' : '')} disabled={!consent || busy} title={consent ? undefined : '먼저 동의해 주세요'}><span className="spin" />로그인</button>

@@ -43,6 +43,7 @@ npm run build       # 배포용 빌드(dist/)
 | `SUPABASE_URL` | 예 | Supabase 프로젝트 URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | 예 | Supabase 비밀 키(service role). 서버 함수에서만 씁니다 |
 | `SMUL_KEY_SECRET` | 예 | 학번·IP를 HMAC으로 가리는 임의의 긴 문자열 |
+| `SMUL_TEST` | 아니요 | 테스트 아이디(시연·심사용). `{"<4자리 아이디>": {"pw", "id"(표시 학번), "rows", "student", …}}` 꼴로, 샘물 가져오기 응답에서 이름을 바꾸고 이수 현황만 담습니다. 개발 서버는 `private/test-accounts.json`을 읽습니다 |
 | `VITE_REPORT_URL` | 아니요 | 졸업요건 오류 신고를 받을 주소. 없으면 신고 문구를 클립보드에 복사합니다 |
 
 ## 배포
