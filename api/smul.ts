@@ -4,11 +4,13 @@
 import { MSG, type Fail } from '../server/smul/login.ts';
 import { courses } from '../server/smul/parse.ts';
 import { limit, record } from '../server/smul/limit.ts';
+import { env } from '../server/smul/store.ts';
 
 export { courses } from '../server/smul/parse.ts';
 export { LIMIT, idDelay } from '../server/smul/limit.ts';
 export { state } from '../server/smul/breaker.ts';
 
+const test = (): Record<string, { pw: string }> => { try { return JSON.parse(env().SMUL_TEST ?? '{}'); } catch { return {}; } };
 const json = (status: number, body: object) => Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
 
 export default {
@@ -18,6 +20,9 @@ export default {
     if (origin.replace(/^https?:\/\//, '') !== new URL(req.url).host) return json(403, { error: '허용되지 않은 요청입니다.' }); // 다른 사이트에서 이 주소를 부르지 못하게
     const b = await req.json().catch(() => null);
     const id = typeof b?.id === 'string' ? b.id.trim() : '', pw = typeof b?.pw === 'string' ? b.pw : '';
+    // 테스트 아이디(시연·심사용, 4자리): 환경 변수 SMUL_TEST = {"<아이디>": {pw, id(입학년도가 든 표시 학번), rows, student, …}}. 샘물에 가지 않고 저장한 이수 현황을 돌려준다
+    const t = test()[id];
+    if (t && pw === t.pw) { const { pw: _, ...out } = t; return json(200, out); }
     if (!/^\d{9}$/.test(id) || !pw || pw.length > 100) return json(400, { error: '학번(숫자 9자리)과 비밀번호를 확인해 주세요.' });
     const g = await limit(req, id);
     if ('block' in g) return json(g.block[0], { error: g.block[1] });
