@@ -2,8 +2,5 @@
   "appId": "io.github.mungn0603code.gradplanner",
   "appName": "학점플래너",
   "webDir": "dist",
-  "server": {
-    "url": "https://grad-planner-dusky.vercel.app",
-    "allowNavigation": ["*.supabase.co", "kauth.kakao.com", "accounts.kakao.com", "accounts.google.com"]
-  }
+  "server": { "url": "https://grad-planner-dusky.vercel.app" }
 }

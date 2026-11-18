@@ -16,6 +16,18 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // 앱 링크(assetlinks.json)가 서명 지문을 확인하므로 CI는 고정 키로 서명한다. 키는 GitHub 비밀값, 없으면 기본 디버그 키
+    signingConfigs {
+        debug {
+            if (System.getenv('APP_KEYSTORE')) {
+                storeFile file(System.getenv('APP_KEYSTORE'))
+                storeType 'pkcs12'
+                storePassword System.getenv('APP_KEYSTORE_PASSWORD')
+                keyAlias 'app'
+                keyPassword System.getenv('APP_KEYSTORE_PASSWORD')
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
