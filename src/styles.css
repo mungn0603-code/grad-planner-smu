@@ -24,8 +24,7 @@ svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; s
 nav.top { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
 nav.top .in { max-width: 1080px; margin: 0 auto; height: var(--nav); display: flex; align-items: center; gap: 24px; padding: 0 20px; }
 .logo { display: flex; align-items: center; gap: 12px; color: var(--sm); }
-.logo img { height: 40px; width: auto; display: block; }
-.logo b { font-size: 18px; letter-spacing: -.02em; padding-left: 12px; border-left: 1px solid var(--line); }
+.logo b { font-size: 18px; letter-spacing: -.02em; }
 nav.top ul { margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; align-items: center; gap: 22px; font-size: 17px; }
 nav.top li a { transition: color .15s; } nav.top li a:hover { color: var(--sm); }
 nav.top li a[aria-current] { color: var(--sm); font-weight: 700; }
@@ -59,7 +58,7 @@ nav.top li.who b { color: var(--sm); }
 .box h2 .sub { font-size: 14px; color: var(--muted); font-weight: 400; }
 .box h3, .modal h3 { margin: 20px 0 10px; font-size: 16px; }
 .box.empty { text-align: center; } .box.empty p { margin: 0 0 14px; }
-footer { background: #2b2f33; color: #aab0b8; font-size: 13px; text-align: center; padding: 20px 16px; line-height: 1.8; }
+footer { background: #2b2f33; color: #aab0b8; font-size: 13px; text-align: center; padding: 20px 16px; line-height: 1.8; word-break: keep-all; }
 footer a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* 입력 */
@@ -274,7 +273,6 @@ ul.chips { list-style: none; padding: 0; margin-bottom: 0; }
 /* ── 휴대폰 ── */
 @media (max-width: 760px) {
   nav.top .in { height: auto; flex-wrap: wrap; row-gap: 6px; padding: 10px 16px; }
-  .logo img { height: 32px; }
   nav.top ul { width: 100%; margin: 0; gap: 14px; font-size: 15px; overflow-x: auto; white-space: nowrap; }
   nav.top li.who { padding-left: 14px; }
   .hero h1 { font-size: 34px; } .hero small { font-size: 17px; }
@@ -392,7 +390,7 @@ details.callout > summary::-webkit-details-marker { display: none; }
 
   /* 위: 로고·이름만 한 줄. 메뉴는 아래 탭바 */
   nav.top .in { height: 52px; flex-wrap: nowrap; padding: 0 16px; gap: 12px; }
-  .logo { gap: 8px; } .logo img { height: 26px; } .logo b { font-size: 16px; padding-left: 8px; }
+  .logo b { font-size: 16px; }
   nav.top ul { width: auto; margin-left: auto; overflow: visible; font-size: 14px; }
   nav.top li:not(.who) { display: none; }
   nav.top li.who { padding-left: 0; border-left: 0; }

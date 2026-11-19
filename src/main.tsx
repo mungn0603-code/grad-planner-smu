@@ -108,7 +108,7 @@ function App() {
   return <>
     <Sprite />
     <nav className="top"><div className="in">
-      <a className="logo" href="#/"><img src="./logo.jpg" alt="상명대학교" width="140" height="40" /><b>학점플래너</b></a>
+      <a className="logo" href="#/"><b>학점플래너</b></a>
       <ul>
         {MENU.map(k => <li key={k}><a href={`#/${k}`} aria-current={k === page ? 'page' : undefined}>{PAGES[k]}</a></li>)}
         <li className="who">{s.me.name ? <a href="#/my"><b>{s.me.name}</b>님</a> : <a href="#/join" aria-current={page === 'join' ? 'page' : undefined}>시작하기</a>}</li>
@@ -130,7 +130,7 @@ function App() {
     </main>
     {/* 휴대폰: 주 메뉴를 아래 탭바로(Material 내비게이션 바·iOS 탭바, 3~5개 목적지) */}
     <nav className="tabbar" aria-label="주 메뉴">{MENU.map(k => <a key={k} href={`#/${k}`} aria-current={k === page ? 'page' : undefined}><Icon id={k} />{TAB[k]}</a>)}</nav>
-    <footer><a href="#/terms">이용안내</a></footer>
+    <footer><a href="#/terms">이용안내</a> · 졸업요건 판정은 학교 공식 판정이 아닙니다. 졸업 사정은 학과 사무실과 샘물에서 확인해 주세요.</footer>
     <div className={'toast' + (msg ? ' show' : '')} role="status" aria-live="polite">{msg}</div>
   </>;
 }
