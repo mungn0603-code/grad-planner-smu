@@ -23,7 +23,8 @@ svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; s
 /* ── 상단 메뉴 ── */
 nav.top { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
 nav.top .in { max-width: 1080px; margin: 0 auto; height: var(--nav); display: flex; align-items: center; gap: 24px; padding: 0 20px; }
-.logo { display: flex; align-items: center; gap: 12px; color: var(--sm); }
+.logo { display: flex; align-items: center; gap: 8px; color: var(--sm); }
+.logo svg { height: 26px; width: auto; display: block; }
 .logo b { font-size: 18px; letter-spacing: -.02em; }
 nav.top ul { margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; align-items: center; gap: 22px; font-size: 17px; }
 nav.top li a { transition: color .15s; } nav.top li a:hover { color: var(--sm); }
@@ -390,7 +391,7 @@ details.callout > summary::-webkit-details-marker { display: none; }
 
   /* 위: 로고·이름만 한 줄. 메뉴는 아래 탭바 */
   nav.top .in { height: 52px; flex-wrap: nowrap; padding: 0 16px; gap: 12px; }
-  .logo b { font-size: 16px; }
+  .logo b { font-size: 16px; } .logo svg { height: 22px; }
   nav.top ul { width: auto; margin-left: auto; overflow: visible; font-size: 14px; }
   nav.top li:not(.who) { display: none; }
   nav.top li.who { padding-left: 0; border-left: 0; }

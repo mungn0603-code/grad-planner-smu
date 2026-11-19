@@ -108,7 +108,7 @@ function App() {
   return <>
     <Sprite />
     <nav className="top"><div className="in">
-      <a className="logo" href="#/"><b>학점플래너</b></a>
+      <a className="logo" href="#/"><Cap /><b>학점플래너</b></a>
       <ul>
         {MENU.map(k => <li key={k}><a href={`#/${k}`} aria-current={k === page ? 'page' : undefined}>{PAGES[k]}</a></li>)}
         <li className="who">{s.me.name ? <a href="#/my"><b>{s.me.name}</b>님</a> : <a href="#/join" aria-current={page === 'join' ? 'page' : undefined}>시작하기</a>}</li>
@@ -134,6 +134,14 @@ function App() {
     <div className={'toast' + (msg ? ' show' : '')} role="status" aria-live="polite">{msg}</div>
   </>;
 }
+
+// 학사모 선 그림: 앱 아이콘(ADR 0032)과 같은 좌표
+const Cap = () => <svg viewBox="160 140 720 400" aria-hidden="true">
+  <g fill="none" stroke="currentColor" strokeWidth="44" strokeLinejoin="round" strokeLinecap="round">
+    <path d="M512 170 830 300 512 430 194 300Z" /><path d="M320 375v95a192 70 0 0 0 384 0v-95" /><path d="M830 300v170" strokeWidth="30" />
+  </g>
+  <circle cx="830" cy="490" r="30" fill="currentColor" />
+</svg>;
 
 const Sprite = () => <svg style={{ display: 'none' }} aria-hidden="true">
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></symbol>
