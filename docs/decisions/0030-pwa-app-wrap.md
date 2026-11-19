@@ -12,7 +12,7 @@
 | 항목 | 결정 | 이유 |
 |---|---|---|
 | PWA | `manifest.webmanifest` + 아이콘만. 서비스 워커는 넣지 않음 | 설치에는 manifest(이름·아이콘 192·512·시작 주소·display)면 된다. 캐시 서비스 워커는 새 배포 뒤에도 옛 화면을 보여 줄 위험이 있고, 계산·저장은 이미 기기 안에서 한다 |
-| 아이콘 | 상명 로고의 파란 마크(`public/logo.jpg` 왼쪽)를 잘라 씀 | 학교 홈페이지 자료를 쓰기로 한 화면 결정과 같다. 원본이 89×120px라 확대 뒤 두 색으로 정리했다 |
+| 아이콘 | 상명 로고의 파란 마크(`public/logo.jpg` 왼쪽)를 잘라 씀 | 학교 홈페이지 자료를 쓰기로 한 화면 결정과 같다. 원본이 89×120px라 확대 뒤 두 색으로 정리했다. 2026-11-19 ADR 0032로 학사모 아이콘으로 교체 |
 | 앱이 여는 것 | `server.url` = 운영 주소 | 화면이 `/api/smul`·`/api/account`를 상대 경로로 부르고, 로그인은 운영 주소로 돌아온다. 묶은 파일을 열면(origin `https://localhost`) 둘 다 깨진다. 운영 주소를 열면 웹과 똑같이 돌고, 화면을 고쳐도 앱을 다시 빌드할 필요가 없다 |
 | 빌드 | GitHub Actions(`app.yml`): Android `assembleDebug` APK, iOS 서명 없는 시뮬레이터 빌드(macOS 러너) | 개발 PC가 Windows이고 Java·Android SDK도 없다. 공개 저장소는 기본 러너가 무료다(0021) |
 | Android 서명 | 고정 키(PKCS12, GitHub 비밀값 `ANDROID_KEYSTORE`·`ANDROID_KEYSTORE_PASSWORD`)로 디버그 빌드에 서명. 비밀값이 없으면 기본 디버그 키 | 앱 링크는 서명 지문을 확인하는데 CI의 기본 디버그 키는 실행마다 새로 생긴다. 스토어에 올리지 않으므로 배포(release) 빌드는 만들지 않는다. 키 원본은 `private/android/`(git 제외) |
