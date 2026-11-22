@@ -9,9 +9,10 @@ import { AddCourse } from './my.tsx';
 const OUT = { retake: '재수강 제외', dup: '중복 제외', fail: '미취득' } as const;
 
 // 이수 예정 과목의 학기 바꾸기: 이번 학기부터 앞으로의 학기(계절학기는 '계절학기 포함'일 때만). 학점 플래너와 같이 쓴다
-export function TermSelect({ s, i, dispatch }: { s: State; i: number; dispatch: (a: Action) => void }) {
+// terms: 학점 플래너가 계획하는 학기(그 밖으로 옮기면 플래너에서 안 보인다). 없으면 앞으로 8년
+export function TermSelect({ s, i, dispatch, terms }: { s: State; i: number; dispatch: (a: Action) => void; terms?: string[] }) {
   const cur = s.es[i]?.term ?? '', now = s.me.now;
-  const opts = termOptions(+(now || cur).slice(0, 4) || new Date().getFullYear(), !s.season).filter(t => !now || termOrd(t) >= termOrd(now));
+  const opts = terms ? [...terms] : termOptions(+(now || cur).slice(0, 4) || new Date().getFullYear(), !s.season).filter(t => !now || termOrd(t) >= termOrd(now));
   if (cur && !opts.includes(cur)) opts.unshift(cur);
   return <select className="term-sel" aria-label="학기" value={cur} onChange={e => dispatch({ t: 'edit', i, v: { term: e.target.value } })}>
     {opts.map(t => <option key={t} value={t}>{termLabel(t)}</option>)}</select>;

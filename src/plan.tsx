@@ -101,7 +101,7 @@ export function PlanPage(props: PageProps) {
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : k)}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
                   <small><Icon id="check" size={13} />담은 과목</small></button>
                 {open && <div className="alts" role="group" aria-label={`${it.name} 빼기·학기 바꾸기`}>
-                  <TermSelect s={s} i={it.i} dispatch={dispatch} /><button className="btn" onClick={() => drop(it)}>빼기</button></div>}</div></Swipe>; })}
+                  <TermSelect s={s} i={it.i} dispatch={dispatch} terms={terms} /><button className="btn" onClick={() => drop(it)}>빼기</button></div>}</div></Swipe>; })}
             {rows.map(r => { const alts = (P.alts[r.k] ?? []).filter(x => !usedCodes.has(x.code)), open = openKey === r.k, can = alts.length > 0 || r.swapped, cat = r.cat ?? catOf(r.code);
               return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : r.k)}><span className="c-n">{r.name}</span><span className="c-cr">{r.cr}</span>
