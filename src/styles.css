@@ -1,7 +1,9 @@
-/* docs/wireframe-smu.html에서 옮긴 스타일. 색은 상명 전용색(SM Blue #0E207F, smu.ac.kr UI). 밝은 화면만. 글꼴 Pretendard(OFL-1.1, jsDelivr) */
+/* docs/wireframe-smu.html에서 옮긴 스타일. 색은 샘물 포털(portal.smu.ac.kr): 상단 바 남색, 하늘색 바탕, 학점취득현황 도넛의 이수구분 색(이슈 #91). 밝은 화면만. 글꼴 Pretendard(OFL-1.1, jsDelivr) */
 :root {
-  --sm: #0E207F; --sm-d: #0a1860; --sm-50: #eef0f8; --gray: #333B3D; --line: #e4e7ec; --line-2: #eef0f3; --bg: #f6f7f9; --surface: #fff; --text: #191c1f; --muted: #5f6670;
-  --hover: rgba(14,32,127,.05); --ok: #1a7346; --bad: #c2372f; --warn: #8a6a0c; --shadow: 0 6px 24px rgba(14,32,127,.10); --r: 8px;
+  --sm: #1F2E6F; --sm-d: #18245a; --sm-50: #eef3fb; --sky: #eaf4fd; --track: #cfe0f8; --slate: #3B4A69; --gray: #333B3D; --line: #e4e7ec; --line-2: #eef0f3; --bg: #f6f7f9; --surface: #fff; --text: #191c1f; --muted: #5f6670;
+  --hover: rgba(31,46,111,.05); --ok: #1a7346; --bad: #c2372f; --warn: #8a6a0c; --shadow: 0 6px 24px rgba(31,46,111,.10);
+  /* 이수구분 색: 전선·일선·다전공·교직은 포털 도넛 범례 색, 나머지는 같은 밝기로 맞춘 색(이슈 #91) */
+  --c-js: #F26365; --c-jd: #EE8A3C; --c-jp: #C2477E; --c-gp: #B8AE86; --c-gs: #8E9F3A; --c-il: #289A67; --c-m2: #5D7CBF; --c-mn: #7E6BC4; --c-md: #19A6D4; --c-tc: #6B7A8F; --c-etc: #9aa1ab;
   --ease: cubic-bezier(.32,.72,0,1); --dur: .25s; --nav: 64px;
   color-scheme: light;
 }
@@ -514,18 +516,21 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .panel .fold-body ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 
 /* 추천 요약: 판정 한 마디 + 숫자 셋, 못 채우는 요건은 바로 아래 */
-.plan-sum { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 20px; margin-bottom: 16px; transition: opacity .25s var(--ease); }
+.plan-sum { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; transition: opacity .25s var(--ease); }
 .plan-sum.stale { opacity: .55; }
-.verdict { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
-.verdict svg { stroke-width: 2.6; }
-.verdict.ok { color: var(--ok); } .verdict.bad { color: var(--bad); }
-.stats { display: flex; gap: 32px; margin: 0; }
-.stats div { display: flex; flex-direction: column; gap: 2px; }
-.stats dt { font-size: 13px; color: var(--muted); }
-.stats dd { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.unmet { flex-basis: 100%; list-style: none; margin: 0; padding: 12px 0 0; border-top: 1px solid var(--line-2); display: grid; gap: 6px; font-size: 14px; }
-.unmet li { display: flex; justify-content: space-between; gap: 12px; }
-.unmet b { color: var(--bad); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ps-hero { display: grid; gap: 2px; background: var(--sky); border-radius: 10px; padding: 18px 20px; }
+.ps-l { font-size: 14px; font-weight: 600; color: var(--slate); }
+.ps-n { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -.04em; color: var(--sm); font-variant-numeric: tabular-nums; }
+.ps-n small { margin-left: 4px; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+.ps-s { font-size: 14px; color: var(--slate); }
+.ps-rows { list-style: none; margin: 0; padding: 0 2px; display: grid; gap: 14px; }
+.ps-rows li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: baseline; font-size: 15px; }
+.ps-name { font-weight: 600; overflow-wrap: anywhere; word-break: keep-all; }
+.ps-gap { font-size: 14px; color: var(--slate); white-space: nowrap; } .ps-gap b { font-size: 15px; color: var(--sm); font-variant-numeric: tabular-nums; }
+.ps-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--track); overflow: hidden; }
+.ps-bar i { display: block; height: 100%; border-radius: inherit; background: var(--sm); transition: width .4s var(--ease); }
+.ps-ok { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0 2px; font-size: 15px; font-weight: 600; color: var(--sm); }
+.ps-ok svg { stroke-width: 2.4; }
 
 /* 학기 카드 */
 .term > header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px 12px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line-2); }
@@ -551,10 +556,14 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .term .course.open { background: var(--sm-50); box-shadow: none; }
 .term .course.swapped .c-n::after { content: "바꾼 과목"; margin-left: 6px; font-size: 12px; font-weight: 600; color: var(--warn); }
 .cat { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #f0f1f3; color: var(--gray); }
-.cat.mj { background: var(--sm-50); color: var(--sm); }
-.cat.m2 { background: #e5f3f0; color: #0d6b63; }
-.cat.md { background: #fbf0dc; color: #875700; }
-.cat.ge { background: #f0f1f3; color: #4b525a; }
+.cat.js { background: #fdecec; color: #b8343b; } .cat.jd { background: #fdf0e4; color: #a85614; } .cat.jp { background: #fbe9f1; color: #9c2f63; }
+.cat.gp { background: #f4f1e6; color: #6b6040; } .cat.gs { background: #f1f4e2; color: #5b6a1c; } .cat.il { background: #e6f4ec; color: #1d6e4a; }
+.cat.m2 { background: #eaeff9; color: #3b5694; } .cat.mn { background: #efecf9; color: #57459e; } .cat.md { background: #e4f5fb; color: #0d6f8f; } .cat.tc { background: #eef0f3; color: #48546a; }
+/* 학기 카드 과목 줄: 이수구분 색 띠(레퍼런스 Amie의 카테고리 블록) */
+.term .course[class*=' c-'] { box-shadow: inset 3px 0 0 var(--cc); }
+.term .course.c-js { --cc: var(--c-js); } .term .course.c-jd { --cc: var(--c-jd); } .term .course.c-jp { --cc: var(--c-jp); } .term .course.c-gp { --cc: var(--c-gp); }
+.term .course.c-gs { --cc: var(--c-gs); } .term .course.c-il { --cc: var(--c-il); } .term .course.c-m2 { --cc: var(--c-m2); } .term .course.c-mn { --cc: var(--c-mn); }
+.term .course.c-md { --cc: var(--c-md); } .term .course.c-tc { --cc: var(--c-tc); } .term .course.c-etc { --cc: var(--c-etc); }
 .term .swap-mark { display: inline-flex; margin: 0; color: var(--sm); }
 .term .swap-mark svg { stroke-width: 2; }
 .empty-t { padding: 14px 16px; }
@@ -581,8 +590,6 @@ details.fold-panel[open] > summary { border-bottom: 1px solid var(--line-2); }
   .kinds { flex-wrap: nowrap; overflow-x: auto; margin: 0 -18px; padding: 0 18px 2px; scrollbar-width: none; }
   .kinds::-webkit-scrollbar { display: none; }
   .kinds button { flex: none; height: 38px; }
-  .plan-sum { border: 0; padding: 18px; margin-bottom: 12px; }
-  .stats { width: 100%; justify-content: space-between; gap: 12px; }
   .term > header { padding: 16px 18px 12px; }
 }
 /* 펼친 요건 카드: 이수구분 한 줄씩(이름 · 들은 학점 · 더 필요), 마지막 줄 남음 */
