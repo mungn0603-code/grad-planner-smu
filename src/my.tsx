@@ -21,7 +21,7 @@ export function MyPage(p: PageProps & AcctProps) {
   return <Page title="마이페이지" sub={<a className="cta small-cta" href="#/result">학점 계산기 보기</a>} narrow>
       <div className="box">
         <h2>내 정보</h2>
-        {!me.sno && !s.es.length ? <p className="muted">아직 가져온 정보가 없습니다.</p> : <table className="info"><tbody>
+        {!me.sno && !s.es.length ? <p className="muted">아직 가져온 정보가 없어요.</p> : <table className="info"><tbody>
           {me.sno && <tr><td>학번</td><td>{me.sno}</td></tr>}{me.name && <tr><td>이름</td><td>{me.name}</td></tr>}
           <tr><td>학과</td><td>{prog?.name ?? '—'}</td></tr>
           <tr><td>입학구분</td><td>{me.entr ?? ({ freshman: '신입', transfer: '편입', bachelor: '학사편입' })[me.admission]}{me.student === 'international' ? ' · 유학생' : ''}</td></tr>
@@ -69,8 +69,8 @@ function ProfileForm({ s, dispatch, univ }: PageProps) {
       </>}
     </div>
     {!me.sno && univ && <div className="field">전공제도<ExtFields univ={univ} primary={me.program} ext={me.ext} set={ext => set({ ext })} deep={canDeep(me)} /></div>}
-    {me.sno ? <p className="muted small">학적이 바뀌었으면 샘물에서 다시 가져오세요.</p>
-      : me.admission !== 'freshman' && <p className="muted small">편입 인정학점은 과목 추가에서 '편입 인정(일괄)'로 넣습니다.</p>}
+    {me.sno ? <p className="muted small">학적이 바뀌었다면 샘물에서 다시 가져와 주세요.</p>
+      : me.admission !== 'freshman' && <p className="muted small">편입 인정학점은 과목 추가에서 '편입 인정(일괄)'로 넣어 주세요.</p>}
     <label className="check-row"><Switch on={!!me.exempt} set={v => set({ exempt: v ? true : undefined })} label="전공제도 이수 제외 대상" />
       <span>전공제도 이수 제외 대상<small className="muted">공학인증·체육특기자·특수교육대상자 등</small></span></label>
     <div className="leave">
@@ -134,15 +134,15 @@ const NAME: Record<string, string> = { google: '구글', kakao: '카카오' };
 // 로그아웃 하나로 이 기기의 정보까지 지운다(초기화 버튼 없음). 로그인 안 했으면 로그인 버튼, 했으면 계정 상태·탈퇴
 function Account({ s, dispatch, toast, acct, setAcct }: PageProps & AcctProps) {
   if (acct === undefined) return null;
-  const out = () => { if (!confirm(acct ? '로그아웃하면 이 기기의 정보는 지웁니다. 다시 로그인하면 불러옵니다.' : '로그아웃하면 이 기기의 내 정보와 수강 기록을 지웁니다.')) return;
+  const out = () => { if (!confirm(acct ? '로그아웃하면 이 기기에 있는 정보가 지워져요. 다시 로그인하면 불러올 수 있어요.' : '로그아웃하면 이 기기에 있는 내 정보와 수강 기록이 지워져요.')) return;
     if (acct) logout(); dispatch({ t: 'load', s: blank() }); setAcct(null); };
   const outBtn = <button className="btn" onClick={out}>로그아웃</button>;
   if (!acct) return <>
-    <div className="sec acct"><span>로그인<small className="muted">다른 기기에서도 이어서 봅니다.</small></span><LoginButtons /></div>
+    <div className="sec acct"><span>로그인<small className="muted">다른 기기에서도 이어서 볼 수 있어요.</small></span><LoginButtons /></div>
     {(s.me.sno || s.es.length > 0) && <div className="sec out">{outBtn}</div>}</>;
   const who = `${NAME[acct.provider] ?? ''} 계정`.trim();
   return <div className="sec"><span>{`${who}에 저장 중`}
-      <button className="lnk small quit" onClick={async () => { if (!confirm('탈퇴하면 서버에 저장한 정보를 지웁니다. 이 기기의 정보는 남습니다.')) return;
-        try { await quit(); setAcct(null); toast('탈퇴했습니다.'); } catch (x) { toast((x as Error).message); } }}>탈퇴</button></span>
+      <button className="lnk small quit" onClick={async () => { if (!confirm('탈퇴하면 서버에 저장된 정보가 지워져요. 이 기기에 있는 정보는 그대로 남아요.')) return;
+        try { await quit(); setAcct(null); toast('탈퇴했어요.'); } catch (x) { toast((x as Error).message); } }}>탈퇴</button></span>
     {outBtn}</div>;
 }

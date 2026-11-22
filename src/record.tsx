@@ -23,7 +23,7 @@ export function RecordPage(p: PageProps) {
   const [openI, setOpenI] = useState(-1), [adding, setAdding] = useState(false);
   const acts = <><div className="row rec-acts"><a className="btn p" href="#/join">{s.es.length ? '샘물에서 다시 가져오기' : '샘물에서 가져오기'}</a><button className="btn" onClick={() => setAdding(true)}>과목 추가</button></div>
     <Modal open={adding} onClose={() => setAdding(false)} title="과목 추가"><AddCourse {...p} /></Modal></>;
-  if (!s.es.length) return <Page title="이수 현황" narrow><div className="box empty"><p>아직 수강 기록이 없습니다.</p>{acts}</div></Page>;
+  if (!s.es.length) return <Page title="이수 현황" narrow><div className="box empty"><p>아직 수강 기록이 없어요.</p>{acts}</div></Page>;
   if (!a) return <Page title="이수 현황"><Loading /></Page>;
   const stat = (it: Item) => it.out ? ['unv', OUT[it.out]] : !it.planned ? ['ok', '이수'] : it.term && it.term === s.me.now ? ['null', '수강 중'] : ['null', '이수 예정'];
   const terms = [...new Set(a.items.map(it => it.term ?? ''))].sort((x, y) => termOrd(x || undefined) - termOrd(y || undefined));
@@ -38,7 +38,7 @@ export function RecordPage(p: PageProps) {
         <summary><b>{termLabel(t || undefined)}</b><span className="n">{tg && <>평점 <b className="gpa">{gpaText(tg.gpa)}</b> · </>}{its.length}과목 · {sum(its)}학점<Caret /></span></summary>
         {its.map(it => { const [cls, txt] = stat(it), open = openI === it.i, e = s.es[it.i];
           const mine = e?.planned && it.term !== s.me.now; // 담은 이수 예정 과목(이번 학기 수강 중은 샘물 기록)
-          const del = () => { dispatch({ t: 'del', i: it.i }); setOpenI(-1); toast(`'${it.name}' 과목을 뺐습니다.`); };
+          const del = () => { dispatch({ t: 'del', i: it.i }); setOpenI(-1); toast(`'${it.name}' 뺐어요.`); };
           const row = <div className={'course' + (it.out ? ' fixed' : '') + (open ? ' open' : '')}>
             <button className="course-btn" aria-expanded={open} onClick={() => setOpenI(open ? -1 : it.i)}>{e?.grade && <b className="grade">{e.grade}</b>}{it.name} · {it.cr}
               <small>{cls !== 'ok' && <span className={'chip ' + cls}>{txt}</span>}{it.cat || '이수구분 없음'}</small></button>

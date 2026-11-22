@@ -17,7 +17,7 @@ export default {
   async fetch(req: Request) {
     if (req.method !== 'POST') return json(405, { error: 'POST만 받습니다.' });
     const origin = req.headers.get('origin') ?? '';
-    if (origin.replace(/^https?:\/\//, '') !== new URL(req.url).host) return json(403, { error: '허용되지 않은 요청입니다.' }); // 다른 사이트에서 이 주소를 부르지 못하게
+    if (origin.replace(/^https?:\/\//, '') !== new URL(req.url).host) return json(403, { error: '허용되지 않은 요청이에요.' }); // 다른 사이트에서 이 주소를 부르지 못하게
     const b = await req.json().catch(() => null);
     const id = typeof b?.id === 'string' ? b.id.trim() : '', pw = typeof b?.pw === 'string' ? b.pw : '';
     // 테스트 아이디(시연·심사용, 4자리): 환경 변수 SMUL_TEST = {"<아이디>": {pw, id(입학년도가 든 표시 학번), rows, student, …}}. 샘물에 가지 않고 저장한 이수 현황을 돌려준다
