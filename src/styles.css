@@ -533,8 +533,15 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .term > header .n { font-size: 13px; } .term > header .n b { font-size: 15px; font-weight: 700; color: var(--text); }
 .load { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
 .load i { display: block; height: 100%; border-radius: inherit; background: var(--sm); transition: width .4s var(--ease); }
-.term > header + .course { border-top: 0; }
-.term .course-btn, .term .course.fixed { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; }
+.term > header + .course, .term > header + .swipe > .swipe-body > .course, .term > summary + .swipe > .swipe-body > .course { border-top: 0; }
+/* 밀어서 담기·빼기(ui.tsx Swipe) */
+.swipe { position: relative; overflow: hidden; }
+.swipe-body { position: relative; background: var(--surface); touch-action: pan-y; transition: transform .2s var(--ease); }
+.swipe-act { position: absolute; inset: 0 0 0 auto; width: 76px; border: 0; color: #fff; font: inherit; font-size: 14px; font-weight: 600; background: var(--sm); }
+.swipe-act.del { background: var(--bad); }
+.swipe:not(.shown) .swipe-act { visibility: hidden; }
+.term-sel { height: 32px; border: 1px solid var(--line); border-radius: 6px; padding: 0 8px; font: inherit; font-size: 14px; background: var(--surface); }
+.term .course-btn, .term .course.fixed:not(:has(.course-btn)) { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; }
 .c-n { font-weight: 500; overflow-wrap: anywhere; word-break: keep-all; }
 .c-cr { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .term .course small { grid-column: 1 / -1; }

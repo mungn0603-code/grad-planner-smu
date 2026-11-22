@@ -7,7 +7,8 @@ import { termOrd, termLabel, OWN, modeOf, progName, type PageProps, type State }
 import { runPlan, applySwaps, type PlanMsg } from './run.ts';
 import { Reqs } from './reqs.tsx';
 import { useWhatIf, wiOf, WhatIfFields, WhatIfBox, OwnBox, CompareBox, Opt } from './major.tsx';
-import { Page, Loading, Empty, Icon, Switch } from './ui.tsx';
+import { Page, Loading, Empty, Icon, Switch, Swipe } from './ui.tsx';
+import { TermSelect } from './record.tsx';
 
 // 학점 추천 조건(계절학기·초과 신청·SM-CDR 트랙·전공제도). 바꾸면 바로 반영된다
 function RecSettings({ s, univ, dispatch }: PageProps & { univ: Univ }) {
@@ -58,6 +59,8 @@ export function PlanPage(props: PageProps) {
   const setSwap = (k: string, code: string | null) => { const { [k]: _, ...rest } = swaps; dispatch({ t: 'opt', v: { swaps: code ? { ...rest, [k]: code } : rest } }); };
   // 담기: 추천 과목을 수강 기록에 이수 예정으로 넣는다(이수 현황에 보이고, 다음 계산부터 넣어 둔 과목이 된다)
   const take = (r: { code: string; name: string; term: string }) => { dispatch({ t: 'add', es: [{ code: r.code, term: r.term, planned: true }] }); setOpenKey(''); toast(`'${r.name}' 과목을 이수 예정으로 담았습니다.`); };
+  // 빼기: 담은 과목을 수강 기록에서 지운다
+  const drop = (it: { i: number; name: string }) => { dispatch({ t: 'del', i: it.i }); setOpenKey(''); toast(`'${it.name}' 과목을 뺐습니다.`); };
   if (!s.es.length) return <Page title="학점 플래너" narrow><Empty /></Page>;
   const SUB = [['rec', '학점 추천'], ['whatif', '전공제도 계획']] as const;
   const own = [...s.me.ext, ...(s.whatif?.ext ?? [])].some(g => g.id === OWN) || !!s.me.own?.length;
@@ -90,16 +93,23 @@ export function PlanPage(props: PageProps) {
           return <section className="term" key={t}>
             <header><b>{termLabel(t)}</b><span className="n"><b>{load}</b> / {lim}학점</span>
               <div className="load" aria-hidden="true"><i style={{ width: Math.min(100, lim ? load / lim * 100 : 0) + '%' }} /></div></header>
-            {fx.map(it => <div className="course fixed" key={'f' + it.i}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
-              <small><Icon id="check" size={13} />담은 과목</small></div>)}
+            {/* 담은 과목: 밀거나 눌러서 빼기·학기 바꾸기(같은 화면에서). 이번 학기 수강 중 과목은 샘물 기록이라 고치지 않는다 */}
+            {fx.map(it => { const k = 'f' + it.i, open = openKey === k;
+              if (it.term === s.me.now) return <div className="course fixed" key={k}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
+                <small><Icon id="check" size={13} />수강 중</small></div>;
+              return <Swipe key={k} label="빼기" tone="del" onAct={() => drop(it)}><div className={'course fixed' + (open ? ' open' : '')}>
+                <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : k)}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
+                  <small><Icon id="check" size={13} />담은 과목</small></button>
+                {open && <div className="alts" role="group" aria-label={`${it.name} 빼기·학기 바꾸기`}>
+                  <TermSelect s={s} i={it.i} dispatch={dispatch} /><button className="btn" onClick={() => drop(it)}>빼기</button></div>}</div></Swipe>; })}
             {rows.map(r => { const alts = (P.alts[r.k] ?? []).filter(x => !usedCodes.has(x.code)), open = openKey === r.k, can = alts.length > 0 || r.swapped, cat = r.cat ?? catOf(r.code);
-              return <div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '')} key={r.k}>
+              return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : r.k)}><span className="c-n">{r.name}</span><span className="c-cr">{r.cr}</span>
                   <small>{cat && univ && <span className={'cat ' + grp(univ, cat)}>{cat}</span>}{can && <span className="swap-mark" role="img" aria-label="다른 과목으로 바꾸기 가능" title="다른 과목으로 바꾸기 가능"><Icon id="swap" size={14} /></span>}</small></button>
                 {open && <div className="alts" role="group" aria-label={`${r.orig.name} 담기·바꾸기`}>
                   <button className="btn p" onClick={() => take({ code: r.code, name: r.name, term: t })}>이수 예정으로 담기</button>
                   {r.swapped && <button className="pill" onClick={() => setSwap(r.k, null)}>↺ {r.orig.name} · {r.orig.cr}</button>}
-                  {alts.map(x => <button key={x.code} className="pill" onClick={() => { setSwap(r.k, x.code); setOpenKey(''); }}>{x.name} · {x.cr}</button>)}</div>}</div>; })}
+                  {alts.map(x => <button key={x.code} className="pill" onClick={() => { setSwap(r.k, x.code); setOpenKey(''); }}>{x.name} · {x.cr}</button>)}</div>}</div></Swipe>; })}
             {!rows.length && !fx.length && <div className="muted small empty-t">추천 과목 없음</div>}</section>; })}</div></>}
     </>}
     </>}
