@@ -21,6 +21,6 @@ test('학교 합계와 같으면 경고가 없고, 다르면 이수구분별로 
   assert.deepEqual(cmpDiff(items, es, { '1전선': 6, 교선: 2 }), []);
   const w = cmpDiff(items, es, { '1전선': 3, '1전심': 3, 교선: 2 }); // 학교는 한 과목을 1전심으로 판정
   assert.equal(w.length, 2);
-  assert.match(w[0], /^1전선 .*학교 학점이수상황표 3학점, 앱 6학점/);
-  assert.match(w[1], /^1전심 .*학교 학점이수상황표 3학점, 앱 0학점/);
+  assert.match(w[0], /^1전선: 샘물 3학점, 학점플래너 6학점/);
+  assert.match(w[1], /^1전심: 샘물 3학점, 학점플래너 0학점/);
 });
