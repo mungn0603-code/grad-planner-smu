@@ -111,7 +111,7 @@ function basis(rule: Rule | undefined, r: Result, u: Univ): string | undefined {
   if (!rule) return;
   if (rule.hint) return rule.hint;
   if ('use' in rule) return basis(u.blocks[rule.use], r, u);
-  if ('all' in rule) { const n = (r.children ?? []).filter(c => c.label).length; return n ? (r.need < n ? `아래 ${n}개 중 ${r.need}개를 채워야 해요` : `아래 ${n}개를 모두 채워야 해요`) : undefined; }
+  if ('all' in rule) { const n = (r.children ?? []).filter(c => c.label).length; return n ? (r.need < n ? `아래 ${n}개 중 ${r.need}개 충족 필요` : `아래 ${n}개 모두 충족 필요`) : undefined; }
 }
 const short = (c: string) => c.replace(/^\d/, ''); // 1전선·전선 → 전선(앞 숫자는 뺀다)
 // 요건 칸이 세는 이수구분(짧은 이름). 이수구분 태그로 세는 칸만 — 지정 과목·교양 영역 칸은 빈 목록

@@ -119,7 +119,7 @@ function App() {
       {ask && <div className="callout top-callout ask-login" role="alert">
         <span>계정에 저장된 기록이 있어요{ask.at ? `(${new Date(ask.at).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })})` : ''}.</span>
         <span className="row"><button className="btn p" onClick={() => { dispatch({ t: 'load', s: ask.s }); setAsk(null); }}>계정 기록 불러오기</button>
-          <button className="btn" onClick={() => setAsk(null)}>이 기기 기록으로 덮어쓰기</button></span></div>}
+          <button className="btn" onClick={() => setAsk(null)}>이 기기 내용으로 저장</button></span></div>}
       {/* 샘물에서 막 가져왔고 로그인 전이면 결과 화면 위에서 한 번 권한다 */}
       {page === 'result' && acct === null && !skip && nudge.shown() && <div className="callout ok-box top-callout ask-login">
         <span>로그인하면 다른 기기에서도 이어서 볼 수 있어요.</span><LoginButtons />
