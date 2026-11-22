@@ -536,8 +536,8 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .term > header + .course, .term > header + .swipe > .swipe-body > .course, .term > summary + .swipe > .swipe-body > .course { border-top: 0; }
 /* 밀어서 담기·빼기(ui.tsx Swipe) */
 .swipe { position: relative; overflow: hidden; }
-.swipe-body { position: relative; background: var(--surface); touch-action: pan-y; transition: transform .2s var(--ease); }
-.swipe-act { position: absolute; inset: 0 0 0 auto; width: 76px; border: 0; color: #fff; font: inherit; font-size: 14px; font-weight: 600; background: var(--sm); }
+.swipe-body { touch-action: pan-y; }
+.swipe-act { position: absolute; inset: 0 0 0 auto; z-index: 1; width: 76px; border: 0; color: #fff; font: inherit; font-size: 14px; font-weight: 600; background: var(--sm); transition: transform .2s var(--ease); }
 .swipe-act.del { background: var(--bad); }
 .swipe:not(.shown) .swipe-act { visibility: hidden; }
 .term-sel { height: 32px; border: 1px solid var(--line); border-radius: 6px; padding: 0 8px; font: inherit; font-size: 14px; background: var(--surface); }
