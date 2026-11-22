@@ -1,6 +1,7 @@
 // 학점 계산기(샘물 기준 졸업요건)와 졸업요건 요약·카드. 카드는 학점 플래너의 전공제도 계획(가정 반영)도 같이 쓴다
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { pickSet, cmpDiff, resolve, match, catalogsOf, strips, type Audit, type Ctx, type Gpa, type Item } from '../engine/audit.ts';
+import { pickSet, cmpDiff, resolve, match, catalogsOf, strips, withOf, type Audit, type Ctx, type Gpa, type Item } from '../engine/audit.ts';
+import { catNeed } from './student.ts';
 import type { Enrollment, Filter, Profile, Result, Row, Rule, Univ } from '../engine/types.ts';
 import { nameKey } from '../engine/data.ts';
 import { termOrd, termLabel, gpaText, modeOf, progName, roleText, type Me, type PageProps } from './state.ts';
@@ -120,17 +121,22 @@ function catsOf(rule: Rule | undefined, u: Univ): string[] {
   const cats = Object.keys(u.categories).filter(c => (f.every ?? []).every(t => u.categories[c].includes(t)) && (!f.tags || f.tags.some(t => u.categories[c].includes(t))));
   return [...new Set(cats.map(short))];
 }
-// 이수구분별 들은 학점(많은 순)과, 그 이수구분만 세는 다른 요건이 있으면 그 요건의 남은 학점(예: 전공 카드의 전심 → 전공심화)
-type Got = { rows: { c: string; n: number; more?: number }[]; left: number };
-function breakdown(r: Result, items: Item[], es: Enrollment[], cats: string[] = [], more = new Map<string, number>()): Got | undefined {
+// 이수구분별 들은 학점과 기준학점(샘물 학점이수상황표 졸업기준, need). 기준이 없으면 그 이수구분만 세는 다른 요건의 남은 학점(more, 예: 전심 → 전공심화)
+type Got = { rows: { c: string; n: number; need?: number; more?: number }[]; left: number };
+const ORDER = ['전필', '학기', '전심', '전선', '교필', '교선'];
+const rank = (c: string) => { const k = ORDER.indexOf(c); return k < 0 ? ORDER.length : k; };
+function breakdown(r: Result, items: Item[], es: Enrollment[], cats: string[] = [], more = new Map<string, number>(), need: Record<string, number> = {}): Got | undefined {
   if (r.kind !== 'credits') return;
-  const m = new Map<string, number>(cats.length > 1 ? cats.filter(c => more.has(c)).map(c => [c, 0]) : []);
+  const m = new Map<string, number>(cats.length > 1 ? cats.filter(c => more.has(c) || need[c] > 0).map(c => [c, 0]) : []);
   for (const i of r.used ?? []) { const it = items[i]; if (!it) continue; const c = short(es[it.i]?.category ?? it.cat ?? '기타'); m.set(c, (m.get(c) ?? 0) + it.cr); }
-  return { rows: [...m].map(([c, n]) => ({ c, n: +n.toFixed(1), ...(cats.length > 1 && more.get(c) ? { more: more.get(c) } : {}) })).sort((x, y) => y.n - x.n), left: +Math.max(0, r.need - r.have).toFixed(1) };
+  return { rows: [...m].map(([c, n]) => { const nd = cats.length > 1 && need[c] > 0 ? need[c] : undefined, mr = nd ? +Math.max(0, nd - n).toFixed(1) : cats.length > 1 ? more.get(c) : undefined;
+    return { c, n: +n.toFixed(1), ...(nd ? { need: nd } : {}), ...(mr ? { more: mr } : {}) }; }).sort((x, y) => rank(x.c) - rank(y.c) || y.n - x.n), left: +Math.max(0, r.need - r.have).toFixed(1) };
 }
-// 한 줄에 이수구분 하나: 전선 27학점 / 전심 0학점 15학점 더 필요 / 남음 48학점
+// 한 줄에 이수구분 하나: 들은 / 기준학점, 그 아래 남은 학점(전선 27 / 59학점, 32학점 남음). 학기는 샘물 약칭이라 학부기초로 쓴다
+const catName = (c: string) => (c === '학기' ? '학부기초' : c);
 const GotLine = ({ g }: { g: Got }) => <dl className="got">
-  {g.rows.map(x => <div key={x.c}><dt>{x.c}</dt><dd><span><b>{x.n}</b>학점</span>{x.more ? <small>{x.more}학점 더 필요</small> : null}</dd></div>)}
+  {g.rows.map(x => <div key={x.c}><dt>{catName(x.c)}</dt><dd><span><b>{x.n}</b>{x.need ? ` / ${x.need}` : ''}학점</span>
+    {x.more ? <small>{x.more}학점 남음</small> : x.need ? <small className="ok-t">충족</small> : null}</dd></div>)}
   <div className="left"><dt>남음</dt><dd>{g.left > 0 ? <span><b>{g.left}</b>학점</span> : '충족'}</dd></div></dl>;
 const subIds = (program: string, r: Result, out = new Set<string>()) => { out.add(`${program}.${r.id}`); r.children?.forEach(c => subIds(program, c, out)); return out; };
 
@@ -164,9 +170,10 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
   const prims = prim ? cardsOf(prim, exts.some(g => g.id === 'ext')) : [];
   // 이수구분 하나만 세는 요건(전공심화 → 전심 등)의 남은 학점. 여러 이수구분을 세는 카드(전공·교양)에서 줄마다 보인다
   const more = new Map(prims.flatMap(r => { const cs = catsOf(look.rules.get(r), univ); return r.kind === 'credits' && cs.length === 1 ? [[cs[0], +Math.max(0, r.need - r.have).toFixed(1)] as [string, number]] : []; }));
+  const need = catNeed(s.me.base, withOf(profile)); // 샘물 이수구분별 졸업기준(가져오지 않았으면 빈 값)
   const cards: Card[] = [
     ...prims.map(r => ({ key: r.id, title: r.label ?? r.id, rs: [{ r, program: primary!.id }],
-      basis: basis(look.rules.get(r), r, univ), now: breakdown(r, a.items, es, catsOf(look.rules.get(r), univ), more) })),
+      basis: basis(look.rules.get(r), r, univ), now: breakdown(r, a.items, es, catsOf(look.rules.get(r), univ), more, need) })),
     ...exts.filter(g => g.id !== 'ext').flatMap(g => { const res = a.programs.find(x => x.id === g.id)?.result; return res ? [{ key: g.id,
       title: g.role === 'micro' ? roleText(univ, g) : `${progName(univ, g)} · ${roleText(univ, g)}`, rs: [{ r: top(res), program: g.id }], now: breakdown(top(res), a.items, es) }] : []; }),
   ];
