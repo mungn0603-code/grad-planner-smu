@@ -146,7 +146,7 @@ export function CompareBox({ s, univ }: PageProps & { univ: Univ }) {
       const r = audit(p, s.es.map((e, i) => moved[i] ? { ...e, category: moved[i] } : e), cx).programs[0].result, t = find(r, 'total'), m = find(r, 'major');
       return { id, left: t ? +Math.max(0, t.need - t.have).toFixed(1) : null, major: m ? `${+m.have.toFixed(1)} / ${m.need}` : '—', ok: r.ok };
     } catch { return { id, left: null, major: '—', ok: null }; } }), [cx, ids, s.es, s.me]); // eslint-disable-line
-  return <details className="panel fold-panel"><summary><b>후보 전공 비교</b><small className="muted">학부·자유전공 입학생</small><Caret /></summary>
+  return <details className="panel fold-panel"><summary><b>후보 전공 비교</b><small className="muted">세부전공을 아직 정하지 않았다면</small><Caret /></summary>
     <Opt label="후보 전공">
       <select className="pick" value="" disabled={ids.length >= 3} aria-label="후보 전공 고르기" onChange={e => e.target.value && setIds([...ids, e.target.value])}>
         <option value="">{ids.length >= 3 ? '후보 전공 최대 3개 선택' : '후보 전공 고르기'}</option>{primaries(univ).filter(p => !ids.includes(p.id)).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>

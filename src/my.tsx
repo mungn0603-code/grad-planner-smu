@@ -69,13 +69,13 @@ function ProfileForm({ s, dispatch, univ }: PageProps) {
       </>}
     </div>
     {!me.sno && univ && <div className="field">전공제도<ExtFields univ={univ} primary={me.program} ext={me.ext} set={ext => set({ ext })} deep={canDeep(me)} /></div>}
-    {me.sno ? <p className="muted small">입학년도·다전공·입학구분은 샘물 학적 값입니다. 바뀌었으면 샘물에서 다시 가져오세요.</p>
-      : me.admission !== 'freshman' && <p className="muted small">편입 인정학점은 과목 추가 → 직접 입력에서 '편입 인정(일괄)'로 넣습니다. 샘물에서 가져오면 전적대학 인정학점이 함께 들어옵니다.</p>}
+    {me.sno ? <p className="muted small">학적이 바뀌었으면 샘물에서 다시 가져오세요.</p>
+      : me.admission !== 'freshman' && <p className="muted small">편입 인정학점은 과목 추가에서 '편입 인정(일괄)'로 넣습니다.</p>}
     <label className="check-row"><Switch on={!!me.exempt} set={v => set({ exempt: v ? true : undefined })} label="전공제도 이수 제외 대상" />
       <span>전공제도 이수 제외 대상<small className="muted">공학인증·체육특기자·특수교육대상자 등</small></span></label>
     <div className="leave">
       <label className="check-row"><Switch on={leaveOn} set={v => { setLeaveOn(v); if (!v) set({ leaves: [] }); }} label="휴학한 학기가 있음" />
-        <span>휴학한 학기가 있음<small className="muted">휴학 학기를 빼고 학년·학기를 셉니다.</small></span></label>
+        <span>휴학한 학기가 있음</span></label>
       {leaveOn && <div className="chips" role="group" aria-label="휴학 학기">{leaveTerms.map(t => { const on = me.leaves.includes(t);
         return <button key={t} type="button" className={'pill' + (on ? ' on' : '')} aria-pressed={on}
           onClick={() => set({ leaves: on ? me.leaves.filter(x => x !== t) : [...me.leaves, t].sort((a, b) => termOrd(a) - termOrd(b)) })}>{t.replace('-', '년 ')}학기</button>; })}</div>}

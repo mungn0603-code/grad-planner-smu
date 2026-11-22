@@ -19,9 +19,8 @@ export function useChecks({ s, dispatch, univ, profile, a }: PageProps) {
   const input = (c: CheckDef) => <CheckInput key={c.key} c={c} me={me} set={set} />;
   const [main, tracks] = [groups.filter(g => g.role !== 'track'), groups.filter(g => g.role === 'track')];
   const form = <div className="form">
-    <p className="muted small">샘물에서 확인한 값을 넣어 주세요.</p>
     {main.map(g => <div className="grid checks" key={g.id}>{g.checks.map(input)}</div>)}
-    {!!tracks.length && <details className="tracks-box"><summary>진로 트랙(SM-CDR) 인증 항목 {tracks.length}개 <small className="muted">— 트랙 인증을 받으려는 경우만</small></summary>
+    {!!tracks.length && <details className="tracks-box"><summary>진로 트랙(SM-CDR) 인증 항목 {tracks.length}개</summary>
       {tracks.map(g => <div key={g.id} className="track-checks"><b>{g.name}</b><div className="grid checks">{g.checks.map(input)}</div></div>)}</details>}
   </div>;
   return { count: main.reduce((n, g) => n + g.checks.length, 0), form, groups, input };

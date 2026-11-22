@@ -1,6 +1,27 @@
-// 여러 화면이 같이 쓰는 작은 부품: 탭 고르기, 스위치, 아이콘, 불러오는 중, 빈 화면, 접기, 화면 틀, 창, 로그인 버튼
+// 여러 화면이 같이 쓰는 작은 부품: 탭 고르기, 스위치, 아이콘, 불러오는 중, 빈 화면, 접기, 화면 틀, 창, 로그인 버튼, 밀어서 담기·빼기
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { login } from './account.ts';
+
+// 과목 줄을 왼쪽으로 밀면 오른쪽에서 버튼 하나(담기·빼기)가 들어온다. 줄은 움직이지 않아 짧은 과목명도 가려지지 않는다. 터치에서만 밀리고,
+// 같은 동작은 줄을 눌러 여는 칸에도 둔다(밀기만으로 숨기지 않는다, docs/decisions/0034). 세로 스크롤과 겹치지 않게 먼저 움직인 방향으로 정한다
+const SW = 76;
+export function Swipe({ label, tone, onAct, children }: { label: string; tone: 'add' | 'del'; onAct: () => void; children: ReactNode }) {
+  const [x, setX] = useState(0), g = useRef<{ x0: number; y0: number; dx: number; dir?: 'h' | 'v' } | null>(null), moved = useRef(false);
+  const end = () => { const s = g.current; g.current = null; if (s?.dir === 'h') setX(s.dx < -SW / 2 ? -SW : 0); };
+  return <div className={'swipe' + (x ? ' shown' : '')}>
+    <button type="button" className={'swipe-act ' + tone} tabIndex={-1} aria-hidden={!x} onClick={() => { setX(0); onAct(); }}
+      style={{ transform: `translateX(${SW + x}px)`, transition: g.current?.dir === 'h' ? 'none' : undefined }}>{label}</button>
+    <div className="swipe-body"
+      onPointerDown={e => { if (e.pointerType === 'mouse') return; moved.current = false; g.current = { x0: e.clientX - x, y0: e.clientY, dx: x }; }}
+      onPointerMove={e => { const s = g.current; if (!s) return; const dx = e.clientX - s.x0, dy = e.clientY - s.y0;
+        if (!s.dir) { if (Math.abs(dx - x) < 8 && Math.abs(dy) < 8) return; s.dir = Math.abs(dx - x) > Math.abs(dy) ? 'h' : 'v'; if (s.dir === 'h') { moved.current = true; e.currentTarget.setPointerCapture(e.pointerId); } }
+        if (s.dir === 'h') { s.dx = Math.max(-SW, Math.min(0, dx)); setX(s.dx); } }}
+      onPointerUp={end} onPointerCancel={end}
+      onClickCapture={e => { if (moved.current || x) { e.stopPropagation(); e.preventDefault(); moved.current = false; if (x) setX(0); } }}>
+      {children}
+    </div>
+  </div>;
+}
 
 export function Seg<T extends string>({ items, value, onChange, label }: { items: [T, string][]; value: T; onChange: (v: T) => void; label?: string }) {
   const box = useRef<HTMLDivElement>(null), th = useRef<HTMLSpanElement>(null);

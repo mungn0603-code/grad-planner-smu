@@ -175,8 +175,9 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
     if (x.href) window.open(x.href, '_blank', 'noopener');
     else navigator.clipboard?.writeText(`${x.title}\n${x.body}`).then(() => toast('신고 내용을 복사했습니다(개인정보 없음). 문의 채널에 붙여넣어 주세요.'), () => toast(x.title));
   };
-  // 샘물 학점 대조는 샘물 기준(학점 계산기)에서만 한다
-  const warns = [...new Set([...a.warnings, ...(calc && s.me.cmp ? cmpDiff(a.items, es, s.me.cmp) : [])])];
+  // 샘물 학점 대조는 샘물 기준(학점 계산기)에서만 한다. 엔진 경고(표에 없는 이수구분 등)는 개발용이라 화면에 쓰지 않는다(ADR 0018, 이슈 #89)
+  const warns = calc && s.me.cmp ? cmpDiff(a.items, es, s.me.cmp) : [];
+  if (a.warnings.length) console.warn('audit', a.warnings);
   // 상태별로 나눈다: 부족 → 입력 필요 → 충족. 부족은 학점 요건을 남은 학점이 많은 순으로 먼저(docs/decisions/0015)
   const gap = (c: Card) => { const r = c.rs[0].r; return r.kind === 'credits' ? r.need - r.have : -1; };
   const groups: [string, Card[]][] = [['부족', cards.filter(c => c.rs[0].r.ok === false).sort((p, q) => gap(q) - gap(p))],
@@ -195,7 +196,7 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
         <div className="sum-foot"><span className="counts">{groups.map(([l, cs]) => <span key={l}>{l} <b>{cs.length}</b></span>)}</span>
           {calc && groups[0][1].length > 0 && <a className="btn p" href="#/plan">학점 플래너에서 채우기</a>}</div>
       </>: <p className="muted">이 학번·학과는 아직 지원하지 않습니다.</p>}
-      {warns.length > 0 && <Fold title={`확인할 점 ${warns.length}개`}><ul className="warn">{warns.map(w => <li key={w}>{w}</li>)}</ul></Fold>}
+      {warns.length > 0 && <Fold title={`샘물과 다른 학점 ${warns.length}개`}><ul className="warn">{warns.map(w => <li key={w}>{w}</li>)}</ul></Fold>}
     </section>
     {groups.map(([l, cs]) => cs.length > 0 && <section className="req" key={l}><h2>{l} <span className="n">{cs.length}</span></h2><div className="rows">{cs.map(row)}</div></section>)}
     {!!tracks.length && <section className="req"><h2>진로 트랙 인증 <span className="n">SM-CDR · 선택</span></h2><div className="rows">
@@ -205,7 +206,7 @@ export function Reqs({ props, a, profile, ctx, es, plan, calc }: { props: PagePr
         return <details className="rc fold-card"><summary aria-label="진로 트랙 인증(SM-CDR) 펼치기"><b>트랙 고르기·인증 항목</b>
           <span className="v" /><span className="st">{mine.length ? `고른 트랙 ${mine.length}개` : '고른 트랙 없음'}</span><Caret corner /></summary>
           <div className="rc-body">
-            <p className="small muted">인증받으려는 트랙을 고르세요. 고른 트랙은 학점 플래너 추천에도 반영됩니다.</p>
+            <p className="small muted">인증받으려는 트랙을 고르세요.</p>
             <div className="row pills">{tracks.map(g => { const on = s.me.tracks.includes(g.id);
               return <button key={g.id} className={'pill' + (on ? ' on' : '')} aria-pressed={on} onClick={() => setMe({ tracks: on ? s.me.tracks.filter(x => x !== g.id) : [...s.me.tracks, g.id] })}>{univ.programs[g.id]?.name ?? g.id}</button>; })}</div>
             <h3>{mine.length ? '고른 트랙' : '전체 트랙'}</h3>

@@ -8,6 +8,7 @@ export interface Item {
   i: number; code?: string; name: string; cr: number; cat: string; area?: string; term?: string;
   planned: boolean; lump: boolean; ed?: string; cat0?: Catalog;
   tags: Set<string>; ids: Set<string>; key: string;
+  akey?: string; // 샘물 교양영역 괄호 안 이름(예: 기초(알고리즘과게임콘텐츠)). 과목명이 바뀐 교양필수도 영역 이름으로 그 칸에 든다(이슈 #89)
   out?: 'retake' | 'dup' | 'fail';    // 셈에서 빠진 이유
 }
 export interface Gpa { gpa: number; cr: number; terms: Record<string, { gpa: number; cr: number }> } // cr: 평점에 넣은 학점
@@ -88,6 +89,7 @@ export function resolve(p: Profile, es: Enrollment[], ctx: Ctx): { items: Item[]
     if (e.code) for (const ct of univ.codeTags || []) if (new RegExp(ct.re).test(e.code)) ct.tags.forEach(t => tags.add(t));
     const ids = new Set<string>(); if (e.code) { ids.add(e.code); if (x && ed) for (const t of mapping(x, ed, e.code)) ids.add(t); }
     const it: Item = { i, code: e.code, name, cr: e.credits ?? row?.cr ?? 0, cat, area, term: e.term, planned: !!e.planned, lump: !!e.lump, ed, cat0: x?.cat, tags, ids, key: nameKey(name, st) };
+    const alias = e.cultArea?.match(/\(([^()]+)\)\s*$/)?.[1]; if (alias) it.akey = nameKey(alias, st);
     if (e.grade && /^(F|NP|U)$/i.test(e.grade)) it.out = 'fail';
     return it;
   });
@@ -127,7 +129,7 @@ export function pickSet(p: Profile, prog: { id: string; role: string; vars?: Rec
     if (!('use' in r)) return r;
     const b = univ.blocks[r.use], id = b?.id ?? r.use;
     if (tu.includes(id)) return { id, label: `${b?.label ?? id}(편입생 기준 확인 필요)`, check: `transfer.${id}`,
-      hint: '편입생에게 이 기준이 같은지 학점플래너 데이터로는 알 수 없습니다. 샘물 학점이수상황표에서 확인하고, 충족했으면 켜 주세요.' };
+      hint: '샘물 학점이수상황표에서 확인하고, 충족했으면 켜 주세요.' };
     return v && r.vars ? { ...r, vars: { ...r.vars, ...Object.fromEntries(Object.entries(v).filter(([k]) => k in r.vars!)) } } : r;
   });
   return { ...s, rule: { ...s.rule, all } };
@@ -138,7 +140,7 @@ export function match(it: Item, f: Filter, nameSet?: Set<string>): boolean {
   if (f.codes || f.names) {
     if (it.lump) return false;
     const byCode = !!f.codes && f.codes.some(c => it.ids.has(c));
-    const byName = !!f.names && (nameSet ? nameSet.has(it.key) : false);
+    const byName = !!f.names && !!nameSet && (nameSet.has(it.key) || (!!it.akey && nameSet.has(it.akey)));
     if (!byCode && !byName) return false;
   }
   if (f.tags && !f.tags.some(t => it.tags.has(t))) return false;
@@ -219,7 +221,7 @@ export function cmpDiff(items: Item[], es: Enrollment[], school: Record<string, 
   const mine: Record<string, number> = {};
   for (const it of items) if (!it.out && !it.planned && es[it.i]?.grade) mine[it.cat] = (mine[it.cat] ?? 0) + it.cr;
   return [...new Set([...Object.keys(school), ...Object.keys(mine)])].filter(c => Math.abs((school[c] ?? 0) - (mine[c] ?? 0)) > 1e-9)
-    .map(c => `${c || '(이수구분 없음)'} 취득학점: 학교 학점이수상황표 ${school[c] ?? 0}학점, 앱 ${mine[c] ?? 0}학점. 이수구분이 바뀐 과목이 있을 수 있으니 샘물 학점이수상황표로 확인해 주세요`);
+    .map(c => `${c || '이수구분 없음'}: 샘물 ${school[c] ?? 0}학점, 학점플래너 ${mine[c] ?? 0}학점`);
 }
 
 export function audit(p: Profile, es: Enrollment[], ctx: Ctx): Audit {
