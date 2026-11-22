@@ -12,17 +12,17 @@ export default {
   async fetch(req: Request) {
     const e = env(), url = new URL(req.url);
     if (!e.SUPABASE_URL || !e.SUPABASE_SERVICE_ROLE_KEY) // 로그인 버튼(GET)은 화면 이동이라 JSON 대신 앱으로 돌려보내 '로그인하지 못했습니다'를 띄운다
-      return req.method === 'GET' ? Response.redirect(`${url.origin}/?error=unavailable`, 302) : json(503, { error: '지금 로그인을 쓸 수 없습니다.' });
+      return req.method === 'GET' ? Response.redirect(`${url.origin}/?error=unavailable`, 302) : json(503, { error: '지금은 로그인할 수 없어요.' });
     if (req.method === 'GET') {
       const p = url.searchParams.get('p') ?? '', c = url.searchParams.get('c') ?? '';
-      if (!(PROVIDERS as readonly string[]).includes(p) || !/^[\w-]{43}$/.test(c)) return json(400, { error: '잘못된 요청입니다.' });
+      if (!(PROVIDERS as readonly string[]).includes(p) || !/^[\w-]{43}$/.test(c)) return json(400, { error: '잘못된 요청이에요.' });
       return Response.redirect(authorizeUrl(e, p, c, `${url.origin}/`), 302);
     }
     if (req.method !== 'POST') return json(405, { error: 'GET·POST만 받습니다.' });
-    if ((req.headers.get('origin') ?? '').replace(/^https?:\/\//, '') !== url.host) return json(403, { error: '허용되지 않은 요청입니다.' });
+    if ((req.headers.get('origin') ?? '').replace(/^https?:\/\//, '') !== url.host) return json(403, { error: '허용되지 않은 요청이에요.' });
     const text = await req.text();
-    if (text.length > MAX) return json(413, { error: '저장할 정보가 너무 큽니다.' });
-    let b: any; try { b = JSON.parse(text); } catch { return json(400, { error: '잘못된 요청입니다.' }); }
+    if (text.length > MAX) return json(413, { error: '저장할 정보가 너무 커요.' });
+    let b: any; try { b = JSON.parse(text); } catch { return json(400, { error: '잘못된 요청이에요.' }); }
     try {
       if (b?.op === 'token' || b?.op === 'refresh') {
         const s = b.op === 'token'
@@ -38,10 +38,10 @@ export default {
         case 'save': await save(e, u.id, b.data); return json(200, {});
         case 'quit': await quit(e, u.id); return json(200, {});
       }
-      return json(400, { error: '잘못된 요청입니다.' });
+      return json(400, { error: '잘못된 요청이에요.' });
     } catch (x) {
       console.error('account fail', b?.op, (x as Error).message); // 작업 이름과 상태만(계정·학번 없음)
-      return json(503, { error: '지금 저장할 수 없습니다. 잠시 뒤 다시 시도해 주세요.' });
+      return json(503, { error: '지금은 저장할 수 없어요. 잠시 후 다시 시도해 주세요.' });
     }
   },
 };

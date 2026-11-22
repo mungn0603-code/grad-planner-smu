@@ -26,7 +26,7 @@ export const nudge = {
 async function post(body: object, at?: string) {
   const r = await fetch('/api/account', { method: 'POST', headers: { 'content-type': 'application/json', ...(at ? { authorization: `Bearer ${at}` } : {}) }, body: JSON.stringify(body) });
   const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw Object.assign(new Error(j.error ?? '지금 저장할 수 없습니다.'), { status: r.status });
+  if (!r.ok) throw Object.assign(new Error(j.error ?? '지금은 저장할 수 없어요.'), { status: r.status });
   return j;
 }
 // 만료 1분 전이면 갱신. 갱신이 거절되면 로그아웃
@@ -46,8 +46,8 @@ export async function start(): Promise<{ acct: Acct | null; data?: unknown; at?:
   if (code || q.has('error')) {
     history.replaceState(null, '', location.pathname + (get(sessionStorage, BK) || ''));
     set(sessionStorage, VK, null); set(sessionStorage, BK, null);
-    if (code && v) { try { set(localStorage, SK, JSON.stringify(await post({ op: 'token', code, verifier: v }))); fresh = true; } catch { error = '로그인하지 못했습니다. 다시 시도해 주세요.'; } }
-    else error = '로그인하지 못했습니다. 다시 시도해 주세요.';
+    if (code && v) { try { set(localStorage, SK, JSON.stringify(await post({ op: 'token', code, verifier: v }))); fresh = true; } catch { error = '로그인하지 못했어요. 다시 시도해 주세요.'; } }
+    else error = '로그인하지 못했어요. 다시 시도해 주세요.';
   }
   if (!(await access())) return { acct: null, error };
   try {

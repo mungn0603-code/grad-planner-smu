@@ -38,7 +38,7 @@ export const Icon = ({ id, size }: { id: string; size?: number }) => <svg style=
 // 기다리는 동안 요약 상자 모양(큰 숫자·막대·줄)을 미리 그려 둔다. 막대 길이는 줄마다 다르게(styles.css .sk)
 export const Loading = () => <div className="sk" role="status" aria-label="불러오는 중"><i /><i /><i /><i /><i /></div>;
 // 수강 기록이 없을 때의 빈 화면(로그인 전 계산기·플래너·이수 현황 공통)
-export const Empty = () => <div className="box empty"><p>아직 수강 기록이 없습니다.</p><a className="cta blue" href="#/join">샘물에서 가져오기</a></div>;
+export const Empty = () => <div className="box empty"><p>아직 수강 기록이 없어요.</p><a className="cta blue" href="#/join">샘물에서 가져오기</a></div>;
 export const Caret = ({ corner }: { corner?: boolean }) => <svg className={'caret' + (corner ? ' corner' : '')} aria-hidden="true"><use href="#i-right" /></svg>;
 
 // 닫힌 채로 시작하는 토글. 안의 내용은 열 때 그린다(관련 과목처럼 무거운 목록)

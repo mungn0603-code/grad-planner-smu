@@ -62,7 +62,7 @@ function App() {
   useEffect(() => { start().then(r => {
     setAcct(r.acct); if (r.error) toast(r.error);
     const d0 = restore(r.data), d = d0 && has(d0) ? d0 : null; // s: 이 기기 값(첫 렌더)
-    if (!d) { if (r.fresh) toast(has(s) ? '계정에 저장했습니다.' : '저장된 내용이 없습니다. 샘물에서 가져오면 이 계정에 저장됩니다.'); return; }
+    if (!d) { if (r.fresh) toast(has(s) ? '계정에 저장했어요.' : '저장된 기록이 없어요. 샘물에서 가져오면 이 계정에 저장돼요.'); return; }
     if (r.fresh && has(s) && JSON.stringify(d) !== JSON.stringify(s)) { setAsk({ s: d, at: r.at }); return; }
     dispatch({ t: 'load', s: d });
     if (r.fresh && pageOf() === 'join') location.hash = '#/result'; // 시작 화면에서 불러오기를 눌렀으면 바로 결과로
@@ -115,14 +115,14 @@ function App() {
       </ul>
     </div></nav>
     <main key={page} className="view">
-      {(err || (a instanceof Error && s.es.length > 0)) && <div className="callout top-callout">{err ? '정보를 불러오지 못했습니다. 새로고침해 주세요.' : '졸업요건을 계산하지 못했습니다. 새로고침해 주세요.'}</div>}
+      {(err || (a instanceof Error && s.es.length > 0)) && <div className="callout top-callout">{err ? '정보를 불러오지 못했어요. 새로고침해 주세요.' : '졸업요건을 계산하지 못했어요. 새로고침해 주세요.'}</div>}
       {ask && <div className="callout top-callout ask-login" role="alert">
-        <span>계정에 저장된 내용이 있습니다{ask.at ? `(${new Date(ask.at).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })})` : ''}.</span>
-        <span className="row"><button className="btn p" onClick={() => { dispatch({ t: 'load', s: ask.s }); setAsk(null); }}>계정 내용 불러오기</button>
-          <button className="btn" onClick={() => setAsk(null)}>이 기기 내용으로 저장</button></span></div>}
+        <span>계정에 저장된 기록이 있어요{ask.at ? `(${new Date(ask.at).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })})` : ''}.</span>
+        <span className="row"><button className="btn p" onClick={() => { dispatch({ t: 'load', s: ask.s }); setAsk(null); }}>계정 기록 불러오기</button>
+          <button className="btn" onClick={() => setAsk(null)}>이 기기 기록으로 덮어쓰기</button></span></div>}
       {/* 샘물에서 막 가져왔고 로그인 전이면 결과 화면 위에서 한 번 권한다 */}
       {page === 'result' && acct === null && !skip && nudge.shown() && <div className="callout ok-box top-callout ask-login">
-        <span>다른 기기에서도 보려면 로그인하세요.</span><LoginButtons />
+        <span>로그인하면 다른 기기에서도 이어서 볼 수 있어요.</span><LoginButtons />
         <button className="icon-btn sm" aria-label="닫기" onClick={() => { nudge.off(); setSkip(true); }}><Icon id="x" size={14} /></button></div>}
       {page === '' ? <HomePage start={s.es.length ? '#/plan' : '#/join'} />
         : page === 'join' ? <JoinPage {...props} acct={acct} /> : page === 'result' ? <ResultPage {...props} /> : page === 'plan' ? <PlanPage {...props} /> : page === 'record' ? <RecordPage {...props} />
@@ -130,7 +130,7 @@ function App() {
     </main>
     {/* 휴대폰: 주 메뉴를 아래 탭바로(Material 내비게이션 바·iOS 탭바, 3~5개 목적지) */}
     <nav className="tabbar" aria-label="주 메뉴">{MENU.map(k => <a key={k} href={`#/${k}`} aria-current={k === page ? 'page' : undefined}><Icon id={k} />{TAB[k]}</a>)}</nav>
-    <footer><a href="#/terms">이용안내</a> · 졸업요건 판정은 학교 공식 판정이 아닙니다. 졸업 사정은 학과 사무실과 샘물에서 확인해 주세요.</footer>
+    <footer><a href="#/terms">이용안내</a> · 졸업요건 결과는 학교의 공식 판정이 아니에요. 졸업 사정은 학과 사무실과 샘물에서 확인해 주세요.</footer>
     <div className={'toast' + (msg ? ' show' : '')} role="status" aria-live="polite">{msg}</div>
   </>;
 }

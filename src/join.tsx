@@ -43,13 +43,13 @@ export function JoinPage({ s, dispatch, univ, ctx, acct }: PageProps & { acct: A
       es: [...keep, ...recg, ...es.map(e => ({ ...e, ...(isPlanned(e.term, s.me.now) ? { planned: true as const } : {}) }))] } });
     nudge.on(); location.hash = '#/result';
   };
-  return <Page title="샘물 가져오기" sub="샘물 학번·비밀번호로 수강 기록과 학과를 한 번에 가져옵니다." narrow>
+  return <Page title="샘물 가져오기" sub="샘물 학번과 비밀번호로 수강 기록을 한 번에 가져와요." narrow>
     {/* 새 기기: 전에 로그인해서 저장했으면 샘물 비밀번호 없이 불러온다(ADR 0029) */}
-    {acct === null && !got && <div className="box ask-login"><span>전에 저장했다면<small className="muted">로그인하면 바로 불러옵니다.</small></span><LoginButtons /></div>}
+    {acct === null && !got && <div className="box ask-login"><span>전에 저장한 적이 있다면<small className="muted">로그인하면 바로 불러와요.</small></span><LoginButtons /></div>}
     <div className="steps-h"><span className="on">1 동의</span><span className={consent ? 'on' : ''}>2 재학생 인증</span><span className={got ? 'on' : ''}>3 확인</span></div>
     {!got ? <div className="box">
       <h2>개인정보 수집·이용 동의</h2>{TERMS}
-      <label className="check"><input type="checkbox" checked={consent} onChange={e => dispatch({ t: 'opt', v: { consent: e.target.checked ? new Date().toISOString() : undefined } })} />위 내용을 확인했고 동의합니다.</label>
+      <label className="check"><input type="checkbox" checked={consent} onChange={e => dispatch({ t: 'opt', v: { consent: e.target.checked ? new Date().toISOString() : undefined } })} />위 내용을 확인했고 동의해요.</label>
       <h2 className="mt">재학생 인증</h2>
       <SmulLogin consent={consent} onDone={setGot} />
     </div> : !univ || !ctx || !me ? <Loading /> : <div className="box">
@@ -81,9 +81,9 @@ function SmulLogin({ consent, onDone }: { consent: boolean; onDone: (x: Got) => 
     try {
       const r = await fetch('/api/smul', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, pw }) });
       const j = await r.json().catch(() => null);
-      if (!r.ok || !Array.isArray(j?.rows)) throw new Error(j?.error ?? '학점플래너 서버에 문제가 있습니다. 잠시 뒤 다시 시도해 주세요.');
+      if (!r.ok || !Array.isArray(j?.rows)) throw new Error(j?.error ?? '지금 서버에 문제가 있어요. 잠시 후 다시 시도해 주세요.');
       setPw(''); onDone({ id: typeof j.id === 'string' ? j.id : id, rows: j.rows, student: { name: '', dept: '', entr: '', ...j.student, majors: Array.isArray(j.student?.majors) ? j.student.majors : [] }, ...(j.cdr ? { cdr: j.cdr } : {}), ...(j.cmp ? { cmp: j.cmp } : {}), ...(j.base ? { base: j.base } : {}), ...(j.retake ? { retake: j.retake } : {}), ...(Array.isArray(j.recg) ? { recg: j.recg } : {}) });
-    } catch (x) { setErr(x instanceof TypeError ? '학점플래너 서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.' : (x as Error).message); }
+    } catch (x) { setErr(x instanceof TypeError ? '서버에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.' : (x as Error).message); }
     finally { setBusy(false); } }}>
     <input className="in-f" value={id} onChange={e => setId(e.target.value.trim())} inputMode="numeric" pattern="\d{9}|\d{4}" title="숫자 9자리" maxLength={9} autoComplete="username" placeholder="학번 (9자리)" aria-label="학번" required disabled={!consent} />
     <input className="in-f" type="password" value={pw} onChange={e => setPw(e.target.value)} maxLength={100} autoComplete="current-password" placeholder="샘물 비밀번호" aria-label="샘물 비밀번호" required disabled={!consent} />
@@ -94,7 +94,7 @@ function SmulLogin({ consent, onDone }: { consent: boolean; onDone: (x: Got) => 
 
 function Preview({ rows, terms, now, add, onDone, label, disabled }: { rows: string[][]; terms: string[]; now: string; add: (es: Enrollment[]) => void; onDone: () => void; label?: string; disabled?: boolean }) {
   const res = useMemo(() => rowsToEnrollments(rows), [rows]), [def, setDef] = useState(now); // 샘물 행은 학수번호가 항상 있어 카탈로그로 채우지 않는다
-  if (!res.header) return <div className="preview"><p className="warn">수강 기록을 가져오지 못했습니다. 잠시 뒤 다시 시도하거나 이수 현황에서 과목을 직접 추가하세요.</p>
+  if (!res.header) return <div className="preview"><p className="warn">수강 기록을 가져오지 못했어요. 잠시 후 다시 시도하거나, 이수 현황에서 과목을 직접 추가해 주세요.</p>
     <button className="btn" onClick={onDone}>닫기</button></div>;
   const noTerm = res.es.filter(e => !e.term).length, out = res.es.map(e => (e.term || !def ? e : { ...e, term: def }));
   return <div className="preview">
@@ -105,6 +105,6 @@ function Preview({ rows, terms, now, add, onDone, label, disabled }: { rows: str
       {out.slice(0, 200).map((e, i) => <tr key={i} className={!e.code && e.credits == null ? 'miss' : ''}><td>{termLabel(e.term)}</td><td>{e.code ?? '—'}</td><td className="l">{e.name ?? '—'}</td><td>{e.credits ?? '—'}</td><td>{e.category ?? '—'}</td><td>{e.grade ?? '—'}</td></tr>)}
     </tbody></table></div>
     <div className="row" style={{ marginTop: 14 }}><button className="btn p" disabled={!out.length || disabled} onClick={() => { add(out); onDone(); }}>{label ?? `${out.length}과목 추가`}</button>
-      <button className="btn" onClick={onDone}>취소</button>{disabled && <span className="small warn-t">학과를 골라 주세요</span>}</div>
+      <button className="btn" onClick={onDone}>취소</button>{disabled && <span className="small warn-t">학과를 선택해 주세요</span>}</div>
   </div>;
 }

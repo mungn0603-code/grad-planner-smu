@@ -601,3 +601,4 @@ dl.got dd b { font-weight: 700; }
 dl.got dd small { font-size: 13px; color: var(--sm); font-weight: 600; }
 dl.got dd small.ok-t { color: var(--ok); }
 dl.got .left dt, dl.got .left dd { padding-top: 6px; border-top: 1px solid var(--line-2); color: var(--text); font-weight: 600; }
+dl.got .left2 dt, dl.got .left2 dd { color: var(--sm); font-weight: 600; }
