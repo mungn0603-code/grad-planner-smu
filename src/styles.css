@@ -2,8 +2,8 @@
 :root {
   --sm: #1F2E6F; --sm-d: #18245a; --sm-50: #eef3fb; --sky: #eaf4fd; --track: #cfe0f8; --slate: #3B4A69; --gray: #333B3D; --line: #e4e7ec; --line-2: #eef0f3; --bg: #f6f7f9; --surface: #fff; --text: #191c1f; --muted: #5f6670;
   --hover: rgba(31,46,111,.05); --ok: #1a7346; --bad: #c2372f; --warn: #8a6a0c; --shadow: 0 6px 24px rgba(31,46,111,.10);
-  /* 이수구분 색(포털 도넛 범례): 전공 · 교양 · 일반 · 다전공(기타) · 마이크로(교직 색) */
-  --c-mj: #F26365; --c-ge: #B8AE86; --c-etc: #289A67; --c-m2: #5D7CBF; --c-md: #19A6D4; --r: 8px;
+  /* 이수구분 색: 전선·일선·다전공·교직은 포털 도넛 범례 색, 나머지는 같은 밝기로 맞춘 색(이슈 #91) */
+  --c-js: #F26365; --c-jd: #EE8A3C; --c-jp: #C2477E; --c-gp: #B8AE86; --c-gs: #8E9F3A; --c-il: #289A67; --c-m2: #5D7CBF; --c-mn: #7E6BC4; --c-md: #19A6D4; --c-tc: #6B7A8F; --c-etc: #9aa1ab;
   --ease: cubic-bezier(.32,.72,0,1); --dur: .25s; --nav: 64px;
   color-scheme: light;
 }
@@ -556,13 +556,14 @@ select.pick:focus, input.pick:focus { outline: 0; border-color: var(--sm); box-s
 .term .course.open { background: var(--sm-50); box-shadow: none; }
 .term .course.swapped .c-n::after { content: "바꾼 과목"; margin-left: 6px; font-size: 12px; font-weight: 600; color: var(--warn); }
 .cat { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #f0f1f3; color: var(--gray); }
-.cat.mj { background: #fdecec; color: #b8343b; }
-.cat.m2 { background: #eaeff9; color: #3b5694; }
-.cat.md { background: #e4f5fb; color: #0d6f8f; }
-.cat.ge { background: #f4f1e6; color: #6b6040; }
+.cat.js { background: #fdecec; color: #b8343b; } .cat.jd { background: #fdf0e4; color: #a85614; } .cat.jp { background: #fbe9f1; color: #9c2f63; }
+.cat.gp { background: #f4f1e6; color: #6b6040; } .cat.gs { background: #f1f4e2; color: #5b6a1c; } .cat.il { background: #e6f4ec; color: #1d6e4a; }
+.cat.m2 { background: #eaeff9; color: #3b5694; } .cat.mn { background: #efecf9; color: #57459e; } .cat.md { background: #e4f5fb; color: #0d6f8f; } .cat.tc { background: #eef0f3; color: #48546a; }
 /* 학기 카드 과목 줄: 이수구분 색 띠(레퍼런스 Amie의 카테고리 블록) */
 .term .course[class*=' c-'] { box-shadow: inset 3px 0 0 var(--cc); }
-.term .course.c-mj { --cc: var(--c-mj); } .term .course.c-ge { --cc: var(--c-ge); } .term .course.c-etc { --cc: var(--c-etc); } .term .course.c-m2 { --cc: var(--c-m2); } .term .course.c-md { --cc: var(--c-md); }
+.term .course.c-js { --cc: var(--c-js); } .term .course.c-jd { --cc: var(--c-jd); } .term .course.c-jp { --cc: var(--c-jp); } .term .course.c-gp { --cc: var(--c-gp); }
+.term .course.c-gs { --cc: var(--c-gs); } .term .course.c-il { --cc: var(--c-il); } .term .course.c-m2 { --cc: var(--c-m2); } .term .course.c-mn { --cc: var(--c-mn); }
+.term .course.c-md { --cc: var(--c-md); } .term .course.c-tc { --cc: var(--c-tc); } .term .course.c-etc { --cc: var(--c-etc); }
 .term .swap-mark { display: inline-flex; margin: 0; color: var(--sm); }
 .term .swap-mark svg { stroke-width: 2; }
 .empty-t { padding: 14px 16px; }

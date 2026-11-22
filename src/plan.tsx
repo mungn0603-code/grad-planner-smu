@@ -25,8 +25,11 @@ function RecSettings({ s, univ, dispatch }: PageProps & { univ: Univ }) {
   </section>;
 }
 
-// 추천 과목의 이수구분 묶음(색): 주전공·다전공·마이크로전공·교양
-const grp = (u: Univ, c: string) => { const t = u.categories[c] ?? []; return t.includes('major') ? 'mj' : t.includes('major2') ? 'm2' : t.includes('md') ? 'md' : t.includes('ge') ? 'ge' : ''; };
+// 이수구분마다 색 하나(이슈 #91): 주전공은 전선·전심·전필(학부기초 포함), 교양은 교필·교선, 일선. 다전공·부전공·마이크로·교직은 태그로 묶는다.
+// 앞 숫자(1전선의 1)는 빼고 본다. 표에 없는 이수구분은 회색
+const TONE: Record<string, string> = { 전선: 'js', 전심: 'jd', 전필: 'jp', 학기: 'jp', 학부기초: 'jp', 교필: 'gp', 교기: 'gp', 교선: 'gs', 일선: 'il' };
+const grp = (u: Univ, c: string) => { const t = u.categories[c] ?? [];
+  return t.includes('md') ? 'md' : t.includes('m2.minor') ? 'mn' : t.includes('major2') ? 'm2' : t.includes('teach') ? 'tc' : TONE[c.replace(/^\d/, '')] ?? 'etc'; };
 
 export function PlanPage(props: PageProps) {
   const { s, dispatch, univ, ctx, profile, a: a0, toast } = props;
@@ -104,13 +107,13 @@ export function PlanPage(props: PageProps) {
             {fx.map(it => { const k = 'f' + it.i, open = openKey === k;
               if (it.term === s.me.now) return <div className="course fixed" key={k}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
                 <small><Icon id="check" size={13} />수강 중</small></div>;
-              return <Swipe key={k} label="빼기" tone="del" onAct={() => drop(it)}><div className={'course fixed' + (open ? ' open' : '') + (univ ? ' c-' + (grp(univ, it.cat) || 'etc') : '')}>
+              return <Swipe key={k} label="빼기" tone="del" onAct={() => drop(it)}><div className={'course fixed' + (open ? ' open' : '') + (univ ? ' c-' + grp(univ, it.cat) : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : k)}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
-                  <small><Icon id="check" size={13} />담은 과목</small></button>
+                  <small>{it.cat && univ && <span className={'cat ' + grp(univ, it.cat)}>{it.cat}</span>}<Icon id="check" size={13} />담은 과목</small></button>
                 {open && <div className="alts" role="group" aria-label={`${it.name} 빼기·학기 바꾸기`}>
                   <TermSelect s={s} i={it.i} dispatch={dispatch} terms={terms} /><button className="btn" onClick={() => drop(it)}>빼기</button></div>}</div></Swipe>; })}
             {rows.map(r => { const alts = (P.alts[r.k] ?? []).filter(x => !usedCodes.has(x.code)), open = openKey === r.k, can = alts.length > 0 || r.swapped, cat = r.cat ?? catOf(r.code);
-              return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '') + (cat && univ ? ' c-' + (grp(univ, cat) || 'etc') : '')}>
+              return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '') + (cat && univ ? ' c-' + grp(univ, cat) : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : r.k)}><span className="c-n">{r.name}</span><span className="c-cr">{r.cr}</span>
                   <small>{cat && univ && <span className={'cat ' + grp(univ, cat)}>{cat}</span>}{can && <span className="swap-mark" role="img" aria-label="다른 과목으로 바꾸기 가능" title="다른 과목으로 바꾸기 가능"><Icon id="swap" size={14} /></span>}</small></button>
                 {open && <div className="alts" role="group" aria-label={`${r.orig.name} 담기·바꾸기`}>
