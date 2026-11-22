@@ -92,7 +92,7 @@ test('샘물: 이번 학기 수강 과목을 못 가져와도(메뉴 권한 오�
 
 test('샘물: 비밀번호가 틀리면(로그인 화면으로 돌아오면) 401', async () => {
   const { f } = fakeSmul('other');
-  await assert.rejects(courses('202300001', 'pw', f), { status: 401, message: /맞지 않습니다/ });
+  await assert.rejects(courses('202300001', 'pw', f), { status: 401, message: /맞지 않아요/ });
 });
 
 test('샘물 함수: 다른 출처·잘못된 학번은 샘물에 요청하지 않는다, 성공 응답은 저장하지 않게 한다', async () => {
@@ -295,7 +295,7 @@ test('샘물 함수: 샘물 장애가 이어지면 줄임 단계를 거쳐 심�
     const msgs: string[] = [];
     for (let i = 0; i < 25; i++) { const r = await handler.fetch(req('pw', `10.1.${i}.1`, String(202300200 + i))); assert.equal(r.status, 503); msgs.push(await err(r)); }
     assert.equal(sso(x), 20);                                                             // 20회·100%가 된 뒤(21번째부터) 샘물로 나가지 않는다
-    assert.ok(msgs.slice(0, 20).every(m => /연결할 수 없습니다/.test(m)) && msgs.slice(20).every(m => /멈췄/.test(m)));
+    assert.ok(msgs.slice(0, 20).every(m => /연결할 수 없어요/.test(m)) && msgs.slice(20).every(m => /멈췄/.test(m)));
     assert.ok(x.store.has('brk:open'));
     assert.ok(x.rpcs.some(r => r.includes('"slot:0"')));                                  // 장애 5회 뒤부터는 줄임 단계였다
     assert.ok(log.mock.calls.some(c => c.arguments[0] === 'smul breaker open'));

@@ -12,14 +12,18 @@ const [head, ...lines] = csv.split('\n').filter(Boolean);
 const keep = lines.filter(l => !l.includes(MARK));
 const rows = parseCsv([head, ...keep].join('\n'));
 
-// 1. 다전공·부전공 이수구분의 종류(학교 2026-2 이수구분 정정 안내의 코드). 종류로 학생이 고른 프로그램에 과목을 배정한다
+// 1. 다전공·부전공 이수구분의 종류(학교 2026-2 이수구분 정정 안내의 코드 + 샘물 이수구분 코드표). 종류로 학생이 고른 프로그램에 과목을 배정한다
+// 샘물 코드표: K-MOOC 학점인정 신청 화면(ugdCStdKmoocSbjAply)의 dsCmpDivRcd 48개, 2026-11-22 사용자 계정으로 확인(이슈 #89). 학기 = 학부기초, 복필·복선 = 옛 복수전공
 const FAM: Record<string, string[]> = {
-  'm2.dept': ['2학기', '2전선'],
+  'm2.dept': ['2학기', '2전필', '2전선', '2전심', '3학기', '3전필', '3전선', '3전심', '4학기', '4전필', '4전선', '4전심', '복필', '복선'],
   'm2.linked': ['연필', '연선', '2연필', '2연선'],
   'm2.fusion': ['융필', '융선', '2융필', '2융선'],
-  'm2.minor': ['1부심', '1부선', '2부심', '2부선'],
+  'm2.minor': ['1부심', '1부선', '2부심', '2부선', '1부필', '2부필', '1부학기', '2부학기'],
 };
 for (const [tag, cats] of Object.entries(FAM)) for (const c of cats) rules.categories[c] = ['major2', tag];
+// 주전공·교양·교직 쪽 코드표 이름. 전적대학이수학점은 이수구분별 인정학점(recg)으로 따로 받으므로 졸업 학점에만
+const MORE: Record<string, string[]> = { '1전필': ['major'], '1학기': ['major'], 교기: ['ge'], '2교직': ['teach'], '3교직': ['teach'], '4교직': ['teach'], 부교직: ['teach'], '2부교직': ['teach'], 전적대학이수학점: [] };
+Object.assign(rules.categories, MORE);
 rules.policy.assign = {
   tag: 'major2',
   by: {

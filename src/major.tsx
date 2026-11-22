@@ -71,7 +71,7 @@ export function ExtFields({ univ, primary, ext, set, deep = true, clear = () => 
     <div className="kinds" role="radiogroup" aria-label="전공제도 종류">{KINDS.filter(([k]) => deep || k !== 'deep').map(([k, l]) =>
       <button key={k} type="button" role="radio" aria-checked={k === kind} onClick={() => { setKind(k); if (k === 'deep') clear(); }}>{l}</button>)}</div>
     {kind !== 'deep' && <select className="pick" value="" disabled={full || !opts.length} aria-label="전공 고르기" onChange={e => e.target.value && set([...ext, { id: e.target.value, role }])}>
-      <option value="">{full ? '다전공 최대 2개 선택' : opts.length ? '전공 고르기' : '고를 수 있는 전공 없음'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>}
+      <option value="">{full ? '다전공 최대 2개 선택' : opts.length ? '전공 고르기' : '선택할 수 있는 전공이 없어요'}</option>{opts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>}
     {ext.length > 0 && <ul className="chips">{ext.map(g => <li key={g.id + g.role}>
       <button className="pill on" aria-label={`${progName(univ, g)} 빼기`} onClick={() => set(ext.filter(x => x !== g))}>{progName(univ, g)}<small>{roleText(univ, g)}</small><Icon id="x" size={14} /></button></li>)}</ul>}
   </div>;
@@ -102,7 +102,7 @@ export function WhatIfBox({ s, univ, dispatch, moved }: PageProps & { univ: Univ
     <Fold title="신청 안내"><ul className="small muted">
       <li>다전공·부전공을 신청하지 않으면 3학년 1학기에 심화전공으로 바뀌어요.</li>
       <li>다전공은 제3전공까지 신청할 수 있어요. 마이크로전공은 2개 이상 이수하면 다전공·부전공·심화전공을 대신해요.</li>
-      <li>신청 전에 들은 과목을 반영하려면 학기 중(개강일~종강일)에 샘물에서 이수구분 정정을 신청하세요.</li>
+      <li>신청 전에 들은 과목을 반영하려면 학기 중(개강일~종강일)에 샘물에서 이수구분 정정을 신청해 주세요.</li>
       {d.mds.length > 1 && <li>두 마이크로전공에 겹치는 과목은 먼저 고른 쪽에 들어가요.</li>}
     </ul></Fold>
   </section>;
@@ -146,7 +146,7 @@ export function CompareBox({ s, univ }: PageProps & { univ: Univ }) {
       const r = audit(p, s.es.map((e, i) => moved[i] ? { ...e, category: moved[i] } : e), cx).programs[0].result, t = find(r, 'total'), m = find(r, 'major');
       return { id, left: t ? +Math.max(0, t.need - t.have).toFixed(1) : null, major: m ? `${+m.have.toFixed(1)} / ${m.need}` : '—', ok: r.ok };
     } catch { return { id, left: null, major: '—', ok: null }; } }), [cx, ids, s.es, s.me]); // eslint-disable-line
-  return <details className="panel fold-panel"><summary><b>후보 전공 비교</b><small className="muted">학부·자유전공 입학생</small><Caret /></summary>
+  return <details className="panel fold-panel"><summary><b>후보 전공 비교</b><small className="muted">세부전공을 아직 정하지 않았다면</small><Caret /></summary>
     <Opt label="후보 전공">
       <select className="pick" value="" disabled={ids.length >= 3} aria-label="후보 전공 고르기" onChange={e => e.target.value && setIds([...ids, e.target.value])}>
         <option value="">{ids.length >= 3 ? '후보 전공 최대 3개 선택' : '후보 전공 고르기'}</option>{primaries(univ).filter(p => !ids.includes(p.id)).map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select>

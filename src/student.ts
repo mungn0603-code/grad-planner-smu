@@ -25,6 +25,16 @@ const key = (s: string) => s.replace(/\s/g, '');
 const pick = (b: Record<string, number>, cols: Record<string, string>) =>
   Object.fromEntries(Object.entries(cols).filter(([, c]) => typeof b[c] === 'number').map(([k, c]) => [k, b[c]]));
 
+// 이수구분별 기준학점(학점 계산기 카드의 '들은 / 기준' 줄). 키는 앞 숫자를 뺀 이수구분 이름(학기 = 학부기초). 부전공·마이크로는 주전공 세부 열이 없어 교양만
+const GE = { 교필: 'CULT_MAND_CDT', 교선: 'OCLT_CDT' };
+const CAT: Record<With, Record<string, string>> = {
+  single: { ...GE, 학기: 'FCLT_BASS_CDT', 전필: 'MJR_MAND_CDT', 전심: 'MJR_DEEP_CDT', 전선: 'MJR_CHOICE_CDT' },
+  exempt: { ...GE, 학기: 'FCLT_BASS_CDT', 전필: 'MJR_MAND_CDT', 전심: 'MJR_DEEP_CDT', 전선: 'MJR_CHOICE_CDT' },
+  double: { ...GE, 학기: 'MMJR_MAIN_FCLT_BASS_CDT', 전필: 'MMJR_MAIN_MJR_MAND_CDT', 전선: 'MMJR_MAIN_MJR_CHOICE_CDT' },
+  minor: GE, micro: GE,
+};
+export const catNeed = (base: Record<string, number> | undefined, w: With): Record<string, number> => base ? pick(base, CAT[w]) : {};
+
 // 학적의 학과·전공 이름 → 그 역할 세트가 있는 프로그램 id. 값이 '대학 학과' 꼴일 수 있어 전체와 마지막 낱말을 맞춘다. 못 찾으면(코드 값 등) undefined
 export function programId(u: Univ, name: string, role: 'primary' | 'second' | 'minor'): string | undefined {
   const ks = [key(name), key(name.trim().split(/\s+/).pop() ?? '')].filter(Boolean);
