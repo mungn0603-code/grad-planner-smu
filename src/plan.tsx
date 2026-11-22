@@ -48,6 +48,9 @@ export function PlanPage(props: PageProps) {
     for (const c of Object.values(cx?.catalogs ?? {})) for (const ed of Object.keys(c.editions).sort()) for (const r of c.editions[ed]) m.set(r.c, r.t);
     return (code: string) => m.get(code) || ''; }, [cx]);
   const P = res?.plan;
+  // 추천을 반영한 뒤의 요건 칸(요약 막대의 기준 학점)
+  const after = (program: string, id: string) => { const f = (r: Result): Result | undefined => r.id === id ? r : r.children?.map(f).find(Boolean);
+    const g = P?.after.programs.find(x => x.id === program); return g && f(g.result); };
   const terms = P ? [...P.fut, ...P.sea].sort((x, y) => termOrd(x) - termOrd(y)) : [];
   const fixed = (t: string) => (a ? a.items.filter(it => !it.out && it.term === t) : []);
   // 바꾸기: 고른 대체 과목을 추천 행에 덮어쓴다(후보는 엔진이 같은 요건을 채우는 과목만 준다). 지금 계획에 없는 바꾸기는 무시한다
@@ -77,14 +80,18 @@ export function PlanPage(props: PageProps) {
     </> : <>
     {univ && <RecSettings {...props} univ={univ} />}
     {!ready ? <Loading /> : res?.error ? <div className="callout">추천을 계산하지 못했습니다. 새로고침해 주세요.</div> : !P ? <Loading /> : <>
+      {/* 요약: 큰 숫자 하나(더 들을 학점)와, 추천대로 들어도 남는 요건마다 부족분 막대(레퍼런스 Monarch 예산 화면, 이슈 #91) */}
       <section className={'plan-sum' + (busy ? ' stale' : '')}>
-        <div className={'verdict ' + (P.unmet.length ? 'bad' : 'ok')}><Icon id={P.unmet.length ? 'x' : 'check'} size={18} />{P.unmet.length ? `못 채우는 요건 ${P.unmet.length}개` : '모든 요건 충족'}</div>
-        <dl className="stats">
-          <div><dt>더 들을 학점</dt><dd>{P.lb}</dd></div>
-          <div><dt>남은 학기</dt><dd>{terms.length}</dd></div>
-          <div><dt>수강 가능 학점</dt><dd>{P.capacity}</dd></div>
-        </dl>
-        {P.unmet.length > 0 && <ul className="unmet">{P.unmet.map(u => <li key={u.program + u.id}>{u.label ?? labels.get(u.id) ?? u.id}<b>{+u.gap.toFixed(2)} 부족</b></li>)}</ul>}
+        <div className="ps-hero">
+          <span className="ps-l">졸업까지</span>
+          <b className="ps-n">{P.lb}<small>학점</small></b>
+          <span className="ps-s">{terms.length}학기 동안 최대 {P.capacity}학점</span>
+        </div>
+        {P.unmet.length ? <ul className="ps-rows">{P.unmet.map(u => { const r = after(u.program, u.id), need = r?.need ?? 0, pct = need ? Math.max(0, Math.min(100, (need - u.gap) / need * 100)) : 0;
+          return <li key={u.program + u.id}><span className="ps-name">{u.label ?? labels.get(u.id) ?? u.id}</span>
+            <span className="ps-gap"><b>{+u.gap.toFixed(2)}</b>{r?.kind === 'credits' ? '학점' : r?.kind === 'courses' ? '과목' : ''} 부족</span>
+            {need > 0 && <span className="ps-bar" aria-hidden="true"><i style={{ width: pct + '%' }} /></span>}</li>; })}</ul>
+          : <p className="ps-ok"><Icon id="check" size={16} />추천대로 들으면 졸업 요건을 모두 채웁니다.</p>}
       </section>
       {!terms.length ? <div className="ph">남은 학기가 없습니다. 마이페이지 → 정보 수정에서 현재 학기와 휴학 학기를 확인하세요.</div> :
         <>{swapN > 0 && <div className="swap-head small"><button className="lnk" onClick={() => dispatch({ t: 'opt', v: { swaps: {} } })}>처음 추천으로 되돌리기({swapN}개 바꿈)</button></div>}
@@ -97,13 +104,13 @@ export function PlanPage(props: PageProps) {
             {fx.map(it => { const k = 'f' + it.i, open = openKey === k;
               if (it.term === s.me.now) return <div className="course fixed" key={k}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
                 <small><Icon id="check" size={13} />수강 중</small></div>;
-              return <Swipe key={k} label="빼기" tone="del" onAct={() => drop(it)}><div className={'course fixed' + (open ? ' open' : '')}>
+              return <Swipe key={k} label="빼기" tone="del" onAct={() => drop(it)}><div className={'course fixed' + (open ? ' open' : '') + (univ ? ' c-' + (grp(univ, it.cat) || 'etc') : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : k)}><span className="c-n">{it.name}</span><span className="c-cr">{it.cr}</span>
                   <small><Icon id="check" size={13} />담은 과목</small></button>
                 {open && <div className="alts" role="group" aria-label={`${it.name} 빼기·학기 바꾸기`}>
                   <TermSelect s={s} i={it.i} dispatch={dispatch} terms={terms} /><button className="btn" onClick={() => drop(it)}>빼기</button></div>}</div></Swipe>; })}
             {rows.map(r => { const alts = (P.alts[r.k] ?? []).filter(x => !usedCodes.has(x.code)), open = openKey === r.k, can = alts.length > 0 || r.swapped, cat = r.cat ?? catOf(r.code);
-              return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '')}>
+              return <Swipe key={r.k} label="담기" tone="add" onAct={() => take({ code: r.code, name: r.name, term: t })}><div className={'course' + (r.swapped ? ' swapped' : '') + (open ? ' open' : '') + (cat && univ ? ' c-' + (grp(univ, cat) || 'etc') : '')}>
                 <button className="course-btn" aria-expanded={open} onClick={() => setOpenKey(open ? '' : r.k)}><span className="c-n">{r.name}</span><span className="c-cr">{r.cr}</span>
                   <small>{cat && univ && <span className={'cat ' + grp(univ, cat)}>{cat}</span>}{can && <span className="swap-mark" role="img" aria-label="다른 과목으로 바꾸기 가능" title="다른 과목으로 바꾸기 가능"><Icon id="swap" size={14} /></span>}</small></button>
                 {open && <div className="alts" role="group" aria-label={`${r.orig.name} 담기·바꾸기`}>
