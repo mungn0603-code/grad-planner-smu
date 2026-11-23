@@ -124,7 +124,7 @@ function App() {
       {page === 'result' && acct === null && !skip && nudge.shown() && <div className="callout ok-box top-callout ask-login">
         <span>로그인하면 다른 기기에서도 이어서 볼 수 있어요.</span><LoginButtons />
         <button className="icon-btn sm" aria-label="닫기" onClick={() => { nudge.off(); setSkip(true); }}><Icon id="x" size={14} /></button></div>}
-      {page === '' ? <HomePage start={s.es.length ? '#/plan' : '#/join'} />
+      {page === '' ? <HomePage start={s.es.length ? '#/result' : '#/join'} />
         : page === 'join' ? <JoinPage {...props} acct={acct} /> : page === 'result' ? <ResultPage {...props} /> : page === 'plan' ? <PlanPage {...props} /> : page === 'record' ? <RecordPage {...props} />
         : page === 'my' ? <MyPage {...props} acct={acct} setAcct={setAcct} /> : <TermsPage />}
     </main>
