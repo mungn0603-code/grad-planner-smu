@@ -5,7 +5,7 @@ export function HomePage({ start }: { start: string }) {
   return <div className="hero full"><div>
     <small>졸업까지 남은 학점과 학기 계획을 한 번에</small>
     <h1>학점플래너</h1>
-    <a className="cta" href={start}>내 졸업요건 확인하기</a>
+    <a className="cta" href={start}>졸업요건 확인하기</a>
   </div></div>;
 }
 
